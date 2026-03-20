@@ -1,0 +1,7 @@
+/vendor/
+/node_modules/
+/lib/
+/var/
+/securedSpace/
+/public/build/
+/public/tarteaucitron/

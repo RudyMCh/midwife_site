@@ -1,0 +1,241 @@
+{% extends 'admin/layouts/layout.html.twig' %}
+{% form_theme form.picture 'bootstrap_5_layout.html.twig' %}
+{% form_theme form.bgCard 'bootstrap_5_layout.html.twig' %}
+
+
+{% block title %}{{ title}} {% endblock %}
+{% block breadcrumb %}
+    {% if breadcrumb is defined %}
+        {% for item in breadcrumb %}
+            {% if item['route'] is defined %}
+                <li class="breadcrumb-item">
+                    <a href="{{ item['params'] is defined ? path(item['route'], item['params']) : path(item['route']) }}">{{ item['text'] }}</a>
+                </li>
+            {% else %}
+                <li class="breadcrumb-item" aria-current="page">
+                    {{ item['text'] }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="">
+                {{ form_start(form) }}
+                <fieldset>
+                <legend class="mt-4 mb-4 text-primary pb-4">Identité</legend>
+                    {{form_row(form.firstname)}}
+                    {{form_row(form.lastname)}}
+                </fieldset>
+                <fieldset>
+                <legend class="mt-4 mb-4 text-primary pb-4">
+                    Eléments pour les cartes de présentation
+                </legend>
+                <div class="d-flex">
+                <div class="w-100">{{ form_row(form.picture) }}</div>
+                <div class="w-100">{{ form_row(form.bgCard) }}</div>
+                </div>
+                
+                {{ form_row(form.aboutMe) }}
+                
+                {{ form_row(form.backgroundColor1) }}
+                </fieldset>
+                <fieldset>
+                <legend class="mt-4 mb-4 text-primary pb-4">
+                    Eléments pour le référencement Google
+                </legend>
+                {{ form_row(form.metaDescription) }}
+
+                </fieldset>
+                <fieldset>
+                <legend class="mt-4 mb-4 text-primary pb-4">
+                    Eléments pour la page sage femme
+                </legend>
+                {{ form_rest(form) }}
+
+                </fieldset>
+
+                <button class="btn btn-outline-success">{{ button_label|default('Ajouter') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <section id="admin-midwife-degree">
+            <div class="admin-midwife-title">
+                <h3 class="text-primary">Les diplômes de {{ midwife.firstname }}</h3>
+                {% if midwife.id is not null %}
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addDegree" class="btn btn-outline-info">Ajouter un diplôme</a>
+                    <div id="addDegree" class="text-left modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header gradient-blue">
+                                    <h4 class="droid text-colored white fs1-8 bold">Ajouter un diplôme</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body action">
+                                    {{ form_start(degreeForm) }}
+                                    {{ form_widget(degreeForm) }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-success">Valider</button>
+                                    {{ form_end(degreeForm) }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <table class="table myTable table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Titre du diplôme</th>
+                    <th>Année</th>
+                    <th>Établissement</th>
+                    <th>Type de diplôme</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+            {% for degree in midwife.degrees %}
+                <tr>
+                    <td>{{ degree.title }}</td>
+                    <td>{{ degree.year }}</td>
+                    <td>{{ degree.establishment }}</td>
+                    <td>{{ degree.type }}</td>
+                    <td>
+                        <span data-toggle="tooltip" title="editer">
+                            <a href="{{ path('admin_degree_edit', {'id': degree.id}) }}" class="btn btn-xs text-info"><i class="fas fa-edit"></i></a>
+                        </span>
+                        <span data-bs-toggle="tooltip" title="Supprimer">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteDegree{{ degree.id }}" class="btn btn-xs text-danger"><i class="fas fa-trash-alt"></i></a>
+                        </span>
+
+                    </td>
+                </tr>
+                <div id="deleteDegree{{ degree.id }}" class="text-left modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header d-flex justify-content-between">
+                                <h4 class="droid text-colored white fs1-8 bold">Supprimer le module</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><span class="bold">Attention</span>, ce diplôme ne sera plus disponible. Cette action est <span class="bold">immédiate</span> et <span class="bold">irréversible</span>.</p>
+                            </div>
+                            <div class="modal-footer action">
+                                <form action="{{ path('admin_degree_delete', {'id': degree.id} ) }}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ degree.id) }}">
+                                    <button class="btn btn-effect-ripple btn-outline-danger">Supprimer</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun diplôme enregistré</td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <div class="container-fluid">
+        <section id="admin-midwife-path">
+            <div class="admin-midwife-title">
+                <h3 class="text-primary">Les parcours de {{ midwife.firstname }}</h3>
+                {% if midwife.id is not null %}
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addPath" class="btn btn-outline-info">Ajouter un parcours</a>
+                    <div id="addPath" class="text-left modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header gradient-blue">
+                                    <h4 class="droid text-colored white fs1-8 bold">Ajouter un parcours</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body action">
+                                    {{ form_start(pathForm) }}
+                                    {{ form_widget(pathForm) }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-success">Valider</button>
+                                    {{ form_end(pathForm) }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <table class="table myTable table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>Ville</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+            {% for path in midwife.paths %}
+
+                <tr>
+                    <td>{{ path.title }}</td>
+                    <td>{{ path.start }}</td>
+                    <td>{{ path.end }}</td>
+                    <td>{{ path.city }}</td>
+                    <td>
+                        <span data-toggle="tooltip" title="editer">
+                            <a href="{{ path('admin_path_edit', {'id': path.id}) }}" class="btn btn-xs text-info"><i class="fas fa-edit"></i></a>
+                        </span>
+                        <span data-bs-toggle="tooltip" title="Supprimer">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#deletePath{{ path.id }}" class="btn btn-xs text-danger"><i class="fas fa-trash-alt"></i></a>
+                        </span>
+                        <div id="deletePath{{ path.id }}" class="text-left modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="droid text-colored white fs1-8 bold">Supprimer le parcours</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><span class="bold">Attention</span>, ce parcours ne sera plus disponible. Cette action est <span class="bold">immédiate</span> et <span class="bold">irréversible</span>.</p>
+                                    </div>
+                                    <div class="modal-footer action">
+                                        <form action="{{ path('admin_path_delete', {'id': path.id} ) }}" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ path.id) }}">
+                                            <button class="btn btn-effect-ripple btn-outline-danger">Supprimer</button>
+                                        </form>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun parcours enregistré</td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Domain;
+use App\Entity\Service;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileType;
+
+class DomainType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name', TextType::class, [
+                'label'=>"Désignation"
+            ])
+            ->add('titleBg', MoustacheFileType::class, [
+                'label'=>"Image de background du titre"
+            ])
+            ->add('titleColorBg', ColorType::class, [
+                'label'=>'Couleur de fond du backGround',
+                'help'=>'Utilisé si aucune image de background n\'est sélectonné'
+            ])
+            ->add('services', EntityType::class, [
+                'class'=>Service::class,
+                'choice_label'=>'name',
+                'label'=> 'Prestations',
+                'multiple'=>true,
+                'required'=>false,
+                'by_reference'=>false,
+                'attr'=>[
+                    'class'=>'select2'
+                ],
+            ])
+            ->add('metaTitle', TextType::class, [
+                'label'=>'Titre pour le référencement de la page',
+                'help'=>'Doit contenir le mot clé principal, ne pas dépasser 65 caractères (10 à 12 mots), être attractive'            ])
+            ->add('metaDescription', TextareaType::class, [
+                'label'=>'Description pour le référencement de la page',
+                'help'=>'120 caractères maximum, il est recommandé d’employer des verbes d’action du type « découvrir », « télécharger », « créer », etc.).'
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Domain::class,
+        ]);
+    }
+}

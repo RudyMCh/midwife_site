@@ -1,0 +1,35 @@
+.btn-doctolib{
+  display: block;
+  width: 168px;
+  margin: auto;
+  text-decoration: none;
+  padding: 9px 34px;
+  border-radius: 5px;
+  background-color: rgb(16, 122, 202);
+
+  &-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/public/logos/b69a8f22b5bf7fa8d5db.svg') rgb(16, 122, 202) no-repeat center / cover;
+    //background:rgb(16, 122, 202);
+    border:2px solid rgb(16,122,202);
+    width: auto;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    height: 32px;
+
+    &:hover{
+      border: 2px rgba(255,255,255,0.8) solid;
+    }
+  }
+  &-mini{
+    background: url('/public/logos/b69a8f22b5bf7fa8d5db.svg') rgb(16, 122, 202) no-repeat center / cover;
+    display: block;
+    width: 75px;
+    height: 35px;
+
+  }
+}

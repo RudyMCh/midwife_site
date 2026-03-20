@@ -1,0 +1,99 @@
+// SASS Variables
+$white: #fff;
+$navy: #2e2f35;
+$navy-dark: #1e1e24;
+$navy-light: #494a50;
+$grey: #a5a5a4;
+$green: #20c270;
+$green-dark: #18a960;
+
+// Moves menu to the left/right side of screen
+$menu-orientation: right;
+.menu-burger{
+  display: none;
+}
+@media (max-width: 768px) {
+  .menu-burger{
+    display: flex;
+  }
+  .pushNav {
+    width: 100%;
+    right: 100%;
+  }
+}
+
+ul.pushNav {
+  //padding: 0 0 0 100px;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.pushNav {
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  overflow: hidden;
+  background: $navy;
+  transition: ease-in-out 0.5s;
+  hr {
+    border: 1px solid #555;
+  }
+}
+
+.pushNav ,.pushNav a {
+  font-size: 1em;
+  font-family: helvetica, sans-serif;
+  font-weight: 100;
+  color: $white;
+  text-decoration: none;
+}
+
+.pushNavIsOpen {
+  overflow: auto;
+  height: 100%;
+}
+
+.js-topPushNav.isOpen, .pushNav_level.isOpen {
+  right : 0;
+}
+
+.closeLevel, .openLevel {
+  cursor: pointer;
+}
+
+.openLevel, .closeLevel, .pushNav a {
+  padding: 1em 0;
+  display: block;
+  text-indent: 20px;
+  transition: background 0.4s ease-in-out;
+
+  &:hover {
+    background: $navy-light;
+  }
+}
+
+.hdg {
+  background-color: $navy-dark;
+}
+
+.closeLevel, .closeLevel > i {
+  font-size: 1em;
+  color: $grey;
+  align-self: end;
+  padding-right: 20px;
+}
+.pushNavIsOpen .screen {
+  height: 100%;
+  opacity: 1;
+}
+
+
+// Font Awesome styles - delete if not using font awesome
+.fa {
+  display: inline;
+  padding: 5px;
+}

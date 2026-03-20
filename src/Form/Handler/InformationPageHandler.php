@@ -1,0 +1,49 @@
+<?php
+namespace App\Form\Handler;
+
+use App\Entity\InformationPage;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormInterface;
+
+class InformationPageHandler extends AbstractController
+{
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function new(FormInterface $form, Request $request): bool
+    {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $informationPage = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($informationPage);
+            $entityManager->flush();
+            return true;
+        }
+        return false;
+    }
+
+    public function edit(FormInterface $form, Request $request): bool
+    {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+            return true;
+        }
+        return false;
+    }
+
+    public function delete(InformationPage $informationPage, Request $request)
+    {
+        if ($this->isCsrfTokenValid('delete'.$informationPage->getId(), $request->request->get('_token'))) {
+            $this->entityManager->remove($informationPage);
+            $this->entityManager->flush();
+        }
+    }
+}

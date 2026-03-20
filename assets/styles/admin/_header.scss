@@ -1,0 +1,43 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(51, 0, 61);
+  color:white;
+  min-height : 7rem;
+
+  &-logo{
+    margin:1rem;
+    a{
+      img {
+        width: 200px;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    &-nav{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: center;
+    }
+  }
+  &-deconnexion{
+    float: right;
+    border-radius: 10px;
+    border: 2px solid white;
+
+    margin-right: 1rem;
+    &:hover{
+      background-color: white;
+    }
+    a{
+      color: white;
+      padding: 0 1rem;
+      &:hover{
+        text-decoration: none;
+        color: steelblue;
+      }
+    }
+  }
+}

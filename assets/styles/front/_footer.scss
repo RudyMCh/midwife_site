@@ -1,0 +1,42 @@
+footer{
+  a{
+    text-decoration: none;
+  }
+  h5{
+    color: white;
+  }
+  .footer{
+    &-column{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 50px;
+    }
+    &-midwife{
+      color: #6c757d;
+      margin-bottom: 20px;
+      &-name{
+        &:hover{
+          cursor: pointer;
+        }
+        text-align: center;
+        margin-bottom: 18px;
+      }
+      &-contact{
+        display: none;
+        &.display{
+            display: block;
+        }
+        background-color: currentColor;
+        border-radius: 5px;
+        padding: 5px;
+        &-phone, &-email{
+          a{
+            color: rgb(33, 37, 41);
+          }
+        }
+      }
+    }
+  }
+}

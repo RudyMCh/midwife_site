@@ -1,0 +1,117 @@
+{% extends 'front/layouts/layout.html.twig' %}
+
+{% block content %}
+    {% set style = midwife.bgTitle is not null ? 'background-image:url("'~getRelativePathFromValue(midwife.bgTitle) ~'")' : 'background-color : '~ midwife.backgroundColor1 %}
+
+    <div class="title" style="{{ style }}">
+        <h1>{{ midwife.firstname }} {{ midwife.lastname }}</h1>
+       <div class="overlay"></div>
+    </div>
+    <section id="midwife">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="{{ getRelativePathFromValue(midwife.pictureSelf.id) }}" alt="photo de {{ midwife.lastname }}" >
+                </div>
+                <div class="col-lg-6 midwife-description">
+                    {{ midwife.description|raw }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center">
+                <h2>Me contacter</h2>
+            </div>
+            <div class="midwife-description-contact">
+                <div class="midwife-horizontal-card-main-bottom-phone">
+                    <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone"></i> <span>{{ midwife.phone|mobilePhone }}</span></a>
+                </div>
+                <div class="doctolib">
+                    {% include 'front/components/doctolib.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section id="services">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center">
+                <h2>Mes prestations</h2>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="domains-card">
+                {% for domain in domains %}
+                    <div class="domain-card">
+                        <div class="domain-card-header">
+                            <div class="domain-card-header-logo">
+                                <i class="fas fa-baby fa-3x"></i>
+                            </div>
+                            <h4 class="text-center py-3">{{ domain.name }}</h4>
+                        </div>
+                        <ul>
+                            {% for service in domain.services|filter(a=> a in midwife.services) %}
+                                <li><a href="{{ path('domain_show', {'slug':domain.slug, '_fragment':service.slug}) }}">{{ service.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section id="midwife-carousel">
+        <div class="container">
+            <div id="midwifeCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for picture in midwife.pictures %}
+                        <div class="carousel-item {{ loop.index is same as(1)? 'active' : '' }}">
+                            <img src="{{ picture }}" class="midwife-carousel-picture" alt="...">
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#midwifeCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#midwifeCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section id="path">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <h2>Mon parcours professionnel</h2>
+                <ul>
+                    {% for path in midwife.paths %}
+                        <li>
+                            <i class="fas fa-user-nurse"></i> - {{ path.title }} - {{ path.city }} - {{ path.start }}:{{ path.end }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section id="degree">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <h2>Mes diplômes</h2>
+            <ul>
+                {% for degree in midwife.degrees %}
+                    <li>
+                        <i class="fas fa-graduation-cap"></i> - {{ degree.title }} - {{ degree.establishment }} - {{ degree.year }}
+                    </li>
+
+                {% endfor %}
+            </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+

@@ -1,0 +1,151 @@
+{% extends 'admin/layouts/layout.html.twig' %}
+{% block breadcrumb %}
+    {% if breadcrumb is defined %}
+        {% for item in breadcrumb %}
+            {% if item['route'] is defined %}
+                <li class="breadcrumb-item">
+                    <a href="{{ item['params'] is defined ? path(item['route'], item['params']) : path(item['route']) }}">{{ item['text'] }}</a>
+                </li>
+            {% else %}
+                <li class="breadcrumb-item" aria-current="page">
+                    {{ item['text'] }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block body %}
+    {% if search is defined and search %}
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form class="searchForm" method="GET">
+                <input type="text" name="search" placeholder="Rechercher..." class="field" value="{{ app.request.query.get("search") }}" />
+                <div class="icons-container">
+                    <div class="icon-search"></div>
+                    <div class="icon-close">
+                        <div class="x-up"></div>
+                        <div class="x-down"></div>
+                    </div>
+                </div>
+            </form>
+            <a href="{{ path(route~'_new') }}" class="btn btn-outline-success">{{ add_button_label|default("Ajouter un élement") }}</a>
+        </div>
+        {% else %}
+        <div class="d-flex justify-content-end mb-3">
+            <a href="{{ path(route~'_new') }}" class="btn btn-outline-success">{{ add_button_label|default("Ajouter un élement") }}</a>
+        </div>
+    {% endif %}
+
+    <div class="container-fluid">
+        <table class="table myTable table-striped table-hover table-sm">
+            <thead>
+                <tr>
+                    {% for key, value in fields %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                    <th style="text-align: end">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for el in els %}
+                <tr>
+                    {% for key,value in fields %}
+                        {% if is_array(value) and value['file'] is defined %}
+                            <td style="width: 200px">
+                                <img src="{{ value['prefix']~dynamicVariable(el,value['file']) }}" class="img-thumbnail" alt="{{ value['alt'] }}">
+                            </td>
+                        {% else %}
+                            {% set type = getTypes(class, value) %}
+                            {% set builtin = type.builtinType %}
+                            {% set dynamic = dynamicVariable(el,value) %}
+                            {% if builtin == 'bool' %}
+                                <td>
+                                    <form action="{{ path('admin_utils_change_status', { 'class' : get_class(el), 'id' : el.id , 'prop':value, 'redirect' : app.request.uri|url_encode }) }}" class="custom-switch-form crud-bool-form" method="post">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="switch_{{ value }}_{{ el.id }}" {{ dynamic ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="switch_{{ value }}_{{ el.id }}"></label>
+                                        </div>
+                                    </form>
+                                </td>
+                            {% elseif builtin == 'object' and dynamicVariable(el,value).timezone is defined %}
+                                <td>
+                                    {{ dynamic|date('Y-m-d') }}
+                                </td>
+                            {% elseif builtin == 'string' %}
+                                <td style="width: 300px">
+                                    {{ dynamic|striptags|trim|truncate(160, '')|raw }}
+                                </td>
+                            {% elseif builtin == 'int' and key is same as('Position') %}
+                                <td style="width: 300px">
+                                    <form action="{{ path('admin_utils_change_position_sub', {
+                                        'route' : route,
+                                        'id' : el.id,
+                                        'namespace': get_class(el),
+                                        'parent': parent is defined? parent: null,
+                                        'parentClass' : parentClass is defined? parentClass :null
+                                    }) }}" class="not-submit" method="post">
+                                        <input class="form-control" type="number" name="position" value="{{ el.position }}" min="0" max="{{ countElements(get_class(el)) }}">
+                                    </form>
+                                </td>
+                            {% elseif builtin == 'object' and  type.className == "Doctrine\\Common\\Collections\\Collection" %}
+                                <td>
+                                    <div class="crud-collection">
+                                    {% for item in dynamic %}
+                                        {# {{ item }} #}
+                                            <div class="crud-collection-item">
+                                                {{ item.name is defined ? item.name : item.title is defined ? item.title : item }}
+                                            </div>
+                                    {% endfor %}
+                                    </div>
+
+                                </td>
+                           {% else %}
+                            <td>
+                                {{ dynamic }}
+                            </td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <td style="text-align: end">
+                    <span data-bs-toggle="tooltip" title="editer">
+                        <a href="{{ path( route~"_edit", {'id': el.id}) }}" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>
+                    </span>
+                        <span data-bs-toggle="tooltip" title="Supprimer">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#deletePicture{{ el.id }}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    </span>
+                        <div id="deletePicture{{ el.id }}" class="text-left modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header d-flex justify-content-between">
+                                        <h4 class="droid text-colored white fs1-8 bold">Supprimer cet élément</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><span class="bold">Attention</span>, cet élément ne sera plus disponible. Cette action est <span class="bold">immédiate</span> et <span class="bold">irréversible</span>.</p>
+                                    </div>
+                                    <div class="modal-footer action">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                        <form action="{{ path(route~"_delete", {'id': el.id} ) }}" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ el.id) }}">
+                                            <button class="btn btn-outline-danger">Supprimer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if paginator is defined and paginator %}
+            <div class="aky-pagination mt-3">
+                {{ knp_pagination_render(els)  }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+#wazeBtn{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  .waze{
+    background: url("/public/logos/waze-logo.png") no-repeat center / cover;
+    width: 90px;
+    height: 50px;
+    i{
+      fill: white;
+    }
+  }
+}
+@media (max-width: 500px){
+  #wazeBtn{
+    display: flex;
+  }
+}

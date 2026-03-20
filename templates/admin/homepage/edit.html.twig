@@ -1,0 +1,29 @@
+{% extends 'admin/layouts/layout.html.twig' %}
+{% block title %}{{ title}} {% endblock %}
+{% block breadcrumb %}
+    {% if breadcrumb is defined %}
+        {% for item in breadcrumb %}
+            {% if item['route'] is defined %}
+                <li class="breadcrumb-item">
+                    <a href="{{ item['params'] is defined ? path(item['route'], item['params']) : path(item['route']) }}">{{ item['text'] }}</a>
+                </li>
+            {% else %}
+                <li class="breadcrumb-item" aria-current="page">
+                    {{ item['text'] }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-outline-success">{{ button_label|default('Ajouter') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

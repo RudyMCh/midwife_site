@@ -1,0 +1,13 @@
+.login-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+}
+
+.login{
+  border: 1px solid grey;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+  padding: 30px;
+}

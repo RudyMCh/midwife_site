@@ -1,0 +1,19 @@
+{% set way = app.request.attributes.get('_route') %}
+<nav class="sidebar">
+    <div class="sidebar-content">
+        <ul>
+{#            <li><a href="{{ path('admin_customer_index') }}">Clients</a></li>#}
+{#            <li><a href="{{ path('admin_site_index') }}">Sites</a></li>#}
+            <li><a href="{{ path('admin_information_page_edit') }}">Infos utiles</a></li>
+            <li><a href="{{ path('admin_office_edit') }}">Cabinet</a></li>
+            <li><a href="{{ path('admin_homepage_edit') }}">Page d'accueil</a></li>
+            <li><a href="{{ path('admin_service_index') }}">Prestations</a></li>
+            <li><a href="{{ path('admin_domain_index') }}">Domaines</a></li>
+            <li><a href="{{ path('admin_midwife_index') }}">Sages femmes</a></li>
+            <li><a href="{{ path('admin_user_index') }}">Admins</a></li>
+            <li class="divider"></li>
+            <li><a href="{{ path('admin_file_manager_index') }}">Fichiers public</a></li>
+            <li><a href="{{ path('admin_private_file_manager_index') }}">Fichiers privés</a></li>
+        </ul>
+    </div>
+</nav>

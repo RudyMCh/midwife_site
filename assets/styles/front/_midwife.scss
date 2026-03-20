@@ -1,0 +1,35 @@
+#midwife{
+  img{
+    width: 100%;
+    height:100%;
+    object-fit:cover;
+  }
+  margin: 100px 0;
+  .midwife-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+  }
+}
+#degree, #path{
+  ul{
+    list-style: none;
+  }
+}
+#degree, #path, #contact, #services{
+  h2{
+    text-align: center;
+  }
+}
+#midwife-carousel{
+  margin: 50px 0 100px;
+  #midwifeCarousel{
+    img.midwife-carousel-picture{
+      height: 550px;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+}

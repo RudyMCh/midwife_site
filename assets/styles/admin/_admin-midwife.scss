@@ -1,0 +1,16 @@
+#admin-midwife{
+  &-path, &-degree{
+    margin: 50px 0 80px;
+    .admin-midwife-title{
+      display: flex;
+      align-items: center;
+      margin-bottom: 35px;
+      h3{
+        margin-right: 70px;
+      }
+    }
+    th:last-child, td:last-child{
+      text-align: end;
+    }
+  }
+}

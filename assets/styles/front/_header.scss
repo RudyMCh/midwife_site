@@ -1,0 +1,155 @@
+header{
+  transition: 0.3s;
+  &.is-sticky{
+    background-color: white;
+    opacity: 0.9;
+    z-index: 1001;
+    //nav a {color: grey}
+    nav > ul > li > a {
+      color:grey;
+      &:hover{
+        color: white !important;
+      }
+      &.active{
+        color: purple;
+      }
+    }
+  }
+  .menu-icon {
+    display: none;
+    $size: 45px;
+    height: 60px;
+    width: 60px;
+    z-index: 2;
+    cursor: pointer;
+
+    &__line {
+      height: 2px;
+      width: $size;
+      display: block;
+      background-color: black;
+      margin-bottom: 8px;
+      transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),opacity 0.55s ease;
+      &.cross{
+        opacity: 1;
+        transform: rotate(45deg) translate(-2px, -1px);
+        background: #232323;
+      }
+    }
+    &__line:first-child{
+      transform-origin: 0 0;
+    }
+    &__line:nth-last-child(2){
+      transform-origin: 0 100%;
+      &.cross{
+        transform: rotate(-45deg) translate(-12px, 20px);
+      }
+    }
+    &__line:nth-last-child(3){
+      &.cross{
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2, 0.2);
+      }
+    }
+  }
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  nav {
+    display: flex;
+    justify-content: end;
+    padding-right: 100px;
+    a {
+      display:block;
+      padding:0 10px;
+      color:white;
+      font-size:20px;
+      line-height: 60px;
+      text-decoration:none;
+      &.active{
+        color: purple;
+        font-weight: 700;
+      }
+      &:hover {
+        background-color: purple;
+        color: white;
+      }
+    }
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      position: relative;
+      ul {
+        display: none;
+        position: absolute;
+        top: 60px; /* the height of the main nav */
+        background-color: grey;
+        color: black;
+        li {
+          width:250px;
+          float:none;
+          display:list-item;
+          position: relative;
+          background-color: grey;
+          border-bottom: 1px solid purple;
+          ul li {
+            position: relative;
+            top:-60px;
+            left:250px;
+          }
+        }
+        li:last-child{
+          border-bottom: none;
+        }
+
+      }
+      li {
+        display:inline-block;
+
+        &:hover > ul {
+          display:inherit;
+
+        }
+      }
+    }
+  }
+
+  /* Change this in order to change the Dropdown symbol */
+  //li > a:after { content:  " +"; }
+  //li > a:only-child:after { content: ''; }
+}
+
+@media(max-width:768px) {
+
+  header {
+    .menu-moustache{
+      display: none;
+    }
+    & .menu-icon {
+      position: fixed;
+      top: 40px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    nav ul ul li {
+      ul li{
+        top: unset;
+        left: unset;
+      }
+      width: unset;
+
+    }
+    a {
+      &.active {
+        color: white;
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+    }
+  }
+}

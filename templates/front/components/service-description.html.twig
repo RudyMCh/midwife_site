@@ -1,0 +1,27 @@
+<div class="col-lg-6 domain-service-description">
+    <div class="domain-service-description-content">
+        <h2 class="text-center">{{ service.name }}</h2>
+        {{ service.description|raw }}
+    </div>
+    <div class="domain-service-description-appointment">
+        <h3>Prendre rendez-vous avec une praticienne</h3>
+        <div class="domain-service-description-midwives">
+            {% for midwife in getMidwivesByService(service) %}
+                <div class="midwife-card-mini">
+                    <div class="midwife-card-mini-picture">
+                        <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-card-mini-picture-link" >
+                            <div class="midwife-card-mini-picture-link-image" style="background-image:url('{{ getRelativePathFromValue(midwife.picture.id) }}')">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="midwife-card-mini-doctolib ">
+                        <div class="midwife-card-mini-doctolib-wrapper">
+                            <a href="{{ midwife.doctolibUrl is not null ? midwife.doctolibUrl : '#' }}" class="btn btn-doctolib-mini" target="_blank">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+//@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+@function color($key: "grey") {
+  @return map-get($colors, $key);
+}
+$theme-colors: (
+        "blue": #232187,
+        "pink": rgb(253, 63, 146),
+);

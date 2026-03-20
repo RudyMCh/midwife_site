@@ -1,0 +1,30 @@
+{% extends 'front/layouts/layout.html.twig' %}
+
+{% block content %}
+<div class="title"  style="background-image:url('{{ information.titleBg }}')">
+    <h1>{{ information.title }}</h1>
+    <div class="overlay"></div>
+</div>
+    <section id="coming">
+        <div class="container">
+            {{ information.coming|raw }}
+        </div>
+    </section>
+    <section id="legal">
+        <div class="container">
+            {{ information.legal|raw }}
+        </div>
+    </section>
+    <section id="price">
+        <div class="container">
+            {{ information.price|raw }}
+        </div>
+    </section>
+    <section id="link">
+        <div class="container">
+            {{ information.links|raw }}
+        </div>
+    </section>
+
+{% endblock %}
+

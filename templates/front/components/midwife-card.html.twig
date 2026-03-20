@@ -1,0 +1,26 @@
+<div class="midwife-card module">
+    <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-card-picture" >
+        <div class="midwife-card-picture-image" style="background-image:url('{{ getRelativePathFromValue(midwife.picture.id) }}')" data-tooltip="tooltip" title="en savoir plus">
+
+        </div>
+    </a>
+    <div class="midwife-card-top" style="background: {{ midwife.backgroundColor1 }} ">
+        <h3>{{ midwife.firstname }} {{ midwife.lastname }}</h3>
+    </div>
+
+    <div class="midwife-card-main" style='background : url("{{ getRelativePathFromValue(midwife.bgCard) }}") center center /cover ;'>
+            {% autoescape %}
+            {{ midwife.aboutMe|raw }}
+            {% endautoescape %}
+        <div class="overlay-light"></div>
+    </div>
+    <div class="midwife-card-footer">
+        <div class="midwife-card-footer-phone">
+            <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone"></i> <span class="number">{{ midwife.phone|mobilePhone }}</span></a>
+        </div>
+        <div class="midwife-card-footer-doctolib">
+            {% include '/front/components/doctolib.html.twig' %}
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <meta name="description" content="{{ meta_description is defined and meta_description is not null? meta_description : '' }}">
+        <meta content="NOINDEX, NOFOLLOW" name="robots">
+        <link rel="shortcut icon" type="image/png" href="{{ asset('favicon/favicon.ico') }}"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon//apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon//favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon//favicon-16x16.png') }}">
+        <title>{{ meta_title is defined and meta_title is not null? meta_title : '' }}</title>
+        <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
+        <script type="text/javascript">
+            tarteaucitron.init({
+                "privacyUrl": "", /* Privacy policy url */
+
+                "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+                "cookieName": "tarteaucitron", /* Cookie name */
+
+                "orientation": "middle", /* Banner position (top - bottom) */
+
+                "groupServices": false, /* Group services by category */
+
+                "showAlertSmall": false, /* Show the small banner on bottom right */
+                "cookieslist": false, /* Show the cookie list */
+
+                "closePopup": false, /* Show a close X on the banner */
+
+                "showIcon": true, /* Show cookie icon to manage cookies */
+                //"iconSrc": "", /* Optionnal: URL or base64 encoded image */
+                "iconPosition": "BottomRight", /* BottomRight, BottomLeft, TopRight and TopLeft */
+
+                "adblocker": false, /* Show a Warning if an adblocker is detected */
+
+                "DenyAllCta" : true, /* Show the deny all button */
+                "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+                "highPrivacy": true, /* HIGHLY RECOMMANDED Disable auto consent */
+
+                "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
+
+                "removeCredit": false, /* Remove credit link */
+                "moreInfoLink": true, /* Show more info link */
+
+                "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
+                "useExternalJs": false, /* If false, the tarteaucitron.js file will be loaded */
+
+                //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+
+                "readmoreLink": "", /* Change the default readmore link */
+
+                "mandatory": true, /* Show a message about mandatory cookies */
+            });
+        </script>
+        <title>{% block title %}{{ title is defined? title : 'Sages femmes Quetigny' }}{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('frontStyle') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('frontScript') }}
+
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

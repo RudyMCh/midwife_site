@@ -1,0 +1,114 @@
+{% set route = app.request.attributes.get('_route') %}
+<div id="sentinel"></div>
+<header class="is-sticky">
+    <div  class="menu-icon burger js-menuToggle" id="menu-icon">
+        <span class="menu-icon__line menu-icon__line-left"></span>
+        <span class="menu-icon__line"></span>
+        <span class="menu-icon__line menu-icon__line-right"></span>
+    </div>
+    <div class="container">
+        <nav class="menu-moustache">
+            <ul>
+                <li><a href="{{ path('homepage_homepage') }}" class="{{ route is same as('homepage_homepage') ? 'active' : '' }}">Accueil</a></li>
+                <li>
+                    <a href="#" class="{{ 'midwife' in route ? 'active' : '' }}">Notre équipe <i class="fas fa-chevron-down"></i></a>
+                    <ul>
+                        {% for midwife in getMidwives() %}
+                            <li><a href="{{ path('midwife_show', {'slug': midwife.slug}) }}"
+                                   class="{{ midwife.slug is same as(app.request.attributes.get('slug')) ? 'active' : '' }}">
+                                    {{ midwife.firstname }} {{ midwife.lastname }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="{{ 'domain_show' in route ? 'active' : '' }} ">Nos prestations <i class="fas fa-chevron-down"></i></a>
+                    <ul>
+                        {% for domain in getDomains() %}
+                            <li><a href="{{ path('domain_show', {'slug' : domain.slug}) }}" >{{ domain.name }} <i class="fas fa-chevron-right"></i></a>
+                                <ul>
+                                    {% for service in domain.services|sort((a,b)=> a.position <=> b.position) %}
+                                        <li><a href="{{ path('domain_show', {'slug':domain.slug, '_fragment': service.slug}) }}"
+                                               class="{{ service.slug is same as(app.request.attributes.get('slug')) ? 'active' : '' }}">
+                                                {{ service.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><a href="{{ path('informations_utiles') }}" class="{{ route is same as('info_utiles') ? 'active' : '' }}">Info utiles</a></li>
+            </ul>
+        </nav>
+        <nav class="menu-burger">
+            <ul class="pushNav js-topPushNav">
+                <li class="closeLevel js-closeLevelTop hdg">
+                    <i class="fas fa-times"></i>
+                </li>
+                <li>
+                    <a href="{{ path('homepage_homepage') }}" class="{{ route is same as('homepage_homepage') ? 'active' : '' }}">
+                        <i class="fa fa-home"></i> Accueil
+                    </a>
+                </li>
+
+                <li><!-- Begin section 1 -->
+                    <div class="openLevel js-openLevel">
+                        Notre équipe
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <ul class="pushNav pushNav_level js-pushNavLevel">
+                        <li class="closeLevel js-closeLevel hdg">
+                            <i class="fa fa-chevron-left"></i>
+                            Retour
+                        </li>
+                        {% for midwife in getMidwives() %}
+                            <li>
+                                <a href="{{ path('midwife_show', {'slug': midwife.slug}) }}">{{ midwife.firstname }} {{ midwife.lastname }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><!-- Begin section 1 -->
+                    <div class="openLevel js-openLevel">
+                        Nos prestations
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <ul class="pushNav pushNav_level js-pushNavLevel">
+                        <li class="closeLevel js-closeLevel hdg">
+                            <i class="fa fa-chevron-left"></i>
+                            Retour
+                        </li>
+
+                    {% for domain in getDomains() %}
+                        <li>
+                            <div class="openLevel js-openLevel">
+                                {{ domain.name }}
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                            <ul class="pushNav pushNav_level js-pushNavLevel">
+                                <li class="closeLevel js-closeLevel hdg">
+                                    <i class="fa fa-chevron-left"></i>
+                                    Retour
+                                </li>
+                                {% for service in domain.services %}
+
+                                    <li><a href="{{ path('domain_show', {'slug':domain.slug, '_fragment': service.slug}) }}">{{ service.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+
+                    {% endfor %}
+                    </ul>
+                </li>
+                <hr/>
+                <li><a href="{{ path('informations_utiles') }}" class="{{ route is same as('info_utiles') ? 'active' : '' }}">Info utiles</a></li>
+
+            </ul>
+
+        </nav>
+    </div>
+</header>
+

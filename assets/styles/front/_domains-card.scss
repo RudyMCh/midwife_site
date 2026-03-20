@@ -1,0 +1,61 @@
+.domains-card{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  &-title{
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover{
+      transform: scale(1.1);
+    }
+  }
+}
+.domain-wrap{
+  width: 33%;
+
+}
+.domain-card{
+  border: 2px solid #232187;
+  border-radius: 5px;
+  min-height: 500px;
+  width: 550px;
+  margin: 30px 10px;
+  padding: 30px;
+  box-shadow: 1px 5px 5px #232187;
+  &-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &-logo{
+
+    }
+  }
+  ul{
+    list-style: none;
+    li{
+      a{
+        text-decoration: none;
+        color: #232187;
+        transition: 0.3s;
+        &:hover{
+          color:rgb(253, 63, 146);
+        }
+      }
+      &:before{
+        content: '✓';
+      }
+    }
+
+  }
+  h4{
+    margin: 20px 0 50px 0;
+  }
+}
+
+@media(max-width:610px){
+  .domain-card{
+    margin: 50px 0;
+    width: 100%;
+  }
+}

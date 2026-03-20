@@ -1,0 +1,20 @@
+{% extends 'front/layouts/layout.html.twig' %}
+
+{% block title %}Erreur{% endblock %}
+
+{% block content %}
+<div class="title" style="background-color:lightgrey;">
+    <h1>Désolé</h1>
+    <div class="overlay-light"></div>
+</div>
+
+<h2 class="my-5 text-center">l'accès vous est refusé !</h2>
+<p class="text-center">Vous n'avez pas l'autorisation d'accéder à ce contenu.</p>
+<div class="text-center  aky-error-403-back">
+    <a href="{{ path('homepage_homepage') }}" class="mt-5 text-center"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a>
+</div>
+<div class="mt-5 small  aky-error-403-message">
+    <div>Message d'origine:</div>
+    <p>{{ exception.message~' '~exception.statusCode~' '~exception.statusText }}</p>
+</div>
+{% endblock %}

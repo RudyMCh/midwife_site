@@ -1,0 +1,52 @@
+<footer class="bg-dark">
+    <div class="container">
+        <div class="row py-5 border-top">
+            <div class="col-md-4 footer-column">
+                <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+                <p class="text-muted">© {{ date('now')|date('Y') }}</p>
+            </div>
+            <div class="col-md-4 footer-column">
+                <h5>Menu</h5>
+                <ul class="nav flex-column justify-content-center align-items-center">
+                    <li class="nav-item mb-2"><a href="{{ path('homepage_homepage') }}" class="nav-link p-0 text-muted">Accueil</a></li>
+                    {% for domain in getDomains() %}
+                        <li class="nav-item mb-2"><a href="{{ path('domain_show', {'slug' : domain.slug}) }}" class="nav-link p-0 text-muted">{{ domain.name }}</a></li>
+                    {% endfor %}
+                    <li class="nav-item mb-2"><a href="{{ path('informations_utiles') }}" class="nav-link p-0 text-muted">Infos utiles</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 footer-column">
+                <h5>Contacts</h5>
+                <ul class="nav flex-column">
+                    {% for midwife in getMidwives() %}
+                        <li>
+                            <div class="footer-midwife">
+                                <div class="footer-midwife-name">
+                                    {{ midwife.firstname }} {{ midwife.lastname }}
+                                </div>
+                                <div class="footer-midwife-contact">
+                                    <div class="footer-midwife-contact-phone">
+                                        {% if midwife.phone is not null %}
+                                            <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone"></i> {{ midwife.phone|mobilePhone }}</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="footer-midwife-contact-email">
+                                        {% if midwife.email is not null %}
+                                            <a href="mailto:{{ midwife.email }}"><i class="far fa-envelope"></i> {{ midwife.email }}</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="footer-midwife-contact-email">
+                                        <a href="{{ path('midwife_show', {'slug': midwife.slug}) }}">voir plus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</footer>

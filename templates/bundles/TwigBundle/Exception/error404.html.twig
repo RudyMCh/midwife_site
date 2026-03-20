@@ -1,0 +1,19 @@
+{% extends 'front/layouts/layout.html.twig' %}
+
+{% block title %}Erreur 404{% endblock %}
+
+{% block content %}
+    <div class="title" style="background-color:lightgrey;">
+        <h1>Désolé</h1>
+        <div class="overlay-light"></div>
+    </div>
+    <h2 class="my-5 text-center">Cette page n'existe pas !</h2>
+    <p class="text-center">La page sur à laquelle vous essayez d'accéder n'existe pas, veuillez vérifier votre URL.</p>
+    <div class="text-center aky-error-404-back">
+        <a href="{{ path('homepage_homepage') }}" class="mt-5 text-center"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a>
+    </div>
+    <div class="mt-5 small aky-error-404-message">
+        <div>Message d'origine:</div>
+        <p>{{ exception.message~' '~exception.statusCode~' '~exception.statusText }}</p>
+    </div>
+{% endblock %}
