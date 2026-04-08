@@ -87,9 +87,16 @@ class MidwifeType extends AbstractType
                 'label'=>"Url Doctolib",
                 'help'=>'Pour la prise de rendez vous sur Doctolib, l\'url de Doctolib complete'
             ])
-            ->add('metaDescription', TextareaType::class, [
-                'label'=>'Description pour le référencement de la page',
-                'help'=>'120 caractères maximum, il est recommandé d’employer des verbes d’action du type « découvrir », « télécharger », « créer », etc.).'
+            ->add(‘metaTitle’, TextType::class, [
+                ‘label’ => "Titre SEO",
+                ‘help’ => "70 caractères maximum. Ex : Prenom Nom — Sage-femme a Quetigny.",
+                ‘required’ => false,
+            ])
+            ->add(‘metaDescription’, TextareaType::class, [
+                ‘label’ => "Description pour le referencement de la page",
+                ‘help’ => "80-160 caracteres. Privilegier des verbes d’action : decouvrir, prendre rendez-vous.",
+                ‘required’ => false,
+                ‘attr’ => [‘rows’ => 3],
             ])
         ;
     }

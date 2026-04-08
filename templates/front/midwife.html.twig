@@ -1,5 +1,28 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
+{% block og_type %}profile{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Physician",
+  "name": {{ (midwife.firstname ~ ' ' ~ midwife.lastname)|json_encode|raw }},
+  "jobTitle": "Sage-femme",
+  "medicalSpecialty": "Midwifery",
+  "url": {{ app.request.uri|json_encode|raw }},
+  {% if midwife.email %}"email": {{ midwife.email|json_encode|raw }},{% endif %}
+  {% if midwife.phone %}"telephone": {{ midwife.phone|json_encode|raw }},{% endif %}
+  {% if midwife.doctolibUrl %}"sameAs": {{ midwife.doctolibUrl|json_encode|raw }},{% endif %}
+  "worksFor": {
+    "@type": "MedicalBusiness",
+    "name": "Cabinet de sages-femmes Quetigny",
+    "medicalSpecialty": "Midwifery"
+  }
+}
+</script>
+{% endblock %}
+
 {% block content %}
     {% set style = midwife.bgTitle is not null ? 'background-image:url("'~media_path(midwife.bgTitle) ~'")' : 'background-color : '~ midwife.backgroundColor1 %}
 

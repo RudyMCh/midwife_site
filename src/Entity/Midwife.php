@@ -74,8 +74,12 @@ class Midwife implements \Stringable
     #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'midwives')]
     private Collection $services;
 
-    #[ORM\Column(type: 'string', length: 120, nullable: true)]
-    #[Assert\Length(min: 80, max: 120, minMessage: 'Cette description pour les bots google devrait faire au moins 80 caractères', maxMessage: 'Cette description pour les bots google ne doit pas dépasser 120 caractères')]
+    #[ORM\Column(type: 'string', length: 70, nullable: true)]
+    #[Assert\Length(max: 70, maxMessage: 'Le titre SEO ne doit pas dépasser 70 caractères')]
+    private ?string $metaTitle = null;
+
+    #[ORM\Column(type: 'string', length: 160, nullable: true)]
+    #[Assert\Length(min: 80, max: 160, minMessage: 'Cette description pour les bots google devrait faire au moins 80 caractères', maxMessage: 'Cette description pour les bots google ne doit pas dépasser 160 caractères')]
     private ?string $metaDescription = null;
 
     /** @var Collection<int, MediaFile> */
@@ -314,6 +318,18 @@ class Midwife implements \Stringable
         if ($this->services->removeElement($service)) {
             $service->removeMidwife($this);
         }
+
+        return $this;
+    }
+
+    public function getMetaTitle(): ?string
+    {
+        return $this->metaTitle;
+    }
+
+    public function setMetaTitle(?string $metaTitle): self
+    {
+        $this->metaTitle = $metaTitle;
 
         return $this;
     }

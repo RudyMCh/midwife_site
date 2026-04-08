@@ -39,6 +39,17 @@ class InformationPageType extends AbstractType
                 'attr' => ['class' => 'tinymce'],
             ])
             ->add('mention')
+            ->add('metaTitle', TextType::class, [
+                'label' => "Titre SEO",
+                'help' => "70 caracteres maximum.",
+                'required' => false,
+            ])
+            ->add('metaDescription', TextareaType::class, [
+                'label' => "Description pour le referencement",
+                'help' => "80-160 caracteres.",
+                'required' => false,
+                'attr' => ['rows' => 3],
+            ])
         ;
     }
 

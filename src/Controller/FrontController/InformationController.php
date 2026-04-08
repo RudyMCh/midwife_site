@@ -2,21 +2,25 @@
 
 namespace App\Controller\FrontController;
 
-use App\Entity\InformationPage;
 use App\Repository\InformationPageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class InformationController extends AbstractController
 {
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/informations-utiles', name: 'informations_utiles')]
+    #[Route(path: '/informations-utiles', name: 'informations_utiles')]
     public function show(InformationPageRepository $informationPageRepository): Response
     {
         $info = $informationPageRepository->findAll();
         $info = $info[0];
+
+        $metaTitle = $info->getMetaTitle() ?? 'Informations utiles — Sages-femmes Quetigny';
+
         return $this->render('front/informationUtiles.html.twig', [
-            'information'=>$info
+            'information' => $info,
+            'meta_title' => $metaTitle,
+            'meta_description' => $info->getMetaDescription() ?? '',
         ]);
     }
 }

@@ -35,6 +35,12 @@ class InformationPage
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $title = null;
 
+    #[ORM\Column(type: 'string', length: 70, nullable: true)]
+    private ?string $metaTitle = null;
+
+    #[ORM\Column(type: 'string', length: 160, nullable: true)]
+    private ?string $metaDescription = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,30 @@ class InformationPage
     public function setTitle(?string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getMetaTitle(): ?string
+    {
+        return $this->metaTitle;
+    }
+
+    public function setMetaTitle(?string $metaTitle): self
+    {
+        $this->metaTitle = $metaTitle;
+
+        return $this;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(?string $metaDescription): self
+    {
+        $this->metaDescription = $metaDescription;
 
         return $this;
     }

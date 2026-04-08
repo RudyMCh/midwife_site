@@ -1,5 +1,41 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  "name": {{ office.name|json_encode|raw }},
+  "medicalSpecialty": "Midwifery",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ office.address|default('')|json_encode|raw }},
+    "postalCode": {{ office.zipcode|json_encode|raw }},
+    "addressLocality": {{ office.city|json_encode|raw }},
+    "addressCountry": "FR"
+  },
+  {% if office.phone %}"telephone": {{ office.phone|json_encode|raw }},{% endif %}
+  {% if office.latitude and office.longitude %}
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": {{ office.latitude|json_encode|raw }},
+    "longitude": {{ office.longitude|json_encode|raw }}
+  },
+  {% endif %}
+  "employee": [
+    {% for midwife in midwives %}
+    {
+      "@type": "Physician",
+      "name": {{ (midwife.firstname ~ ' ' ~ midwife.lastname)|json_encode|raw }},
+      "jobTitle": "Sage-femme",
+      "url": {{ url('midwife_show', {'slug': midwife.slug})|json_encode|raw }}
+    }{{ not loop.last ? ',' : '' }}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
 {% block content %}
     {% set style = homepage.titleBg is not null ? 'background-image:url("'~media_path(homepage.titleBg) ~'")' : 'background-color : red' %}
     <div class="title" style="{{ style }}">
