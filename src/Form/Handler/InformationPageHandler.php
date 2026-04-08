@@ -36,9 +36,9 @@ class InformationPageHandler extends AbstractController
         return false;
     }
 
-    public function delete(InformationPage $informationPage, Request $request)
+    public function delete(InformationPage $informationPage, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$informationPage->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$informationPage->getId(), $request->request->getString('_token'))) {
             $this->entityManager->remove($informationPage);
             $this->entityManager->flush();
         }

@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method HomePage[]    findAll()
  * @method HomePage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+/** @extends ServiceEntityRepository<HomePage> */
 class HomePageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method InformationPage[]    findAll()
  * @method InformationPage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+/** @extends ServiceEntityRepository<InformationPage> */
 class InformationPageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

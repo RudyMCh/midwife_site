@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Service[]    findAll()
  * @method Service[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+/** @extends ServiceEntityRepository<Service> */
 class ServiceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -19,7 +20,8 @@ class ServiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Service::class);
     }
 
-    public function search($keyword = null)
+    /** @return array<int, Service> */
+    public function search(?string $keyword = null): array
     {
         return $this->createQueryBuilder('s')
             ->leftJoin('s.domain', 'd')

@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Domain;
 use App\Entity\Midwife;
 use App\Entity\Service;
-use App\Repository\ServiceRepository;
 use App\Form\Type\MediaFileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -18,9 +17,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ServiceType extends AbstractType
 {
-    public function __construct(private readonly ServiceRepository $serviceRepository)
-    {
-    }
     #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

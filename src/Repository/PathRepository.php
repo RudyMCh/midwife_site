@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Path[]    findAll()
  * @method Path[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+/** @extends ServiceEntityRepository<Path> */
 class PathRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

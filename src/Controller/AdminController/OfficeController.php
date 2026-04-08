@@ -66,7 +66,7 @@ class OfficeController extends AbstractController
     #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Office $office, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$office->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$office->getId(), $request->request->getString('_token'))) {
             $entityManager->remove($office);
             $entityManager->flush();
         }

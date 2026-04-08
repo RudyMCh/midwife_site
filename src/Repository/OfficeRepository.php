@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Office[]    findAll()
  * @method Office[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+/** @extends ServiceEntityRepository<Office> */
 class OfficeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

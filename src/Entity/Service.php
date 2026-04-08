@@ -6,9 +6,8 @@ use App\Repository\ServiceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinTable;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\MediaFile;
+
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
 class Service implements \Stringable
@@ -16,31 +15,32 @@ class Service implements \Stringable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $name = '';
 
     #[ORM\Column(type: 'text')]
-    private $description;
+    private string $description = '';
 
     #[ORM\ManyToOne(targetEntity: Domain::class, inversedBy: 'services')]
-    private $domain;
+    private ?Domain $domain = null;
 
     /**
      * @Gedmo\Slug(fields={"name"})
      */
     #[ORM\Column(length: 128, unique: true)]
-    private $slug;
+    private string $slug = '';
 
     #[ORM\ManyToOne(targetEntity: MediaFile::class)]
-    private $picture;
+    private ?MediaFile $picture = null;
 
+    /** @var Collection<int, Midwife> */
     #[ORM\ManyToMany(targetEntity: Midwife::class, inversedBy: 'services')]
-    private $midwives;
+    private Collection $midwives;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $position;
+    private ?int $position = null;
 
     public function __construct()
     {
@@ -89,7 +89,7 @@ class Service implements \Stringable
     }
 
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -107,7 +107,7 @@ class Service implements \Stringable
     }
 
     /**
-     * @return Collection|Midwife[]
+     * @return Collection<int, Midwife>
      */
     public function getMidwives(): Collection
     {

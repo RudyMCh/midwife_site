@@ -46,7 +46,7 @@ class UserHandler extends AbstractController
 
     public function delete(User $user, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->getString('_token'))) {
             $this->entityManager->remove($user);
             $this->entityManager->flush();
         }

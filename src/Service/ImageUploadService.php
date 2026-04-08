@@ -100,7 +100,9 @@ class ImageUploadService
             imagealphablending($destImage, false);
             imagesavealpha($destImage, true);
             $transparent = imagecolorallocatealpha($destImage, 255, 255, 255, 127);
-            imagefilledrectangle($destImage, 0, 0, self::THUMB_SIZE, $thumbHeight, $transparent);
+            if ($transparent !== false) {
+                imagefilledrectangle($destImage, 0, 0, self::THUMB_SIZE, $thumbHeight, $transparent);
+            }
         }
 
         imagecopyresampled($destImage, $sourceImage, 0, 0, 0, 0, self::THUMB_SIZE, $thumbHeight, $width, $height);
@@ -162,7 +164,9 @@ class ImageUploadService
             imagealphablending($dest, false);
             imagesavealpha($dest, true);
             $transparent = imagecolorallocatealpha($dest, 255, 255, 255, 127);
-            imagefilledrectangle($dest, 0, 0, $newWidth, $newHeight, $transparent);
+            if ($transparent !== false) {
+                imagefilledrectangle($dest, 0, 0, $newWidth, $newHeight, $transparent);
+            }
         }
 
         imagecopyresampled($dest, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
@@ -188,16 +192,15 @@ class ImageUploadService
         imagedestroy($image);
     }
 
-    /**
-     * @return \GdImage|null
-     */
-    private function createImageResource(string $pathname, string $mime): mixed
+    private function createImageResource(string $pathname, string $mime): ?\GdImage
     {
-        return match ($mime) {
+        $result = match ($mime) {
             'image/jpeg' => imagecreatefromjpeg($pathname),
             'image/png' => imagecreatefrompng($pathname),
             'image/gif' => imagecreatefromgif($pathname),
             default => null,
         };
+
+        return $result instanceof \GdImage ? $result : null;
     }
 }

@@ -8,82 +8,67 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class UtilsController
- * @package App\Controller\AdminController
- */
 #[\Symfony\Component\Routing\Attribute\Route(path: '/admin', name: 'admin_utils_')]
 class UtilsController extends AbstractController
 {
     public function __construct(private readonly EntityManagerInterface $em)
     {
     }
-    /**
-     * @param $class
-     * @param $id
-     * @param $prop
-     * @param $redirect
-     * @return RedirectResponse
-     */
+
     #[\Symfony\Component\Routing\Attribute\Route(path: '/change-status/{class}/{id}/{prop}/{redirect}', name: 'change_status')]
-    public function changeStatus($class, $id, $prop, $redirect): RedirectResponse
+    public function changeStatus(string $class, int $id, string $prop, string $redirect): RedirectResponse
     {
-        $item = $this->em->getRepository($class)->findOneById($id);
-        $setter = 'set'.ucfirst((string) $prop);
-        $getter = 'get'.ucfirst((string) $prop);
-        if(property_exists($item, lcfirst ((string) $prop)))
-        {
+        /** @var class-string $class */
+        $item = $this->em->getRepository($class)->find($id);
+        if ($item === null) {
+            return $this->redirect(urldecode($redirect));
+        }
+        $setter = 'set'.ucfirst($prop);
+        $getter = 'get'.ucfirst($prop);
+        if (property_exists($item, lcfirst($prop))) {
             $item->$setter(!$item->$getter());
         }
         $this->em->flush();
-        return $this->redirect(urldecode((string) $redirect));
+
+        return $this->redirect(urldecode($redirect));
     }
 
-    /**
-     * permet de changer les positions des éléments enfant d'une entité,
-     * doit prendre en paramètres :
-     * route du parent
-     * id de l'élement cible + namespace complet ("Akyos\\CoreBundle\\Entity\\PostDocument")
-     * id du parent + namespace complet "Akyos\\CoreBundle\\Entity\\Post"
-     * @param $route
-     * @param $id
-     * @param $namespace
-     * @param Request $request
-     * @param null $parent
-     * @param null $parentClass
-     * @return RedirectResponse
-     */
     #[\Symfony\Component\Routing\Attribute\Route(path: '/change-position-sub/{route}/{id}/{namespace}/{parent}/{parentClass}', name: 'change_position_sub', methods: ['POST'])]
-    public function changePositionSub($route, $id, $namespace, Request $request, $parent = null, $parentClass = null): RedirectResponse
+    public function changePositionSub(string $route, int $id, string $namespace, Request $request, ?string $parent = null, ?string $parentClass = null): RedirectResponse
     {
+        /** @var class-string $namespace */
         $repository = $this->em->getRepository($namespace);
-        $entityOne = $repository->findOneById($id);
+        $entityOne = $repository->find($id);
+        if ($entityOne === null) {
+            return $this->redirectToRoute($route.'_index');
+        }
+        /** @phpstan-ignore-next-line */
         $oldPosition = $entityOne->getPosition();
-        $newPosition = $request->get('position');
-        if($parent && $parentClass){
+        $newPosition = $request->query->getInt('position');
+        if ($parent !== null && $parentClass !== null) {
             $getter = 'get'.ucfirst($parent);
-            $parent = $entityOne->$getter();
-            //Pour appeler la collection d'éléments depuis le parent à partir du nom de l'entité mise en param
-            $array = explode('\\', (string) $namespace);
+            $parentEntity = $entityOne->$getter();
+            $array = explode('\\', $namespace);
             $command = 'get'.array_pop($array).'s';
-            $els = $parent->$command();
-        }else{
+            $els = $parentEntity->$command();
+        } else {
             $els = $repository->findAll();
         }
-        if($oldPosition < $newPosition){
+        if ($oldPosition < $newPosition) {
             foreach ($els as $item) {
-                if($item->getPosition() > $oldPosition && $item->getPosition() <= $newPosition){
-                    $item->setPosition($item->getPosition()-1);
+                if ($item->getPosition() > $oldPosition && $item->getPosition() <= $newPosition) {
+                    $item->setPosition($item->getPosition() - 1);
                 }
             }
-        }elseif($oldPosition > $newPosition){
+        } elseif ($oldPosition > $newPosition) {
             foreach ($els as $item) {
-                if($item->getPosition() >= $newPosition && $item->getPosition() < $oldPosition){
-                    $item->setPosition($item->getPosition()+1);
+                if ($item->getPosition() >= $newPosition && $item->getPosition() < $oldPosition) {
+                    $item->setPosition($item->getPosition() + 1);
                 }
             }
         }
-        $entityOne->setPosition($request->get('position'));
+        /** @phpstan-ignore-next-line */
+        $entityOne->setPosition($newPosition);
         $this->em->flush();
 
         return $this->redirectToRoute($route.'_index');

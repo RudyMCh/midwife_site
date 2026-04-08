@@ -12,26 +12,26 @@ class Path
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Midwife::class, inversedBy: 'paths')]
     #[ORM\JoinColumn(nullable: false)]
-    private $midwife;
+    private ?Midwife $midwife = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $title;
+    private string $title = '';
 
     #[ORM\Column(type: 'string', length: 4, nullable: true)]
     #[Assert\Regex('/^(19|20)[0-9]{2}$/', message: 'Une année est composée de 4 chiffres et est récente.')]
-    private $start;
+    private ?string $start = null;
 
     #[ORM\Column(type: 'string', length: 4, nullable: true)]
     #[Assert\Regex('/^(19|20)[0-9]{2}$/', message: 'Une année est composée de 4 chiffres et est récente.')]
-    private $end;
+    private ?string $end = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Assert\Regex('/^\w+/', message: 'Une ville ne peut pas contenir de chiffres.')]
-    private $city;
+    private ?string $city = null;
 
     public function getId(): ?int
     {

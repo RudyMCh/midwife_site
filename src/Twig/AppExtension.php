@@ -43,11 +43,13 @@ class AppExtension extends AbstractExtension
 
         ];
     }
+    /** @param class-string $entity */
     public function countElements(string $entity): int
     {
         return $this->entityManager->getRepository($entity)->count([]);
     }
-    public function dynamicVariable($el, $field)
+
+    public function dynamicVariable(object $el, string $field): mixed
     {
         $getter = 'get'.$field;
         if(count(explode(';', (string) $field)) > 1) {
@@ -69,12 +71,12 @@ class AppExtension extends AbstractExtension
         }
         return $value;
     }
-    public function truncate($value, int $length, string $after): string
+    public function truncate(mixed $value, int $length, string $after): string
     {
         return mb_substr((string) $value, 0, $length, 'UTF-8').$after;
     }
 
-    public function mobilePhone($value): string
+    public function mobilePhone(mixed $value): string
     {
         $array = str_split((string) $value);
         $newValue = '';
@@ -90,7 +92,8 @@ class AppExtension extends AbstractExtension
         }
         return $newValue;
     }
-    public function getTypes($class, $prop)
+    /** @param class-string $class */
+    public function getTypes(string $class, string $prop): mixed
     {
         $phpDocExtractor = new PhpDocExtractor();
         $reflectionExtractor = new ReflectionExtractor();
@@ -108,19 +111,25 @@ class AppExtension extends AbstractExtension
             $accessExtractors,
             $propertyInitializableExtractors
         );
-        return $propertyInfo->getTypes($class, $prop)[0];
+        $types = $propertyInfo->getTypes($class, $prop);
+
+        return $types !== null && isset($types[0]) ? $types[0] : null;
     }
+
+    /** @return array<int, \App\Entity\Domain> */
     public function getDomains(): array
     {
         return $this->domainRepository->findAll();
     }
 
+    /** @return array<int, \App\Entity\Midwife> */
     public function getMidwives(): array
     {
         return $this->midwifeRepository->findAll();
     }
 
-    public function getMidwivesByService(Service $service)
+    /** @return array<int, \App\Entity\Midwife> */
+    public function getMidwivesByService(Service $service): array
     {
         return $this->midwifeRepository->findByService($service);
     }

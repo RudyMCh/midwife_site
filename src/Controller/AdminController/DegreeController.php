@@ -36,6 +36,7 @@ class DegreeController extends AbstractController
         $form = $this->createForm(DegreeType::class, $degree);
         $form->handleRequest($request);
         $midwife = $degree->getMidwife();
+        assert($midwife !== null);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
@@ -69,10 +70,12 @@ class DegreeController extends AbstractController
     #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Degree $degree, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$degree->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$degree->getId(), $request->request->getString('_token'))) {
             $entityManager->remove($degree);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('admin_midwife_edit', ['id'=>$degree->getMidwife()->getId()]);
+        $midwife = $degree->getMidwife();
+        assert($midwife !== null);
+        return $this->redirectToRoute('admin_midwife_edit', ['id'=>$midwife->getId()]);
     }
 }

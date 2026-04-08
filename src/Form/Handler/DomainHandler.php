@@ -36,9 +36,9 @@ class DomainHandler extends AbstractController
         return false;
     }
 
-    public function delete(Domain $domain, Request $request)
+    public function delete(Domain $domain, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$domain->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$domain->getId(), $request->request->getString('_token'))) {
             $this->entityManager->remove($domain);
             $this->entityManager->flush();
         }

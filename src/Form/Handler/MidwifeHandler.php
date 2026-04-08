@@ -35,9 +35,9 @@ class MidwifeHandler extends AbstractController
         return false;
     }
 
-    public function delete(Midwife $midwife, Request $request)
+    public function delete(Midwife $midwife, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$midwife->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$midwife->getId(), $request->request->getString('_token'))) {
             $this->entityManager->remove($midwife);
             $this->entityManager->flush();
         }

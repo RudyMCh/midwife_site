@@ -7,6 +7,7 @@ use App\Twig\AppExtension;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -51,10 +52,13 @@ class MakeAdminController extends Command
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $handlerDir));
         }
 
-        $metadatas = $this->tools->getProperties("App\Entity\\".$className);
+        /** @var class-string $entityClass */
+        $entityClass = "App\\Entity\\".$className;
+        $metadatas = $this->tools->getProperties($entityClass) ?? [];
         $tabResponse = [];
 
-        foreach ($metadatas as  $metadata){
+        foreach ($metadatas as $metadata){
+            /** @var QuestionHelper $helper */
             $helper = $this->getHelper('question');
             $question = new ConfirmationQuestion('Voulez vous ajoutez '.$metadata.' dans les fields ? (default : true) ', true);
             if ($helper->ask($input, $output, $question)){
@@ -65,7 +69,7 @@ class MakeAdminController extends Command
 
         $fields = "";
         foreach ($tabResponse as $key => $item){
-            $fields.=$item['fields'] ? "'".ucfirst((string) $item['show'])."' => '".ucfirst($key)."',\n" : "";
+            $fields .= "'".ucfirst((string) $item['show'])."' => '".ucfirst($key)."',\n";
         }
         $controllerContent =
             "<?php
@@ -95,7 +99,7 @@ class ".$className."Controller extends AbstractController
     private EntityManagerInterface \$entityManager
     public function __construct(EntityManagerInterface \$entityManager)
     {
-        $this->entityManager = \$entityManager;
+        \$this->entityManager = \$entityManager;
     }
 
     /**
@@ -211,7 +215,11 @@ class ".$className."Controller extends AbstractController
 }";
 
 
-        $command = $this->getApplication()->find('make:form');
+        $app = $this->getApplication();
+        if ($app === null) {
+            return Command::SUCCESS;
+        }
+        $command = $app->find('make:form');
 
         $arguments = [
             'name'    => $className,
@@ -284,5 +292,7 @@ class ".$className."Handler extends AbstractController
                 'Le dossier a bien été créé'
             ]);
         }
+
+        return Command::SUCCESS;
     }
 }

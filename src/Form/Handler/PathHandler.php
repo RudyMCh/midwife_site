@@ -36,9 +36,9 @@ class PathHandler extends AbstractController
         return false;
     }
 
-    public function delete(Path $path, Request $request)
+    public function delete(Path $path, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$path->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$path->getId(), $request->request->getString('_token'))) {
             $this->entityManager->remove($path);
             $this->entityManager->flush();
         }

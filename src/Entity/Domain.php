@@ -15,31 +15,32 @@ class Domain implements \Stringable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $name = '';
 
+    /** @var Collection<int, Service> */
     #[ORM\OneToMany(targetEntity: Service::class, mappedBy: 'domain', cascade: ['persist', 'remove'])]
-    private $services;
+    private Collection $services;
 
     #[ORM\ManyToOne(targetEntity: MediaFile::class)]
-    private $titleBg;
+    private ?MediaFile $titleBg = null;
 
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
-    private $titleColorBg;
+    private ?string $titleColorBg = null;
 
     /**
      * @Gedmo\Slug(fields={"name"})
      */
     #[ORM\Column(length: 128, unique: true)]
-    private $slug;
+    private string $slug = '';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $metaTitle;
+    private ?string $metaTitle = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $metaDescription;
+    private ?string $metaDescription = null;
 
     public function __construct()
     {
@@ -63,13 +64,13 @@ class Domain implements \Stringable
         return $this;
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
 
     /**
-     * @return Collection|Service[]
+     * @return Collection<int, Service>
      */
     public function getServices(): Collection
     {

@@ -2,8 +2,6 @@
 
 namespace App\Command;
 
-use App\Services\Tools;
-use GdImage;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,10 +10,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[\Symfony\Component\Console\Attribute\AsCommand(name: 'compress:images', description: 'Compression des images')]
 class CompressingImagesCommand extends Command
 {
-
-    public function __construct( Tools $tools)
+    public function __construct()
     {
-        $this->tools = $tools;
         parent::__construct();
     }
 
@@ -32,83 +28,76 @@ class CompressingImagesCommand extends Command
     {
         $finder = new Finder();
         $count = 0;
-        foreach($finder->files()->in('public/uploads') as $image)
-        {
-            dd($image);
-            $gdImage = new GdImage($image->getPathName());
-            imagejpeg($gdImage, $image->getPathName(), 100);
-            // // dd($image);
-            // $dir = $image->getPathName();
-            // // dd($dir);
-            // // $count ++;
-            // $scaledImage =$this->scaleImageFileToBlob($image);
-            // $this->tools->saveFile($scaledImage, $dir);
-            dd('ok');
+        foreach ($finder->files()->in('public/uploads') as $image) {
+            $scaledImage = $this->scaleImageFileToBlob($image->getPathname());
+            if ($scaledImage !== '') {
+                file_put_contents($image->getPathname(), $scaledImage);
+                ++$count;
+            }
         }
-        dd($count);
-        return 1;
-    }
-    function scaleImageFileToBlob($file) {
+        $output->writeln("Compressed {$count} images.");
 
-        $source_pic = $file;
+        return Command::SUCCESS;
+    }
+
+    private function scaleImageFileToBlob(string $file): string
+    {
         $max_width = 200;
         $max_height = 200;
-    
-        [$width, $height, $image_type] = getimagesize($file);
-    
-        switch ($image_type)
-        {
-            case 1: $src = imagecreatefromgif($file); break;
-            case 2: $src = imagecreatefromjpeg($file);  break;
-            case 3: $src = imagecreatefrompng($file); break;
-            default: return '';  break;
+
+        $info = getimagesize($file);
+        if ($info === false) {
+            return '';
         }
-    
+        [$width, $height, $image_type] = $info;
+
+        $src = match ($image_type) {
+            1 => imagecreatefromgif($file),
+            2 => imagecreatefromjpeg($file),
+            3 => imagecreatefrompng($file),
+            default => false,
+        };
+
+        if ($src === false) {
+            return '';
+        }
+
         $x_ratio = $max_width / $width;
         $y_ratio = $max_height / $height;
-    
-        if( ($width <= $max_width) && ($height <= $max_height) ){
+
+        if ($width <= $max_width && $height <= $max_height) {
             $tn_width = $width;
             $tn_height = $height;
-            }elseif (($x_ratio * $height) < $max_height){
-                $tn_height = ceil($x_ratio * $height);
-                $tn_width = $max_width;
-            }else{
-                $tn_width = ceil($y_ratio * $width);
-                $tn_height = $max_height;
+        } elseif ($x_ratio * $height < $max_height) {
+            $tn_height = (int) ceil($x_ratio * $height);
+            $tn_width = $max_width;
+        } else {
+            $tn_width = (int) ceil($y_ratio * $width);
+            $tn_height = $max_height;
         }
-    
-        $tmp = imagecreatetruecolor($tn_width,$tn_height);
-    
-        /* Check if this image is PNG or GIF, then set if Transparent*/
-        if(($image_type == 1) || ($image_type==3))
-        {
+
+        $tmp = imagecreatetruecolor($tn_width, $tn_height);
+
+        if ($image_type === 1 || $image_type === 3) {
             imagealphablending($tmp, false);
-            imagesavealpha($tmp,true);
+            imagesavealpha($tmp, true);
             $transparent = imagecolorallocatealpha($tmp, 255, 255, 255, 127);
-            imagefilledrectangle($tmp, 0, 0, $tn_width, $tn_height, $transparent);
+            if ($transparent !== false) {
+                imagefilledrectangle($tmp, 0, 0, $tn_width, $tn_height, $transparent);
+            }
         }
-        imagecopyresampled($tmp,$src,0,0,0,0,$tn_width, $tn_height,$width,$height);
-    
-        /*
-         * imageXXX() only has two options, save as a file, or send to the browser.
-         * It does not provide you the oppurtunity to manipulate the final GIF/JPG/PNG file stream
-         * So I start the output buffering, use imageXXX() to output the data stream to the browser,
-         * get the contents of the stream, and use clean to silently discard the buffered contents.
-         */
+        imagecopyresampled($tmp, $src, 0, 0, 0, 0, $tn_width, $tn_height, $width, $height);
+
         ob_start();
-    
-        switch ($image_type)
-        {
-            case 1: imagegif($tmp); break;
-            case 2: imagejpeg($tmp, NULL, 100);  break; // best quality
-            case 3: imagepng($tmp, NULL, 50); break; // no compression
-            default: echo ''; break;
-        }
-        $final_image = ob_get_contents();
-    
-        ob_end_clean();
-        return $final_image;    
+        match ($image_type) {
+            1 => imagegif($tmp),
+            2 => imagejpeg($tmp, null, 100),
+            3 => imagepng($tmp, null, 0),
+            default => null,
+        };
+        $final_image = ob_get_clean();
+
+        return $final_image !== false ? $final_image : '';
     }
 
 }

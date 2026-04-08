@@ -135,7 +135,7 @@ class ServiceController extends AbstractController
     #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Service $service, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$service->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$service->getId(), $request->request->getString('_token'))) {
             $entityManager->remove($service);
             $entityManager->flush();
         }

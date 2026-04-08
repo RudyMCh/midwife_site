@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Midwife[]    findAll()
  * @method Midwife[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+/** @extends ServiceEntityRepository<Midwife> */
 class MidwifeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -20,7 +21,8 @@ class MidwifeRepository extends ServiceEntityRepository
         parent::__construct($registry, Midwife::class);
     }
 
-    public function findByService(Service $service)
+    /** @return array<int, Midwife> */
+    public function findByService(Service $service): array
     {
         return $this->createQueryBuilder('m')
             ->leftJoin('m.services', 's')

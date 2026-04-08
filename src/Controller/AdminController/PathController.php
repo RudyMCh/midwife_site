@@ -36,6 +36,7 @@ class PathController extends AbstractController
         $form = $this->createForm(PathType::class, $path);
         $form->handleRequest($request);
         $midwife = $path->getMidwife();
+        assert($midwife !== null);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -70,10 +71,12 @@ class PathController extends AbstractController
     #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Path $path, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$path->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$path->getId(), $request->request->getString('_token'))) {
             $entityManager->remove($path);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('admin_midwife_edit', ['id'=>$path->getMidwife()->getId()]);
+        $midwife = $path->getMidwife();
+        assert($midwife !== null);
+        return $this->redirectToRoute('admin_midwife_edit', ['id'=>$midwife->getId()]);
     }
 }

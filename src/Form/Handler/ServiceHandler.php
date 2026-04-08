@@ -39,7 +39,7 @@ class ServiceHandler extends AbstractController
 
     public function delete(Service $service, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$service->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$service->getId(), $request->request->getString('_token'))) {
             $this->entityManager->remove($service);
             $this->entityManager->flush();
         }

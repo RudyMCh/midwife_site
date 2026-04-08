@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Domain[]    findAll()
  * @method Domain[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+/** @extends ServiceEntityRepository<Domain> */
 class DomainRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

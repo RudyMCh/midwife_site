@@ -36,9 +36,9 @@ class OfficeHandler extends AbstractController
         return false;
     }
 
-    public function delete(Office $office, Request $request)
+    public function delete(Office $office, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$office->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$office->getId(), $request->request->getString('_token'))) {
             $this->entityManager->remove($office);
             $this->entityManager->flush();
         }

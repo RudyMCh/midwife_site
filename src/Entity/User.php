@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,39 +15,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private $email;
+    private string $email = '';
 
+    /** @var array<string> */
     #[ORM\Column(type: 'json')]
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column(type: 'string')]
-    private $password;
+    private string $password = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $lastname;
+    private string $lastname = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $firstname;
+    private string $firstname = '';
 
     /**
      * A non-persisted field that's used to create the encoded password.
-     *
-     * @var string
      */
-    private $plainPassword;
+    private ?string $plainPassword = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -66,10 +63,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
      *
      * @see UserInterface
      */
+    /** @return non-empty-string */
     #[\Override]
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        if ($this->email === '') {
+            throw new \LogicException('User email is not set.');
+        }
+        return $this->email;
     }
 
     /**
@@ -85,6 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
         return array_unique($roles);
     }
 
+    /** @param array<string> $roles */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -108,14 +110,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
         return $this;
     }
 
-    public function getPlainPassword()
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
-    public function setPlainPassword($plainPassword)
+
+    public function setPlainPassword(?string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
-        $this->password = null;
+        if ($plainPassword !== null) {
+            $this->password = '';
+        }
     }
 
     /**
@@ -155,6 +160,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     #[\Override]
     public function isEqualTo(UserInterface $user): bool
     {
-        return !($this->password !== $user->getPassword());
+        if (!$user instanceof PasswordAuthenticatedUserInterface) {
+            return false;
+        }
+        return $this->password === $user->getPassword();
     }
 }

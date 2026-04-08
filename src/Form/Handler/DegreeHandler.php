@@ -36,9 +36,9 @@ class DegreeHandler extends AbstractController
         return false;
     }
 
-    public function delete(Degree $degree, Request $request)
+    public function delete(Degree $degree, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$degree->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$degree->getId(), $request->request->getString('_token'))) {
             $this->entityManager->remove($degree);
             $this->entityManager->flush();
         }

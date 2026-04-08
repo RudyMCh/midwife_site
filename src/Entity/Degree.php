@@ -12,24 +12,24 @@ class Degree
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $establishment;
+    private ?string $establishment = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $title;
+    private string $title = '';
 
     #[ORM\Column(type: 'string', length: 4, nullable: true)]
     #[Assert\Regex('/^(19|20)[0-9]{2}$/', message: 'Une année est composée de 4 chiffres et est récente.')]
-    private $year;
+    private ?string $year = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $type;
+    private string $type = '';
 
     #[ORM\ManyToOne(targetEntity: Midwife::class, inversedBy: 'degrees')]
     #[ORM\JoinColumn(nullable: false)]
-    private $midwife;
+    private ?Midwife $midwife = null;
 
     public function getId(): ?int
     {

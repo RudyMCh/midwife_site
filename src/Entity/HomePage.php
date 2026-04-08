@@ -14,35 +14,36 @@ class HomePage
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $title;
+    private string $title = '';
 
     #[ORM\Column(type: 'string', length: 500)]
-    private $catchphrase;
+    private string $catchphrase = '';
 
     #[ORM\Column(type: 'string', length: 1000, nullable: true)]
-    private $about;
+    private ?string $about = null;
 
+    /** @var Collection<int, MediaFile> */
     #[ORM\ManyToMany(targetEntity: MediaFile::class)]
     #[JoinTable(name: 'home_page_file')]
-    private $pictures;
+    private Collection $pictures;
 
     #[ORM\ManyToOne(targetEntity: MediaFile::class)]
-    private $backgroundImage1;
+    private ?MediaFile $backgroundImage1 = null;
 
     #[ORM\ManyToOne(targetEntity: MediaFile::class)]
-    private $backgroundImage2;
+    private ?MediaFile $backgroundImage2 = null;
 
     #[ORM\ManyToOne(targetEntity: MediaFile::class)]
-    private $titleBg;
+    private ?MediaFile $titleBg = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $metaTitle;
+    private ?string $metaTitle = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $metaDescription;
+    private ?string $metaDescription = null;
 
     public function __construct()
     {
@@ -91,7 +92,7 @@ class HomePage
     }
 
     /**
-     * @return Collection|MediaFile[]
+     * @return Collection<int, MediaFile>
      */
     public function getPictures(): Collection
     {

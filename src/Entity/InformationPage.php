@@ -12,28 +12,28 @@ class InformationPage
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'text')]
-    private $legal;
+    private string $legal = '';
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $coming;
+    private ?string $coming = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $price;
+    private ?string $price = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private $links;
+    private ?string $links = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $mention;
+    private ?string $mention = null;
 
     #[ORM\ManyToOne(targetEntity: MediaFile::class)]
-    private $titleBg;
+    private ?MediaFile $titleBg = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $title;
+    private ?string $title = null;
 
     public function getId(): ?int
     {

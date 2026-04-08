@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Degree[]    findAll()
  * @method Degree[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+/** @extends ServiceEntityRepository<Degree> */
 class DegreeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

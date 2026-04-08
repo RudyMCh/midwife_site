@@ -14,7 +14,7 @@ use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 class Tools extends AbstractController
 {
 
-    public function saveFile($file, string $directory): string
+    public function saveFile(mixed $file, string $directory): string
     {
         $originalFilename = pathinfo((string) $file->getClientOriginalName(), PATHINFO_FILENAME);
         // this is needed to safely include the file name as part of the URL
@@ -34,7 +34,11 @@ class Tools extends AbstractController
         return $newFilename;
     }
 
-    public function getProperties($class)
+    /**
+     * @param class-string $class
+     * @return array<string>|null
+     */
+    public function getProperties(string $class): ?array
     {
         $phpDocExtractor = new PhpDocExtractor();
         $reflectionExtractor = new ReflectionExtractor();

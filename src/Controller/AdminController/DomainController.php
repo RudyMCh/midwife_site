@@ -132,7 +132,7 @@ class DomainController extends AbstractController
     #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Domain $domain, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$domain->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$domain->getId(), $request->request->getString('_token'))) {
             $entityManager->remove($domain);
             $entityManager->flush();
         }

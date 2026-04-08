@@ -165,7 +165,7 @@ class MidwifeController extends AbstractController
     #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Midwife $midwife, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$midwife->getId(), $request->request->get('_token')))
+        if ($this->isCsrfTokenValid('delete'.$midwife->getId(), $request->request->getString('_token')))
         {
             $entityManager->remove($midwife);
             $entityManager->flush();

@@ -22,7 +22,9 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $roles = [];
-        foreach ($this->params->get("security.role_hierarchy.roles") as $key=>$value) {
+        /** @var array<string, array<string>> $hierarchy */
+        $hierarchy = $this->params->get("security.role_hierarchy.roles");
+        foreach ($hierarchy as $key => $value) {
             if ($this->security->isGranted($key)){
                 $roles[str_replace("ROLE_", "", $key)] = $key;
             }

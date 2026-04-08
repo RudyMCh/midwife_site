@@ -12,35 +12,35 @@ class Office
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $name = '';
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $address;
+    private ?string $address = null;
 
     #[ORM\Column(type: 'string', length: 5)]
-    private $zipcode;
+    private string $zipcode = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $city;
+    private string $city = '';
 
     #[ORM\Column(type: 'string', length: 15, nullable: true)]
-    private $phone;
+    private ?string $phone = null;
 
     #[ORM\Column(type: 'string', length: 2000, nullable: true)]
-    private $about;
+    private ?string $about = null;
 
     #[ORM\Column(type: 'string', length: 600, nullable: true)]
     #[Assert\NotBlank]
-    private $urlGoogleMap;
+    private ?string $urlGoogleMap = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $latitude;
+    private ?string $latitude = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $longitude;
+    private ?string $longitude = null;
 
     public function getId(): ?int
     {
