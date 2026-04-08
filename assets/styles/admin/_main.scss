@@ -1,0 +1,40 @@
+@import 'header', 'footer', 'sidebar', '../common/login', 'admin-midwife';
+@import 'global';
+
+.special{
+  font-size: 50px;
+}
+.page-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  a:hover{
+    text-decoration: none;
+  }
+  &-content{
+    width: 100%;
+    margin:2rem;
+  }
+}
+label.custom-file-label{
+  &:after{
+    content: "Parcourir";
+  }
+}
+.breadcrumb{
+  justify-content: space-between;
+  align-items: center;
+
+  &-first{
+    &-title{
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: steelblue;
+    }
+  }
+  &-second{
+    ol{
+      margin-bottom: 0;
+    }
+  }
+}

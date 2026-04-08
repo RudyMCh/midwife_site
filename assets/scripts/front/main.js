@@ -1,7 +1,7 @@
 import 'bootstrap';
-import backgroundMenu from './_bgMenu';
-import Burger from './burger';
-import ShowContactFooter from './_showContactFooter';
+import backgroundMenu from './_bgMenu.js';
+import Burger from './burger.js';
+import ShowContactFooter from './_showContactFooter.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {

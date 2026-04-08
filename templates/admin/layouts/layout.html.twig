@@ -8,12 +8,11 @@
     <title>{% block title %}Administration{% endblock %}</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="shortcut icon" type="image/png" href="{{ asset('favicon/favicon.ico') }}"/>
-
-    <link  rel="stylesheet" href="{{ asset("bundles/moustachefilemanager/css/mainStyle.css") }}">
-    {{ encore_entry_link_tags('adminStyle') }}
-    {% block stylesheets %}
-
-    {% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('styles/admin.scss') }}">
+    {% block stylesheets %}{% endblock %}
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+    {{ importmap('admin') }}
 </head>
 <body>
 <div class="">
@@ -44,12 +43,6 @@
     </div>
     {% include 'admin/layouts/footer.html.twig' %}
 </div>
-{{ encore_entry_script_tags('adminScript') }}
-
-<script src="{{ asset("bundles/moustachefilemanager/js/main.moustache.js") }}"></script>
-<script src="{{ asset("bundles/moustachefilemanager/js/fontawesome.moustache.js") }}"></script>
-<script src="{{ asset("bundles/moustachefilemanager/js/bootstrap.moustache.js") }}"></script>{% block javascripts %}
-
-{% endblock %}
+{% block javascripts %}{% endblock %}
 </body>
 </html>
