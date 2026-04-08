@@ -9,11 +9,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'compress:images', description: 'Compression des images')]
 class CompressingImagesCommand extends Command
 {
-
-    protected static $defaultName = 'compress:images';
-
 
     public function __construct( Tools $tools)
     {
@@ -24,13 +22,13 @@ class CompressingImagesCommand extends Command
     #[\Override]
     protected function configure(): void
     {
-        $this->setDescription('Compression des images')
+        $this
             ->setHelp('Compression des images du dossier public/upload')
         ;
     }
 
     #[\Override]
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $finder = new Finder();
         $count = 0;

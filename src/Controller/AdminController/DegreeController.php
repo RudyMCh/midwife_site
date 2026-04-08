@@ -19,9 +19,9 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class DegreeController
  * @package App\Controller\AdminController
- * @IsGranted("ROLE_ADMIN")
  */
-#[Route(path: '/admin/diplome', name: 'admin_degree_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/diplome', name: 'admin_degree_')]
+#[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class DegreeController extends AbstractController
 {
     /**
@@ -30,7 +30,7 @@ class DegreeController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/edit/{id}', name: 'edit')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Degree $degree, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DegreeType::class, $degree);
@@ -44,7 +44,7 @@ class DegreeController extends AbstractController
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $degree,
             'route'=> 'admin_degree',
-            'form' => $form->createView(),
+            'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => $degree->getTitle(),
             'breadcrumb'=>[
@@ -66,7 +66,7 @@ class DegreeController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Degree $degree, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$degree->getId(), $request->request->get('_token'))) {

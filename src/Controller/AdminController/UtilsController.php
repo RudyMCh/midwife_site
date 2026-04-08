@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class UtilsController
  * @package App\Controller\AdminController
  */
-#[Route(path: '/admin', name: 'admin_utils_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin', name: 'admin_utils_')]
 class UtilsController extends AbstractController
 {
     public function __construct(private readonly EntityManagerInterface $em)
@@ -25,7 +25,7 @@ class UtilsController extends AbstractController
      * @param $redirect
      * @return RedirectResponse
      */
-    #[Route(path: '/change-status/{class}/{id}/{prop}/{redirect}', name: 'change_status')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/change-status/{class}/{id}/{prop}/{redirect}', name: 'change_status')]
     public function changeStatus($class, $id, $prop, $redirect): RedirectResponse
     {
         $item = $this->em->getRepository($class)->findOneById($id);
@@ -53,7 +53,7 @@ class UtilsController extends AbstractController
      * @param null $parentClass
      * @return RedirectResponse
      */
-    #[Route(path: '/change-position-sub/{route}/{id}/{namespace}/{parent}/{parentClass}', name: 'change_position_sub', methods: ['POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/change-position-sub/{route}/{id}/{namespace}/{parent}/{parentClass}', name: 'change_position_sub', methods: ['POST'])]
     public function changePositionSub($route, $id, $namespace, Request $request, $parent = null, $parentClass = null): RedirectResponse
     {
         $repository = $this->em->getRepository($namespace);

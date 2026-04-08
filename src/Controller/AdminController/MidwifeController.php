@@ -23,13 +23,13 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class MidwifeController
  * @package App\Controller\AdminController
- * @IsGranted("ROLE_ADMIN")
  */
-#[Route(path: '/admin/sage-femme', name: 'admin_midwife_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/sage-femme', name: 'admin_midwife_')]
+#[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class MidwifeController extends AbstractController
 {
 
-    #[Route(path: '/', name: 'index', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(MidwifeRepository $midwifeRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $els = $paginator->paginate(
@@ -64,7 +64,7 @@ class MidwifeController extends AbstractController
      * @param MidwifeHandler $midwifeHandler
      * @return Response
      */
-    #[Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, MidwifeHandler $midwifeHandler): Response
     {
         $midwife = new Midwife();
@@ -74,7 +74,7 @@ class MidwifeController extends AbstractController
         }
 
         return $this->render('admin/crud/_form.html.twig', [
-            'form'=>$form->createView(),
+            'form'=>$form,
             'el'=>$midwife,
             'button_label'=>'Créer',
             'route'=>'admin_midwife',
@@ -98,7 +98,7 @@ class MidwifeController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/edit/{id}', name: 'edit')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Midwife $midwife, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MidwifeType::class, $midwife);
@@ -139,9 +139,9 @@ class MidwifeController extends AbstractController
         return $this->render('admin/midwife/_form.html.twig', [
             'midwife' => $midwife,
             'route'=> 'admin_midwife',
-            'form' => $form->createView(),
-            'degreeForm' => $degreeForm->createView(),
-            'pathForm' => $pathForm->createView(),
+            'form' => $form,
+            'degreeForm' => $degreeForm,
+            'pathForm' => $pathForm,
             'button_label' => 'Mettre à jour',
             'title' => $midwife->getFirstname().' '.$midwife->getLastname(),
             'breadcrumb'=>[
@@ -162,7 +162,7 @@ class MidwifeController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Midwife $midwife, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$midwife->getId(), $request->request->get('_token')))

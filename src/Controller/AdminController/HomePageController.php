@@ -22,9 +22,9 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class ServiceController
  * @package App\Controller\AdminController
- * @IsGranted("ROLE_ADMIN")
  */
-#[Route(path: '/admin/accueil', name: 'admin_homepage_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/accueil', name: 'admin_homepage_')]
+#[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class HomePageController extends AbstractController
 {
     /**
@@ -33,7 +33,7 @@ class HomePageController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/edit', name: 'edit')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit', name: 'edit')]
     public function edit(Request $request, HomePageRepository $homePageRepository, EntityManagerInterface $entityManager): Response
     {
         $homepage = $homePageRepository->findAll();
@@ -49,7 +49,7 @@ class HomePageController extends AbstractController
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $homepage,
             'route'=> 'admin_homepage',
-            'form' => $form->createView(),
+            'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => 'Page d\'accueil',
             'breadcrumb'=>[

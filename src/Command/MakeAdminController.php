@@ -14,11 +14,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'make:admin-controller', description: 'Create Admin Controller')]
 class MakeAdminController extends Command
 {
-    protected static $defaultName = 'make:admin-controller';
-
-
     public function __construct( private readonly Tools $tools)
     {
         parent::__construct();
@@ -27,14 +25,14 @@ class MakeAdminController extends Command
     #[\Override]
     protected function configure(): void
     {
-        $this->setDescription('Create Admin Controller')
+        $this
             ->setHelp('Create controller for admin')
             ->addArgument('entityName', InputArgument::REQUIRED, 'Nom de l\'entité')
         ;
     }
 
     #[\Override]
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         $className = ucfirst((string) $input->getArgument('entityName'));

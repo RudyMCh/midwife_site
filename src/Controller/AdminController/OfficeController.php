@@ -19,9 +19,9 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class OfficeController
  * @package App\Controller\AdminController
- * @IsGranted("ROLE_ADMIN")
  */
-#[Route(path: '/admin/office', name: 'admin_office_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/office', name: 'admin_office_')]
+#[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class OfficeController extends AbstractController
 {
     /**
@@ -30,7 +30,7 @@ class OfficeController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/edit', name: 'edit')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit', name: 'edit')]
     public function edit(Request $request, OfficeRepository $officeRepository, EntityManagerInterface $entityManager): Response
     {
         $office = $officeRepository->findAll();
@@ -46,7 +46,7 @@ class OfficeController extends AbstractController
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $office,
             'route'=> 'admin_office',
-            'form' => $form->createView(),
+            'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => 'Cabinet',
             'breadcrumb'=>[
@@ -63,7 +63,7 @@ class OfficeController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Office $office, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$office->getId(), $request->request->get('_token'))) {

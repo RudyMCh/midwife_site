@@ -47,24 +47,23 @@ return RectorConfig::configure()
     // ->withSets([LevelSetList::UP_TO_PHP_84])
 
     // -------------------------------------------------------------------------
-    // PASSE 2 — Annotations → Attributes PHP 8
+    // PASSE 2 — Annotations → Attributes PHP 8  [DONE]
     // -------------------------------------------------------------------------
-    ->withSets([
-        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-    ])
+    // ->withSets([
+    //     SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
+    //     DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
+    // ])
 
     // -------------------------------------------------------------------------
     // PASSE 3 — Symfony 6.x upgrades
-    // (décommenter après la passe 2)
     // -------------------------------------------------------------------------
-    // ->withSets([
-    //     SymfonySetList::SYMFONY_60,
-    //     SymfonySetList::SYMFONY_61,
-    //     SymfonySetList::SYMFONY_62,
-    //     SymfonySetList::SYMFONY_63,
-    //     SymfonySetList::SYMFONY_64,
-    // ])
+    ->withSets([
+        SymfonySetList::SYMFONY_60,
+        SymfonySetList::SYMFONY_61,
+        SymfonySetList::SYMFONY_62,
+        SymfonySetList::SYMFONY_63,
+        SymfonySetList::SYMFONY_64,
+    ])
 
     // -------------------------------------------------------------------------
     // PASSE 4 — Symfony 7.x upgrades

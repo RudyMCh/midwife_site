@@ -6,10 +6,10 @@ use App\Repository\DomainRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: 'sage-femme', name: 'midwife_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: 'sage-femme', name: 'midwife_')]
 class MidwifeController extends AbstractController
 {
-    #[Route(path: '/{slug}', name: 'show')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{slug}', name: 'show')]
     public function midwife(Midwife $midwife, DomainRepository $domainRepository): \Symfony\Component\HttpFoundation\Response
     {
         return $this->render('front/midwife.html.twig', [

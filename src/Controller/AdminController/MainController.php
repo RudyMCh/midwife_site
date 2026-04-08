@@ -11,15 +11,15 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class MainController
  * @package App\Controller\AdminController
- * @IsGranted("ROLE_ADMIN")
  */
-#[Route(path: '/admin', name: 'admin_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin', name: 'admin_')]
+#[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class MainController extends AbstractController
 {
     /**
      * @return Response
      */
-    #[Route(path: '/', name: 'home')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'home')]
     public function home(): Response
     {
         return $this->render('admin/home.html.twig', [

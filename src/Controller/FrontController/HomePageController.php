@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class DomainController
  * @package App\Controller\AdminController
  */
-#[Route(path: '/', name: 'homepage_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'homepage_')]
 class HomePageController extends AbstractController
 {
     /**
@@ -24,7 +24,7 @@ class HomePageController extends AbstractController
      * @param OfficeRepository $officeRepository
      * @return Response
      */
-    #[Route(path: '', name: 'homepage')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '', name: 'homepage')]
     public function homepage(MidwifeRepository $midwifeRepository, DomainRepository $domainRepository,
                              HomePageRepository $homePageRepository, OfficeRepository $officeRepository): Response
     {

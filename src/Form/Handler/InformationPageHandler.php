@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormInterface;
 
 class InformationPageHandler extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Doctrine\Persistence\ManagerRegistry $managerRegistry)
     {
     }
 
@@ -18,7 +18,7 @@ class InformationPageHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $informationPage = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->managerRegistry->getManager();
             $entityManager->persist($informationPage);
             $entityManager->flush();
             return true;

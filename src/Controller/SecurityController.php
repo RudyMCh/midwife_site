@@ -13,7 +13,7 @@ class SecurityController extends AbstractController
     public function __construct(private readonly RequestStack $requestStack)
     {
     }
-    #[Route(path: '/login', name: 'app_login')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
 
@@ -27,7 +27,7 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    #[Route(path: '/logout', name: 'app_logout')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/logout', name: 'app_logout')]
     public function logout(): never
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');

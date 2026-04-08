@@ -19,11 +19,11 @@ use Knp\Component\Pager\PaginatorInterface;
  * Class UserController
  * @package App\Controller\AdminController
  */
-#[Route(path: '/admin/user', name: 'admin_user_')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/user', name: 'admin_user_')]
 class UserController extends AbstractController
 {
 
-    #[Route(path: '/', name: 'index', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $els = $paginator->paginate(
@@ -61,7 +61,7 @@ class UserController extends AbstractController
      * @param UserHandler $userHandler
      * @return Response
      */
-    #[Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserHandler $userHandler): Response
     {
         $user = new User();
@@ -71,7 +71,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('admin/crud/_form.html.twig', [
-            'form'=>$form->createView(),
+            'form'=>$form,
             'el'=>$user,
             'button_label'=>'Créer',
             'route'=>'admin_user',
@@ -95,7 +95,7 @@ class UserController extends AbstractController
      * @param UserHandler $userHandler
      * @return Response
      */
-    #[Route(path: '/edit/{id}', name: 'edit')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, User $user, UserHandler $userHandler): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -105,7 +105,7 @@ class UserController extends AbstractController
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $user,
             'route'=> 'admin_user',
-            'form' => $form->createView(),
+            'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => 'Edition',
             'breadcrumb'=>[
@@ -126,7 +126,7 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
