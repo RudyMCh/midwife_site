@@ -10,14 +10,12 @@ use Doctrine\Persistence\ObjectManager;
 
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
-    private $passwordEncoder;
-
-    public function __construct(UserPasswordHasherInterface $passwordEncoder)
+    public function __construct(private readonly UserPasswordHasherInterface $passwordEncoder)
     {
-        $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function load(ObjectManager $manager)
+    #[\Override]
+    public function load(ObjectManager $manager): void
     {
         $user = new User();
         $user->setPassword($this->passwordEncoder->hashPassword(
@@ -33,6 +31,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $manager->flush();
     }
 
+    #[\Override]
     public static function getGroups(): array
     {
         return ['userGroup'];

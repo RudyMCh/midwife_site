@@ -19,18 +19,18 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class PathController
  * @package App\Controller\AdminController
- * @Route("/admin/path", name="admin_path_")
- * @IsGranted("ROLE_ADMIN")
  */
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/path', name: 'admin_path_')]
+#[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class PathController extends AbstractController
 {
     /**
-     * @Route("/edit/{id}", name="edit")
      * @param Request $request
      * @param Path $path
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Path $path, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PathType::class, $path);
@@ -45,7 +45,7 @@ class PathController extends AbstractController
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $path,
             'route'=> 'admin_path',
-            'form' => $form->createView(),
+            'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => $path->getCity(),
             'breadcrumb'=>[
@@ -62,12 +62,12 @@ class PathController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param Path $path
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Path $path, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$path->getId(), $request->request->get('_token'))) {

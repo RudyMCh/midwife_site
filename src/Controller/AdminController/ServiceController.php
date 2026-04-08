@@ -19,14 +19,12 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class ServiceController
  * @package App\Controller\AdminController
- * @Route("/admin/service", name="admin_service_")
  */
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/service', name: 'admin_service_')]
 class ServiceController extends AbstractController
 {
 
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(ServiceRepository $serviceRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $query = $serviceRepository->search($request->query->get('search'));
@@ -62,11 +60,11 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET","POST"})
      * @param Request $request
      * @param ServiceHandler $serviceHandler
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, ServiceHandler $serviceHandler): Response
     {
         $service = new Service();
@@ -76,7 +74,7 @@ class ServiceController extends AbstractController
         }
 
         return $this->render('admin/crud/_form.html.twig', [
-            'form'=>$form->createView(),
+            'form'=>$form,
             'el'=>$service,
             'button_label'=>'Créer',
             'route'=>'admin_service',
@@ -95,12 +93,12 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="edit")
      * @param Request $request
      * @param Service $service
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Service $service, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ServiceType::class, $service);
@@ -113,7 +111,7 @@ class ServiceController extends AbstractController
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $service,
             'route'=> 'admin_service',
-            'form' => $form->createView(),
+            'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => $service->getName(),
             'breadcrumb'=>[
@@ -129,12 +127,12 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param Service $service
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Service $service, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$service->getId(), $request->request->get('_token'))) {

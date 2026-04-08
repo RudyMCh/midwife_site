@@ -10,9 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class InformationController extends AbstractController
 {
-    /**
-     * @Route("/informations-utiles", name="informations_utiles")
-     */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/informations-utiles', name: 'informations_utiles')]
     public function show(InformationPageRepository $informationPageRepository): Response
     {
         $info = $informationPageRepository->findAll();

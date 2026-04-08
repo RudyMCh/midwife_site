@@ -18,11 +18,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ServiceType extends AbstractType
 {
-    private ServiceRepository $serviceRepository;
-    public function __construct(ServiceRepository $serviceRepository)
+    public function __construct(private readonly ServiceRepository $serviceRepository)
     {
-        $this->serviceRepository = $serviceRepository;
     }
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -58,6 +57,7 @@ class ServiceType extends AbstractType
         ;
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

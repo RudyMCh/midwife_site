@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
@@ -29,22 +29,20 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
-    private UserRepository $userRepository;
-    private RouterInterface $router;
 
 
-    public function __construct(RouterInterface $router, UserRepository $userRepository)
+    public function __construct(private RouterInterface $router, private UserRepository $userRepository)
     {
-        $this->userRepository = $userRepository;
-        $this->router = $router;
     }
 
+    #[\Override]
     public function supports(Request $request): bool
     {
 //        dd("supports");
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
+    #[\Override]
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email');
@@ -71,11 +69,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             ]
         );
     }
+    #[\Override]
     protected function getLoginUrl(Request $request): string
     {
         return $this->router->generate('app_login');
     }
 
+    #[\Override]
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -85,9 +85,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
 //        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
+    #[\Override]
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+        $request->getSession()->set(\Symfony\Component\Security\Http\SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception);
         return new RedirectResponse(
             $this->router->generate('app_login')
         );

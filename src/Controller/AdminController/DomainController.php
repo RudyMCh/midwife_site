@@ -19,15 +19,13 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class DomainController
  * @package App\Controller\AdminController
- * @Route("/admin/domain", name="admin_domain_")
- * @IsGranted("ROLE_ADMIN")
  */
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/domain', name: 'admin_domain_')]
+#[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class DomainController extends AbstractController
 {
 
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(DomainRepository $domainRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $els = $paginator->paginate(
@@ -58,11 +56,11 @@ class DomainController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET","POST"})
      * @param Request $request
      * @param DomainHandler $domainHandler
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, DomainHandler $domainHandler): Response
     {
         $domain = new Domain();
@@ -72,7 +70,7 @@ class DomainController extends AbstractController
         }
 
         return $this->render('admin/crud/_form.html.twig', [
-            'form'=>$form->createView(),
+            'form'=>$form,
             'el'=>$domain,
             'button_label'=>'Créer',
             'route'=>'admin_domain',
@@ -91,12 +89,12 @@ class DomainController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="edit")
      * @param Request $request
      * @param Domain $domain
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Domain $domain, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DomainType::class, $domain);
@@ -110,7 +108,7 @@ class DomainController extends AbstractController
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $domain,
             'route'=> 'admin_domain',
-            'form' => $form->createView(),
+            'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => 'Edition',
             'breadcrumb'=>[
@@ -126,12 +124,12 @@ class DomainController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param Domain $domain
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Domain $domain, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$domain->getId(), $request->request->get('_token'))) {

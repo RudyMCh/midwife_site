@@ -16,7 +16,7 @@ class Tools extends AbstractController
 
     public function saveFile($file, string $directory): string
     {
-        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $originalFilename = pathinfo((string) $file->getClientOriginalName(), PATHINFO_FILENAME);
         // this is needed to safely include the file name as part of the URL
         $safeFilename = trim(htmlspecialchars($originalFilename));
         $safeFilename = preg_replace( '/[^a-z0-9]+/', '-', strtolower( $safeFilename ));

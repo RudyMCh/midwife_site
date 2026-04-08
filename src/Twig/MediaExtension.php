@@ -8,12 +8,13 @@ use Twig\TwigFunction;
 
 class MediaExtension extends AbstractExtension
 {
+    #[\Override]
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('media_path', [$this, 'mediaPath']),
-            new TwigFunction('media_render', [$this, 'mediaRender'], ['is_safe' => ['html']]),
-            new TwigFunction('media_thumb', [$this, 'mediaThumb'], ['is_safe' => ['html']]),
+            new TwigFunction('media_path', $this->mediaPath(...)),
+            new TwigFunction('media_render', $this->mediaRender(...), ['is_safe' => ['html']]),
+            new TwigFunction('media_thumb', $this->mediaThumb(...), ['is_safe' => ['html']]),
         ];
     }
 

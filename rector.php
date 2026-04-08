@@ -29,6 +29,8 @@ use Rector\Symfony\Set\SymfonySetList;
  *     vendor/bin/phpstan analyse --level=8
  */
 return RectorConfig::configure()
+    ->withPhpSets(php84: true)
+    ->withPhpVersion(80400)
     ->withPaths([
         __DIR__.'/src',
         __DIR__.'/lib',
@@ -40,16 +42,12 @@ return RectorConfig::configure()
     ])
 
     // -------------------------------------------------------------------------
-    // PASSE 1 — Modernisation PHP 8.x
-    // Convertit : propriétés typées, promoted properties, match, nullsafe, etc.
+    // PASSE 1 — Modernisation PHP 8.x  [DONE]
     // -------------------------------------------------------------------------
-    ->withSets([
-        LevelSetList::UP_TO_PHP_84,
-    ])
+    // ->withSets([LevelSetList::UP_TO_PHP_84])
 
     // -------------------------------------------------------------------------
-    // PASSE 2 — Annotations → Attributes PHP 8
-    // (décommenter après la passe 1)
+    // PASSE 2 — Annotations → Attributes PHP 8  [DONE]
     // -------------------------------------------------------------------------
     // ->withSets([
     //     SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
@@ -57,8 +55,7 @@ return RectorConfig::configure()
     // ])
 
     // -------------------------------------------------------------------------
-    // PASSE 3 — Symfony 6.x upgrades
-    // (décommenter après la passe 2)
+    // PASSE 3 — Symfony 6.x upgrades  [DONE]
     // -------------------------------------------------------------------------
     // ->withSets([
     //     SymfonySetList::SYMFONY_60,
@@ -70,13 +67,10 @@ return RectorConfig::configure()
 
     // -------------------------------------------------------------------------
     // PASSE 4 — Symfony 7.x upgrades
-    // (décommenter après la passe 3)
     // -------------------------------------------------------------------------
-    // ->withSets([
-    //     SymfonySetList::SYMFONY_70,
-    //     SymfonySetList::SYMFONY_71,
-    //     SymfonySetList::SYMFONY_72,
-    //     SymfonySetList::SYMFONY_73,
-    //     SymfonySetList::SYMFONY_74,
-    // ])
+    ->withSets([
+        SymfonySetList::SYMFONY_70,
+        SymfonySetList::SYMFONY_71,
+        // SYMFONY_72+ non disponible dans rector/rector 1.2.10 — à compléter après update
+    ])
 ;

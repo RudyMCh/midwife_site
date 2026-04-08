@@ -11,18 +11,14 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class UserType extends AbstractType
 {
-    private ParameterBagInterface $params;
-    private Security $security;
-
-    public function __construct(ParameterBagInterface $params, Security $security)
+    public function __construct(private readonly ParameterBagInterface $params, private readonly Security $security)
     {
-        $this->params = $params;
-        $this->security = $security;
     }
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $roles = [];
@@ -66,6 +62,7 @@ class UserType extends AbstractType
         ;
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

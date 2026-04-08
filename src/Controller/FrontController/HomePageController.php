@@ -13,18 +13,18 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class DomainController
  * @package App\Controller\AdminController
- * @Route("/", name="homepage_")
  */
+#[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'homepage_')]
 class HomePageController extends AbstractController
 {
     /**
-     * @Route("", name="homepage")
      * @param MidwifeRepository $midwifeRepository
      * @param DomainRepository $domainRepository
      * @param HomePageRepository $homePageRepository
      * @param OfficeRepository $officeRepository
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '', name: 'homepage')]
     public function homepage(MidwifeRepository $midwifeRepository, DomainRepository $domainRepository,
                              HomePageRepository $homePageRepository, OfficeRepository $officeRepository): Response
     {

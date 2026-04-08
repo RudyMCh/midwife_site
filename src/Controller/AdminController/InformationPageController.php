@@ -19,18 +19,18 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class InformationPageController
  * @package App\Controller\AdminController
- * @Route("/admin/infos-utiles", name="admin_information_page_")
- * @IsGranted("ROLE_ADMIN")
  */
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/infos-utiles', name: 'admin_information_page_')]
+#[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class InformationPageController extends AbstractController
 {
     /**
-     * @Route("/edit", name="edit")
      * @param Request $request
      * @param InformationPageRepository $informationPageRepository
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit', name: 'edit')]
     public function edit(Request $request, InformationPageRepository $informationPageRepository, EntityManagerInterface $entityManager): Response
     {
         $informationPage = $informationPageRepository->findAll();
@@ -46,7 +46,7 @@ class InformationPageController extends AbstractController
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $informationPage,
             'route'=> 'admin_information_page',
-            'form' => $form->createView(),
+            'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => 'Edition',
             'breadcrumb'=>[

@@ -9,11 +9,8 @@ use Symfony\Component\Form\FormInterface;
 
 class DomainHandler extends AbstractController
 {
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Doctrine\Persistence\ManagerRegistry $managerRegistry)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function new(FormInterface $form, Request $request): bool
@@ -21,7 +18,7 @@ class DomainHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $domain = $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->managerRegistry->getManager();
             $entityManager->persist($domain);
             $entityManager->flush();
             return true;

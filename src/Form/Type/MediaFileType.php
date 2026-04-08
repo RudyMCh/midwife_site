@@ -23,6 +23,7 @@ class MediaFileType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -39,9 +40,7 @@ class MediaFileType extends AbstractType
         $subDir = $options['sub_dir'];
 
         $builder->addModelTransformer(new CallbackTransformer(
-            static function (?MediaFile $mediaFile): array {
-                return ['existing_id' => $mediaFile?->getId(), 'new_file' => null];
-            },
+            static fn(?MediaFile $mediaFile): array => ['existing_id' => $mediaFile?->getId(), 'new_file' => null],
             static function (array $data) use ($uploadService, $mediaFileRepository, $subDir): ?MediaFile {
                 if (($data['new_file'] ?? null) instanceof UploadedFile) {
                     return $uploadService->upload($data['new_file'], $subDir);
@@ -55,12 +54,14 @@ class MediaFileType extends AbstractType
         ));
     }
 
+    #[\Override]
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $mediaFile = $form->getData();
         $view->vars['current_file'] = $mediaFile instanceof MediaFile ? $mediaFile : null;
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -71,6 +72,7 @@ class MediaFileType extends AbstractType
         $resolver->setAllowedTypes('sub_dir', 'string');
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'media_file';
