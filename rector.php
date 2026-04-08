@@ -55,25 +55,22 @@ return RectorConfig::configure()
     // ])
 
     // -------------------------------------------------------------------------
-    // PASSE 3 — Symfony 6.x upgrades
+    // PASSE 3 — Symfony 6.x upgrades  [DONE]
     // -------------------------------------------------------------------------
-    ->withSets([
-        SymfonySetList::SYMFONY_60,
-        SymfonySetList::SYMFONY_61,
-        SymfonySetList::SYMFONY_62,
-        SymfonySetList::SYMFONY_63,
-        SymfonySetList::SYMFONY_64,
-    ])
+    // ->withSets([
+    //     SymfonySetList::SYMFONY_60,
+    //     SymfonySetList::SYMFONY_61,
+    //     SymfonySetList::SYMFONY_62,
+    //     SymfonySetList::SYMFONY_63,
+    //     SymfonySetList::SYMFONY_64,
+    // ])
 
     // -------------------------------------------------------------------------
     // PASSE 4 — Symfony 7.x upgrades
-    // (décommenter après la passe 3)
     // -------------------------------------------------------------------------
-    // ->withSets([
-    //     SymfonySetList::SYMFONY_70,
-    //     SymfonySetList::SYMFONY_71,
-    //     SymfonySetList::SYMFONY_72,
-    //     SymfonySetList::SYMFONY_73,
-    //     SymfonySetList::SYMFONY_74,
-    // ])
+    ->withSets([
+        SymfonySetList::SYMFONY_70,
+        SymfonySetList::SYMFONY_71,
+        // SYMFONY_72+ non disponible dans rector/rector 1.2.10 — à compléter après update
+    ])
 ;
