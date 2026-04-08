@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Midwife;
 use App\Entity\Service;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileCollectionType;
 use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -46,10 +45,11 @@ class MidwifeType extends AbstractType
                 'label'=>'Couleur principale',
                 'help'=> 'Couleur de fond de la carte Sage femme (top) et du titre de sa page si aucune photo n\'a été définie'
             ])
-            ->add('description', CKEditorType::class, [
-                'label'=>'Description',
-                'required'=>false,
-                "help"=> "Description pour la page sage-femme."
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'required' => false,
+                'help' => 'Description pour la page sage-femme.',
+                'attr' => ['class' => 'tinymce'],
             ])
             ->add('bgTitle', MoustacheFileType::class, [
                 'label'=>'Image d\'arrière plan du titre de la page',

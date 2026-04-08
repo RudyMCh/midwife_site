@@ -6,13 +6,13 @@ use App\Entity\Domain;
 use App\Entity\Midwife;
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileCollectionType;
 use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,8 +34,9 @@ class ServiceType extends AbstractType
 //                'label'=> 'Position',
 ////                'data'=> $options['data']->getId() === null ?$this->serviceRepository->count([]) : $options['data']->getPosition()
 //            ])
-            ->add('description', CKEditorType::class, [
-                'label'=> 'Description'
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'attr' => ['class' => 'tinymce'],
             ])
             ->add('picture', MoustacheFileType::class, [
                 'label'=>'Image',
