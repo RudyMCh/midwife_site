@@ -1,0 +1,12 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - lib
+    excludePaths:
+        - var
+        - vendor
+    # Ignorer les faux positifs connus lors des premières passes de migration
+    # (décommenter au fur et à mesure que le code est corrigé)
+    # ignoreErrors:
+    #     - '#Call to an undefined method#'
