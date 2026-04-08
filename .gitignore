@@ -5,3 +5,14 @@
 /securedSpace/
 /public/build/
 /public/tarteaucitron/
+/public/uploads/
+/public/thumbs/
+
+# Fichiers d'environnement locaux (contiennent des secrets)
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp

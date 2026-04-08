@@ -1,14 +1,23 @@
-version: '3'
+version: '3.8'
 
+# Surcharges de développement uniquement
 services:
-###> symfony/mailer ###
-  mailer:
-    image: schickling/mailcatcher
-    ports: [1025, 1080]
-###< symfony/mailer ###
+  php:
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: 1
+    volumes:
+      - ./docker/php/php.dev.ini:/usr/local/etc/php/conf.d/app-dev.ini:ro
 
-###> doctrine/doctrine-bundle ###
+  nginx:
+    ports:
+      - "8080:80"
+
   database:
     ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
+      - "3306:3306"
+
+  mailer:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
