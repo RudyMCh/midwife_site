@@ -10,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 class HomePageFixtures extends Fixture implements FixtureGroupInterface
 {
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $homepage = new HomePage();
         $homepage

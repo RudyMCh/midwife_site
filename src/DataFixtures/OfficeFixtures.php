@@ -13,7 +13,7 @@ use Doctrine\Persistence\ObjectManager;
 class OfficeFixtures extends Fixture implements FixtureGroupInterface
 {
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $office = new Office();
         $office

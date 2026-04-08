@@ -17,7 +17,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $user = new User();
         $user->setPassword($this->passwordEncoder->hashPassword(

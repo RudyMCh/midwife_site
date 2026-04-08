@@ -54,7 +54,7 @@ class CompressingImagesCommand extends Command
         $max_width = 200;
         $max_height = 200;
     
-        list($width, $height, $image_type) = getimagesize($file);
+        [$width, $height, $image_type] = getimagesize($file);
     
         switch ($image_type)
         {

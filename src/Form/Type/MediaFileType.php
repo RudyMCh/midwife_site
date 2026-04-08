@@ -39,9 +39,7 @@ class MediaFileType extends AbstractType
         $subDir = $options['sub_dir'];
 
         $builder->addModelTransformer(new CallbackTransformer(
-            static function (?MediaFile $mediaFile): array {
-                return ['existing_id' => $mediaFile?->getId(), 'new_file' => null];
-            },
+            static fn(?MediaFile $mediaFile): array => ['existing_id' => $mediaFile?->getId(), 'new_file' => null],
             static function (array $data) use ($uploadService, $mediaFileRepository, $subDir): ?MediaFile {
                 if (($data['new_file'] ?? null) instanceof UploadedFile) {
                     return $uploadService->upload($data['new_file'], $subDir);
