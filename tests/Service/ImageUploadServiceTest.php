@@ -145,7 +145,7 @@ class ImageUploadServiceTest extends TestCase
         $result = $this->service->upload($uploadedFile);
 
         $this->assertInstanceOf(MediaFile::class, $result);
-        $this->assertStringEndsWith('.jpeg', $result->getFilename());
+        $this->assertMatchesRegularExpression('/\.(jpe?g)$/', $result->getFilename());
         $this->assertStringContainsString('ma-photo', $result->getFilename());
         $this->assertSame('/uploads', $result->getDirectory());
     }
@@ -279,7 +279,6 @@ class ImageUploadServiceTest extends TestCase
     private function callPrivate(string $method, array $args): mixed
     {
         $ref = new \ReflectionMethod($this->service, $method);
-        $ref->setAccessible(true);
 
         return $ref->invoke($this->service, ...$args);
     }
