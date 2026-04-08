@@ -62,21 +62,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     }
 
     /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    #[\Override]
-    public function getUsername(): string
-    {
-        return (string) $this->email;
-    }
-
-    /**
      * The public representation of the user (e.g. a username, an email address, etc.)
      *
      * @see UserInterface
      */
+    #[\Override]
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
@@ -129,22 +119,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     }
 
     /**
-     * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
      * @see UserInterface
      */
     #[\Override]
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    #[\Override]
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
          $this->plainPassword = null;
