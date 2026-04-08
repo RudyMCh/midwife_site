@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
+use App\Repository\MidwifeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Moustache\FileManagerBundle\Entity\File;
-use App\Repository\MidwifeRepository;
 
 /**
  * @ORM\Entity(repositoryClass=MidwifeRepository::class)
@@ -61,13 +60,11 @@ class Midwife
      */
     private $description;
 
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\CssColor
      */
     private $backgroundColor1;
-
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -98,13 +95,12 @@ class Midwife
     private $degrees;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $picture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
-     * @JoinTable(name="service_midwife")
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $bgCard;
 
@@ -115,24 +111,25 @@ class Midwife
 
     /**
      * @ORM\Column(type="string", length=120, nullable=true)
-     * @Assert\Length(min = 80, max = 120, 
+     * @Assert\Length(min = 80, max = 120,
      *      minMessage = "Cette description pour les bots google devrait faire au moins 80 caractères",
      *      maxMessage = "Cette description pour les bots google ne doit pas dépasser 120 caractères")
      */
     private $metaDescription;
 
     /**
-     * @ORM\ManyToMany(targetEntity=File::class)
+     * @ORM\ManyToMany(targetEntity=MediaFile::class)
+     * @JoinTable(name="midwife_file")
      */
     private $pictures;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $bgTitle;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $pictureSelf;
 
@@ -214,9 +211,9 @@ class Midwife
         return $this->slug;
     }
 
-    public function __toString():string
+    public function __toString(): string
     {
-        return $this->getFirstname(). ' '.$this->getLastname();
+        return $this->getFirstname().' '.$this->getLastname();
     }
 
     public function getDoctolibUrl(): ?string
@@ -276,7 +273,6 @@ class Midwife
     public function removePath(Path $path): self
     {
         if ($this->paths->removeElement($path)) {
-            // set the owning side to null (unless already changed)
             if ($path->getMidwife() === $this) {
                 $path->setMidwife(null);
             }
@@ -306,7 +302,6 @@ class Midwife
     public function removeDegree(Degree $degree): self
     {
         if ($this->degrees->removeElement($degree)) {
-            // set the owning side to null (unless already changed)
             if ($degree->getMidwife() === $this) {
                 $degree->setMidwife(null);
             }
@@ -315,24 +310,24 @@ class Midwife
         return $this;
     }
 
-    public function getPicture(): ?File
+    public function getPicture(): ?MediaFile
     {
         return $this->picture;
     }
 
-    public function setPicture(?File $picture): self
+    public function setPicture(?MediaFile $picture): self
     {
         $this->picture = $picture;
 
         return $this;
     }
 
-    public function getBgCard(): ?File
+    public function getBgCard(): ?MediaFile
     {
         return $this->bgCard;
     }
 
-    public function setBgCard(?File $bgCard): self
+    public function setBgCard(?MediaFile $bgCard): self
     {
         $this->bgCard = $bgCard;
 
@@ -349,7 +344,6 @@ class Midwife
 
     public function addService(Service $service): self
     {
-
         if (!$this->services->contains($service)) {
             $this->services[] = $service;
             $service->addMidwife($this);
@@ -380,14 +374,14 @@ class Midwife
     }
 
     /**
-     * @return Collection|File[]
+     * @return Collection|MediaFile[]
      */
     public function getPictures(): Collection
     {
         return $this->pictures;
     }
 
-    public function addPicture(File $picture): self
+    public function addPicture(MediaFile $picture): self
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures[] = $picture;
@@ -396,31 +390,31 @@ class Midwife
         return $this;
     }
 
-    public function removePicture(File $picture): self
+    public function removePicture(MediaFile $picture): self
     {
         $this->pictures->removeElement($picture);
 
         return $this;
     }
 
-    public function getBgTitle(): ?File
+    public function getBgTitle(): ?MediaFile
     {
         return $this->bgTitle;
     }
 
-    public function setBgTitle(?File $bgTitle): self
+    public function setBgTitle(?MediaFile $bgTitle): self
     {
         $this->bgTitle = $bgTitle;
 
         return $this;
     }
 
-    public function getPictureSelf(): ?File
+    public function getPictureSelf(): ?MediaFile
     {
         return $this->pictureSelf;
     }
 
-    public function setPictureSelf(?File $pictureSelf): self
+    public function setPictureSelf(?MediaFile $pictureSelf): self
     {
         $this->pictureSelf = $pictureSelf;
 

@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Moustache\FileManagerBundle\Entity\File;
+use App\Entity\MediaFile;
 
 /**
  * @ORM\Entity(repositoryClass=DomainRepository::class)
@@ -32,7 +32,7 @@ class Domain
     private $services;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $titleBg;
 
@@ -119,12 +119,12 @@ class Domain
         return $this->getName();
     }
 
-    public function getTitleBg(): ?File
+    public function getTitleBg(): ?MediaFile
     {
         return $this->titleBg;
     }
 
-    public function setTitleBg(?File $titleBg): self
+    public function setTitleBg(?MediaFile $titleBg): self
     {
         $this->titleBg = $titleBg;
 

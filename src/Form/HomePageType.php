@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\HomePage;
-use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileCollectionType;
-use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileType;
+use App\Form\Type\MediaFileCollectionType;
+use App\Form\Type\MediaFileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,15 +25,15 @@ class HomePageType extends AbstractType
             ->add('about', TextareaType::class, [
                 'label'=>'A propos'
             ])
-            ->add('pictures', MoustacheFileCollectionType::class)
-            ->add('titleBg', MoustacheFileType::class, [
+            ->add('pictures', MediaFileCollectionType::class)
+            ->add('titleBg', MediaFileType::class, [
                 'label'=>'Barre titre',
                 'help'=>'Image de background du titre de la page'
             ])
-            ->add('backgroundImage1', MoustacheFileType::class, [
+            ->add('backgroundImage1', MediaFileType::class, [
                 'label'=>'Image 1'
             ])
-            ->add('backgroundImage2', MoustacheFileType::class, [
+            ->add('backgroundImage2', MediaFileType::class, [
                 'label'=>'Image 2'
             ])
             ->add('metaTitle', TextType::class, [

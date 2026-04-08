@@ -6,8 +6,7 @@ use App\Entity\Domain;
 use App\Entity\Midwife;
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
-use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileCollectionType;
-use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileType;
+use App\Form\Type\MediaFileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -38,7 +37,7 @@ class ServiceType extends AbstractType
                 'label' => 'Description',
                 'attr' => ['class' => 'tinymce'],
             ])
-            ->add('picture', MoustacheFileType::class, [
+            ->add('picture', MediaFileType::class, [
                 'label'=>'Image',
                 'required'=>false
             ])
