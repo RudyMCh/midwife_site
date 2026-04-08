@@ -1,0 +1,35 @@
+{# Form theme for MediaFileType #}
+
+{% block media_file_widget %}
+    <div class="media-file-widget">
+        {% if current_file %}
+            <div class="media-file-preview mb-2">
+                <img src="/thumbs/{{ current_file.filename }}"
+                     alt="{{ current_file.alt ?? current_file.filename }}"
+                     class="img-thumbnail"
+                     style="max-height: 120px; max-width: 200px;">
+                <div class="small text-muted mt-1">{{ current_file.filename }}</div>
+            </div>
+        {% endif %}
+
+        {{ form_widget(form.existing_id) }}
+        {{ form_widget(form.new_file) }}
+    </div>
+{% endblock %}
+
+{% block media_file_collection_widget %}
+    <div class="media-file-collection"
+         data-prototype="{{ form_widget(form.vars.prototype)|e('html_attr') }}">
+        {% for item in form %}
+            <div class="media-file-collection-item d-flex align-items-start gap-2 mb-2">
+                {{ form_widget(item) }}
+                <button type="button" class="btn btn-sm btn-outline-danger media-file-remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+    <button type="button" class="btn btn-sm btn-outline-secondary media-file-add mt-2">
+        <i class="fas fa-plus"></i> Ajouter
+    </button>
+{% endblock %}

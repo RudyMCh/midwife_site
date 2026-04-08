@@ -4,8 +4,8 @@ namespace App\Form;
 
 use App\Entity\Midwife;
 use App\Entity\Service;
-use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileCollectionType;
-use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileType;
+use App\Form\Type\MediaFileCollectionType;
+use App\Form\Type\MediaFileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -33,11 +33,11 @@ class MidwifeType extends AbstractType
                     "rows"=> 6
                 ]
             ])
-            ->add('picture', MoustacheFileType::class, [
+            ->add('picture', MediaFileType::class, [
                 'label'=>'Photo d\'identité',
                 "help"=> "Photo pour les cartes de présentation."
             ])
-            ->add('bgCard', MoustacheFileType::class, [
+            ->add('bgCard', MediaFileType::class, [
                 'label'=>'Photo d\'arrière plan de la carte',
                 'help'=>'Photo d\'arrière plan des cartes de présentation individuel'
             ])
@@ -51,14 +51,14 @@ class MidwifeType extends AbstractType
                 'help' => 'Description pour la page sage-femme.',
                 'attr' => ['class' => 'tinymce'],
             ])
-            ->add('bgTitle', MoustacheFileType::class, [
+            ->add('bgTitle', MediaFileType::class, [
                 'label'=>'Image d\'arrière plan du titre de la page',
                 'help'=>'Photo de fond du titre de la page'
             ])
-            ->add('pictureSelf', MoustacheFileType::class, [
+            ->add('pictureSelf', MediaFileType::class, [
                 'label'=>'Photo principale de la page sage femme'
             ])
-            ->add('pictures', MoustacheFileCollectionType::class, [
+            ->add('pictures', MediaFileCollectionType::class, [
                 'label'=>'Photos du carousel'
             ])
             ->add('services', EntityType::class, [

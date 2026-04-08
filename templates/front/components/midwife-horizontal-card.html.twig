@@ -1,7 +1,7 @@
 <div class="midwife-horizontal-card">
     <div class="midwife-horizontal-card-top">
         <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-horizontal-card-top-picture" >
-            <div class="midwife-horizontal-card-top-picture-image" style="background-image:url('{{ getRelativePathFromValue(midwife.picture.id) }}')">
+            <div class="midwife-horizontal-card-top-picture-image" style="background-image:url('{{ media_path(midwife.picture) }}')">
             </div>
         </a>
     </div>

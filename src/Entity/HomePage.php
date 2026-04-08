@@ -6,7 +6,7 @@ use App\Repository\HomePageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Moustache\FileManagerBundle\Entity\File;
+use Doctrine\ORM\Mapping\JoinTable;
 
 /**
  * @ORM\Entity(repositoryClass=HomePageRepository::class)
@@ -36,22 +36,23 @@ class HomePage
     private $about;
 
     /**
-     * @ORM\ManyToMany(targetEntity=File::class)
+     * @ORM\ManyToMany(targetEntity=MediaFile::class)
+     * @JoinTable(name="home_page_file")
      */
     private $pictures;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $backgroundImage1;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $backgroundImage2;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $titleBg;
 
@@ -112,14 +113,14 @@ class HomePage
     }
 
     /**
-     * @return Collection|File[]
+     * @return Collection|MediaFile[]
      */
     public function getPictures(): Collection
     {
         return $this->pictures;
     }
 
-    public function addPicture(File $picture): self
+    public function addPicture(MediaFile $picture): self
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures[] = $picture;
@@ -128,43 +129,43 @@ class HomePage
         return $this;
     }
 
-    public function removePicture(File $picture): self
+    public function removePicture(MediaFile $picture): self
     {
         $this->pictures->removeElement($picture);
 
         return $this;
     }
 
-    public function getBackgroundImage1(): ?File
+    public function getBackgroundImage1(): ?MediaFile
     {
         return $this->backgroundImage1;
     }
 
-    public function setBackgroundImage1(?File $backgroundImage1): self
+    public function setBackgroundImage1(?MediaFile $backgroundImage1): self
     {
         $this->backgroundImage1 = $backgroundImage1;
 
         return $this;
     }
 
-    public function getBackgroundImage2(): ?File
+    public function getBackgroundImage2(): ?MediaFile
     {
         return $this->backgroundImage2;
     }
 
-    public function setBackgroundImage2(?File $backgroundImage2): self
+    public function setBackgroundImage2(?MediaFile $backgroundImage2): self
     {
         $this->backgroundImage2 = $backgroundImage2;
 
         return $this;
     }
 
-    public function getTitleBg(): ?File
+    public function getTitleBg(): ?MediaFile
     {
         return $this->titleBg;
     }
 
-    public function setTitleBg(?File $titleBg): self
+    public function setTitleBg(?MediaFile $titleBg): self
     {
         $this->titleBg = $titleBg;
 

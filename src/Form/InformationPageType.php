@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\InformationPage;
-use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileType;
+use App\Form\Type\MediaFileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +18,7 @@ class InformationPageType extends AbstractType
             ->add('title', TextType::class, [
                 'label'=>'Titre'
             ])
-            ->add('titleBg', MoustacheFileType::class, [
+            ->add('titleBg', MediaFileType::class, [
                 'label'=>'Background image du titre'
             ])
             ->add('legal', TextareaType::class, [

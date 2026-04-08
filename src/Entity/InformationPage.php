@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\InformationPageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Moustache\FileManagerBundle\Entity\File;
+use App\Entity\MediaFile;
 
 /**
  * @ORM\Entity(repositoryClass=InformationPageRepository::class)
@@ -44,7 +44,7 @@ class InformationPage
     private $mention;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $titleBg;
 
@@ -118,12 +118,12 @@ class InformationPage
         return $this;
     }
 
-    public function getTitleBg(): ?File
+    public function getTitleBg(): ?MediaFile
     {
         return $this->titleBg;
     }
 
-    public function setTitleBg(?File $titleBg): self
+    public function setTitleBg(?MediaFile $titleBg): self
     {
         $this->titleBg = $titleBg;
 

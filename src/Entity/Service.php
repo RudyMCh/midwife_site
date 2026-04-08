@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Moustache\FileManagerBundle\Entity\File;
+use App\Entity\MediaFile;
 
 /**
  * @ORM\Entity(repositoryClass=ServiceRepository::class)
@@ -44,7 +44,7 @@ class Service
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=File::class)
+     * @ORM\ManyToOne(targetEntity=MediaFile::class)
      */
     private $picture;
 
@@ -110,12 +110,12 @@ class Service
         return $this->slug;
     }
 
-    public function getPicture(): ?File
+    public function getPicture(): ?MediaFile
     {
         return $this->picture;
     }
 
-    public function setPicture(?File $picture): self
+    public function setPicture(?MediaFile $picture): self
     {
         $this->picture = $picture;
 

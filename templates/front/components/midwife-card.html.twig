@@ -1,6 +1,6 @@
 <div class="midwife-card module">
     <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-card-picture" >
-        <div class="midwife-card-picture-image" style="background-image:url('{{ getRelativePathFromValue(midwife.picture.id) }}')" data-tooltip="tooltip" title="en savoir plus">
+        <div class="midwife-card-picture-image" style="background-image:url('{{ media_path(midwife.picture) }}')" data-tooltip="tooltip" title="en savoir plus">
 
         </div>
     </a>
@@ -8,7 +8,7 @@
         <h3>{{ midwife.firstname }} {{ midwife.lastname }}</h3>
     </div>
 
-    <div class="midwife-card-main" style='background : url("{{ getRelativePathFromValue(midwife.bgCard) }}") center center /cover ;'>
+    <div class="midwife-card-main" style='background : url("{{ media_path(midwife.bgCard) }}") center center /cover ;'>
             {% autoescape %}
             {{ midwife.aboutMe|raw }}
             {% endautoescape %}

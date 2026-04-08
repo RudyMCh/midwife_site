@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Moustache\FileManagerBundle\Form\MoustacheFileType\MoustacheFileType;
+use App\Form\Type\MediaFileType;
 
 class DomainType extends AbstractType
 {
@@ -21,7 +21,7 @@ class DomainType extends AbstractType
             ->add('name', TextType::class, [
                 'label'=>"Désignation"
             ])
-            ->add('titleBg', MoustacheFileType::class, [
+            ->add('titleBg', MediaFileType::class, [
                 'label'=>"Image de background du titre"
             ])
             ->add('titleColorBg', ColorType::class, [

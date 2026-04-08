@@ -1,7 +1,7 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
 {% block content %}
-    {% set style = domain.titleBg is not null ? 'background-image:url("'~getRelativePathFromValue(domain.titleBg.id) ~'")' : 'background-color : '~domain.titleColorBg %}
+    {% set style = domain.titleBg is not null ? 'background-image:url("'~media_path(domain.titleBg) ~'")' : 'background-color : '~domain.titleColorBg %}
     <div class="title" style="{{ style }}">
         <h1>{{ domain.name }}</h1>
         <div class="overlay"></div>
@@ -13,7 +13,7 @@
                     <div class="domain-service-container-{{ loop.index is even? 'even' : 'odd' }}">
                             <div class="col-lg-6 d-flex justify-content-center align-items-center">
                                 {% if service.picture is not null %}
-                                    {{ renderViewFileForModal(service.picture, 'domain-iframe')|raw }}
+                                    {{ media_render(service.picture, 'domain-iframe') }}
                                 {% endif %}
                             </div>
                             {% include 'front/components/service-description.html.twig' %}

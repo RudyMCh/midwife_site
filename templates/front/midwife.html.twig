@@ -1,7 +1,7 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
 {% block content %}
-    {% set style = midwife.bgTitle is not null ? 'background-image:url("'~getRelativePathFromValue(midwife.bgTitle) ~'")' : 'background-color : '~ midwife.backgroundColor1 %}
+    {% set style = midwife.bgTitle is not null ? 'background-image:url("'~media_path(midwife.bgTitle) ~'")' : 'background-color : '~ midwife.backgroundColor1 %}
 
     <div class="title" style="{{ style }}">
         <h1>{{ midwife.firstname }} {{ midwife.lastname }}</h1>
@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <img src="{{ getRelativePathFromValue(midwife.pictureSelf.id) }}" alt="photo de {{ midwife.lastname }}" >
+                    <img src="{{ media_path(midwife.pictureSelf) }}" alt="photo de {{ midwife.lastname }}" >
                 </div>
                 <div class="col-lg-6 midwife-description">
                     {{ midwife.description|raw }}
@@ -67,7 +67,7 @@
                 <div class="carousel-inner">
                     {% for picture in midwife.pictures %}
                         <div class="carousel-item {{ loop.index is same as(1)? 'active' : '' }}">
-                            <img src="{{ picture }}" class="midwife-carousel-picture" alt="...">
+                            <img src="{{ media_path(picture) }}" class="midwife-carousel-picture" alt="{{ picture.alt ?? '' }}">
                         </div>
                     {% endfor %}
 
