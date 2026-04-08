@@ -8,11 +8,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MediaFileCollectionType extends AbstractType
 {
+    #[\Override]
     public function getParent(): string
     {
         return CollectionType::class;
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -27,6 +29,7 @@ class MediaFileCollectionType extends AbstractType
         ]);
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'media_file_collection';

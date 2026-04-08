@@ -13,6 +13,7 @@ use Doctrine\Persistence\ObjectManager;
 class OfficeFixtures extends Fixture implements FixtureGroupInterface
 {
 
+    #[\Override]
     public function load(ObjectManager $manager): void
     {
         $office = new Office();
@@ -26,6 +27,7 @@ class OfficeFixtures extends Fixture implements FixtureGroupInterface
 
         $manager->flush();
     }
+    #[\Override]
     public static function getGroups(): array
     {
         return ['officeGroup'];

@@ -22,18 +22,18 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class ServiceController
  * @package App\Controller\AdminController
- * @Route("/admin/accueil", name="admin_homepage_")
  * @IsGranted("ROLE_ADMIN")
  */
+#[Route(path: '/admin/accueil', name: 'admin_homepage_')]
 class HomePageController extends AbstractController
 {
     /**
-     * @Route("/edit", name="edit")
      * @param Request $request
      * @param HomePageRepository $homePageRepository
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/edit', name: 'edit')]
     public function edit(Request $request, HomePageRepository $homePageRepository, EntityManagerInterface $entityManager): Response
     {
         $homepage = $homePageRepository->findAll();

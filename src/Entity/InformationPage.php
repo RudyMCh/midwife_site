@@ -6,51 +6,33 @@ use App\Repository\InformationPageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\MediaFile;
 
-/**
- * @ORM\Entity(repositoryClass=InformationPageRepository::class)
- */
+#[ORM\Entity(repositoryClass: InformationPageRepository::class)]
 class InformationPage
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private $legal;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $coming;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $price;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $links;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $mention;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $titleBg;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $title;
 
     public function getId(): ?int

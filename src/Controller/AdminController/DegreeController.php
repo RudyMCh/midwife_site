@@ -19,18 +19,18 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class DegreeController
  * @package App\Controller\AdminController
- * @Route("/admin/diplome", name="admin_degree_")
  * @IsGranted("ROLE_ADMIN")
  */
+#[Route(path: '/admin/diplome', name: 'admin_degree_')]
 class DegreeController extends AbstractController
 {
     /**
-     * @Route("/edit/{id}", name="edit")
      * @param Request $request
      * @param Degree $degree
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Degree $degree, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DegreeType::class, $degree);
@@ -61,12 +61,12 @@ class DegreeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param Degree $degree
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Degree $degree, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$degree->getId(), $request->request->get('_token'))) {

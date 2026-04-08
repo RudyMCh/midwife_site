@@ -10,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 class HomePageFixtures extends Fixture implements FixtureGroupInterface
 {
 
+    #[\Override]
     public function load(ObjectManager $manager): void
     {
         $homepage = new HomePage();
@@ -22,6 +23,7 @@ class HomePageFixtures extends Fixture implements FixtureGroupInterface
 
         $manager->flush();
     }
+    #[\Override]
     public static function getGroups(): array
     {
         return ['homepageGroup'];

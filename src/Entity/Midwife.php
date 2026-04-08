@@ -10,127 +10,79 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=MidwifeRepository::class)
- */
-class Midwife
+#[ORM\Entity(repositoryClass: MidwifeRepository::class)]
+class Midwife implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $lastname;
 
     /**
      * @Gedmo\Slug(fields={"firstname", "lastname"})
-     * @ORM\Column(length=128, unique=true)
      */
+    #[ORM\Column(length: 128, unique: true)]
     private $slug;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $firstname;
 
-    /**
-     * @ORM\Column(type="string", length=5000, nullable=true)
-     * @Assert\Length(
-     *      min=15,
-     *      max = 5000,
-     *      minMessage = "Cette description devrait faire au moins 15 caractères",
-     *      maxMessage = "Cette description ne peut pas faire plus de 5000 caractères"
-     * )
-     */
+    #[ORM\Column(type: 'string', length: 5000, nullable: true)]
+    #[Assert\Length(min: 15, max: 5000, minMessage: 'Cette description devrait faire au moins 15 caractères', maxMessage: 'Cette description ne peut pas faire plus de 5000 caractères')]
     private $aboutMe;
 
-    /**
-     * @ORM\Column(type="string", length=5000, nullable=true)
-     * @Assert\Length(
-     *      min=15,
-     *      max = 5000,
-     *      minMessage = "Cette description devrait faire au moins 15 caractères",
-     *      maxMessage = "Cette description ne peut pas faire plus de 5000 caractères"
-     * )
-     */
+    #[ORM\Column(type: 'string', length: 5000, nullable: true)]
+    #[Assert\Length(min: 15, max: 5000, minMessage: 'Cette description devrait faire au moins 15 caractères', maxMessage: 'Cette description ne peut pas faire plus de 5000 caractères')]
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\CssColor
      */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $backgroundColor1;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\Url]
     private $doctolibUrl;
 
-    /**
-     * @ORM\Column(type="string", length=15, nullable=true)
-     * @Assert\Regex("/^[0-9]{10}$/", message = "Le numéro de téléphone {{ value }} ne doit contenir que des chiffres et faire une longueur de 10 caractères")
-     */
+    #[ORM\Column(type: 'string', length: 15, nullable: true)]
+    #[Assert\Regex('/^[0-9]{10}$/', message: 'Le numéro de téléphone {{ value }} ne doit contenir que des chiffres et faire une longueur de 10 caractères')]
     private $phone;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Email(message = " l'email {{ value }} n'est pas valide")
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\Email(message: " l'email {{ value }} n'est pas valide")]
     private $email;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Path::class, mappedBy="midwife", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: Path::class, mappedBy: 'midwife', orphanRemoval: true)]
     private $paths;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Degree::class, mappedBy="midwife", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: Degree::class, mappedBy: 'midwife', orphanRemoval: true)]
     private $degrees;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $picture;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $bgCard;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Service::class, mappedBy="midwives")
-     */
+    #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'midwives')]
     private $services;
 
-    /**
-     * @ORM\Column(type="string", length=120, nullable=true)
-     * @Assert\Length(min = 80, max = 120,
-     *      minMessage = "Cette description pour les bots google devrait faire au moins 80 caractères",
-     *      maxMessage = "Cette description pour les bots google ne doit pas dépasser 120 caractères")
-     */
+    #[ORM\Column(type: 'string', length: 120, nullable: true)]
+    #[Assert\Length(min: 80, max: 120, minMessage: 'Cette description pour les bots google devrait faire au moins 80 caractères', maxMessage: 'Cette description pour les bots google ne doit pas dépasser 120 caractères')]
     private $metaDescription;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=MediaFile::class)
-     * @JoinTable(name="midwife_file")
-     */
+    #[ORM\ManyToMany(targetEntity: MediaFile::class)]
+    #[JoinTable(name: 'midwife_file')]
     private $pictures;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $bgTitle;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $pictureSelf;
 
     public function __construct()
@@ -211,6 +163,7 @@ class Midwife
         return $this->slug;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getFirstname().' '.$this->getLastname();

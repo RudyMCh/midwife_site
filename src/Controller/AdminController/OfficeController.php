@@ -19,18 +19,18 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class OfficeController
  * @package App\Controller\AdminController
- * @Route("/admin/office", name="admin_office_")
  * @IsGranted("ROLE_ADMIN")
  */
+#[Route(path: '/admin/office', name: 'admin_office_')]
 class OfficeController extends AbstractController
 {
     /**
-     * @Route("/edit", name="edit")
      * @param Request $request
      * @param OfficeRepository $officeRepository
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/edit', name: 'edit')]
     public function edit(Request $request, OfficeRepository $officeRepository, EntityManagerInterface $entityManager): Response
     {
         $office = $officeRepository->findAll();
@@ -58,12 +58,12 @@ class OfficeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param Office $office
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Office $office, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$office->getId(), $request->request->get('_token'))) {

@@ -6,45 +6,31 @@ use App\Repository\PathRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=PathRepository::class)
- */
+#[ORM\Entity(repositoryClass: PathRepository::class)]
 class Path
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Midwife::class, inversedBy="paths")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Midwife::class, inversedBy: 'paths')]
+    #[ORM\JoinColumn(nullable: false)]
     private $midwife;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    /**
-     * @ORM\Column(type="string", length=4, nullable=true)
-     * @Assert\Regex("/^(19|20)[0-9]{2}$/", message = "Une année est composée de 4 chiffres et est récente.")
-     */
+    #[ORM\Column(type: 'string', length: 4, nullable: true)]
+    #[Assert\Regex('/^(19|20)[0-9]{2}$/', message: 'Une année est composée de 4 chiffres et est récente.')]
     private $start;
 
-    /**
-     * @ORM\Column(type="string", length=4, nullable=true)
-     * @Assert\Regex("/^(19|20)[0-9]{2}$/", message = "Une année est composée de 4 chiffres et est récente.")
-     */
+    #[ORM\Column(type: 'string', length: 4, nullable: true)]
+    #[Assert\Regex('/^(19|20)[0-9]{2}$/', message: 'Une année est composée de 4 chiffres et est récente.')]
     private $end;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Regex("/^\w+/", message = "Une ville ne peut pas contenir de chiffres.")
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\Regex('/^\w+/', message: 'Une ville ne peut pas contenir de chiffres.')]
     private $city;
 
     public function getId(): ?int

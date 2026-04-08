@@ -29,6 +29,8 @@ use Rector\Symfony\Set\SymfonySetList;
  *     vendor/bin/phpstan analyse --level=8
  */
 return RectorConfig::configure()
+    ->withPhpSets(php84: true)
+    ->withPhpVersion(80400)
     ->withPaths([
         __DIR__.'/src',
         __DIR__.'/lib',
@@ -40,21 +42,17 @@ return RectorConfig::configure()
     ])
 
     // -------------------------------------------------------------------------
-    // PASSE 1 — Modernisation PHP 8.x
-    // Convertit : propriétés typées, promoted properties, match, nullsafe, etc.
+    // PASSE 1 — Modernisation PHP 8.x  [DONE]
     // -------------------------------------------------------------------------
-    ->withSets([
-        LevelSetList::UP_TO_PHP_84,
-    ])
+    // ->withSets([LevelSetList::UP_TO_PHP_84])
 
     // -------------------------------------------------------------------------
     // PASSE 2 — Annotations → Attributes PHP 8
-    // (décommenter après la passe 1)
     // -------------------------------------------------------------------------
-    // ->withSets([
-    //     SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-    //     DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-    // ])
+    ->withSets([
+        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
+        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
+    ])
 
     // -------------------------------------------------------------------------
     // PASSE 3 — Symfony 6.x upgrades

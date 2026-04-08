@@ -11,11 +11,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ImageUploadService
 {
-    private const MAX_WEIGHT = 200_000;
-    private const MAX_WIDTH = 2_000;
-    private const MAX_HEIGHT = 1_000;
-    private const MIN_QUALITY = 20;
-    private const THUMB_SIZE = 200;
+    private const int MAX_WEIGHT = 200_000;
+    private const int MAX_WIDTH = 2_000;
+    private const int MAX_HEIGHT = 1_000;
+    private const int MIN_QUALITY = 20;
+    private const int THUMB_SIZE = 200;
 
     public function __construct(
         private readonly string $uploadsDir,

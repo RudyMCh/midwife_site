@@ -21,6 +21,7 @@ class CompressingImagesCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->setDescription('Compression des images')
@@ -28,6 +29,7 @@ class CompressingImagesCommand extends Command
         ;
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $finder = new Finder();

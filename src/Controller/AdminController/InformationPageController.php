@@ -19,18 +19,18 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class InformationPageController
  * @package App\Controller\AdminController
- * @Route("/admin/infos-utiles", name="admin_information_page_")
  * @IsGranted("ROLE_ADMIN")
  */
+#[Route(path: '/admin/infos-utiles', name: 'admin_information_page_')]
 class InformationPageController extends AbstractController
 {
     /**
-     * @Route("/edit", name="edit")
      * @param Request $request
      * @param InformationPageRepository $informationPageRepository
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/edit', name: 'edit')]
     public function edit(Request $request, InformationPageRepository $informationPageRepository, EntityManagerInterface $entityManager): Response
     {
         $informationPage = $informationPageRepository->findAll();

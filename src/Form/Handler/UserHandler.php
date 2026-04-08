@@ -10,13 +10,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserHandler extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-    private UserPasswordHasherInterface $hasher;
-
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly UserPasswordHasherInterface $hasher)
     {
-        $this->entityManager = $entityManager;
-        $this->hasher = $hasher;
     }
 
     public function new(FormInterface $form, Request $request): bool

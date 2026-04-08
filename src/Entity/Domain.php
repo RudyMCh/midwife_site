@@ -9,52 +9,36 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\MediaFile;
 
-/**
- * @ORM\Entity(repositoryClass=DomainRepository::class)
- */
-class Domain
+#[ORM\Entity(repositoryClass: DomainRepository::class)]
+class Domain implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Service::class, mappedBy="domain", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToMany(targetEntity: Service::class, mappedBy: 'domain', cascade: ['persist', 'remove'])]
     private $services;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $titleBg;
 
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private $titleColorBg;
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
      */
+    #[ORM\Column(length: 128, unique: true)]
     private $slug;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $metaTitle;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $metaDescription;
 
     public function __construct()
@@ -114,9 +98,10 @@ class Domain
         return $this;
     }
 
+    #[\Override]
     public function __toString():string
     {
-        return $this->getName();
+        return (string) $this->getName();
     }
 
     public function getTitleBg(): ?MediaFile

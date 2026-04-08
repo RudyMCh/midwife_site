@@ -16,17 +16,15 @@ use Symfony\Component\Console\Question\Question;
 
 class MakeAdminController extends Command
 {
-    private Tools $tools;
-
     protected static $defaultName = 'make:admin-controller';
 
 
-    public function __construct( Tools $tools)
+    public function __construct( private readonly Tools $tools)
     {
-        $this->tools = $tools;
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->setDescription('Create Admin Controller')
@@ -35,10 +33,11 @@ class MakeAdminController extends Command
         ;
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
-        $className = ucfirst($input->getArgument('entityName'));
+        $className = ucfirst((string) $input->getArgument('entityName'));
         $lowerClassName = lcfirst($className);
         $instance = '$'.lcfirst($className);
         $snakeName = Str::asRouteName($className);
@@ -68,7 +67,7 @@ class MakeAdminController extends Command
 
         $fields = "";
         foreach ($tabResponse as $key => $item){
-            $fields.=$item['fields'] ? "'".ucfirst($item['show'])."' => '".ucfirst($key)."',\n" : "";
+            $fields.=$item['fields'] ? "'".ucfirst((string) $item['show'])."' => '".ucfirst($key)."',\n" : "";
         }
         $controllerContent =
             "<?php
@@ -223,7 +222,7 @@ class ".$className."Controller extends AbstractController
         $greetInput = new ArrayInput($arguments);
         try {
             $command->run($greetInput, $output);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
         }
 
         if(!file_exists($controllerDir.$className."Controller.php")){

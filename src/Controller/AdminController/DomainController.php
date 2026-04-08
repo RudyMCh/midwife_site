@@ -19,15 +19,13 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class DomainController
  * @package App\Controller\AdminController
- * @Route("/admin/domain", name="admin_domain_")
  * @IsGranted("ROLE_ADMIN")
  */
+#[Route(path: '/admin/domain', name: 'admin_domain_')]
 class DomainController extends AbstractController
 {
 
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(DomainRepository $domainRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $els = $paginator->paginate(
@@ -58,11 +56,11 @@ class DomainController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET","POST"})
      * @param Request $request
      * @param DomainHandler $domainHandler
      * @return Response
      */
+    #[Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, DomainHandler $domainHandler): Response
     {
         $domain = new Domain();
@@ -91,12 +89,12 @@ class DomainController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="edit")
      * @param Request $request
      * @param Domain $domain
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Domain $domain, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DomainType::class, $domain);
@@ -126,12 +124,12 @@ class DomainController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param Domain $domain
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Domain $domain, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$domain->getId(), $request->request->get('_token'))) {

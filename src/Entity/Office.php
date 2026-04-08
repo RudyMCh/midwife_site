@@ -6,62 +6,40 @@ use App\Repository\OfficeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=OfficeRepository::class)
- */
+#[ORM\Entity(repositoryClass: OfficeRepository::class)]
 class Office
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $address;
 
-    /**
-     * @ORM\Column(type="string", length=5)
-     */
+    #[ORM\Column(type: 'string', length: 5)]
     private $zipcode;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $city;
 
-    /**
-     * @ORM\Column(type="string", length=15, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 15, nullable: true)]
     private $phone;
 
-    /**
-     * @ORM\Column(type="string", length=2000, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 2000, nullable: true)]
     private $about;
 
-    /**
-     * @ORM\Column(type="string", length=600, nullable=true)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(type: 'string', length: 600, nullable: true)]
+    #[Assert\NotBlank]
     private $urlGoogleMap;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $latitude;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $longitude;
 
     public function getId(): ?int

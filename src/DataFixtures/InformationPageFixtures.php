@@ -10,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 class InformationPageFixtures extends Fixture implements FixtureGroupInterface
 {
 
+    #[\Override]
     public function load(ObjectManager $manager): void
     {
         $info = new InformationPage();
@@ -20,6 +21,7 @@ class InformationPageFixtures extends Fixture implements FixtureGroupInterface
 
         $manager->flush();
     }
+    #[\Override]
     public static function getGroups(): array
     {
         return ['informationGroup'];

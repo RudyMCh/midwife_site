@@ -9,11 +9,8 @@ use Symfony\Component\Form\FormInterface;
 
 class OfficeHandler extends AbstractController
 {
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function new(FormInterface $form, Request $request): bool

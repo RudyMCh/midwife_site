@@ -10,52 +10,36 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\MediaFile;
 
-/**
- * @ORM\Entity(repositoryClass=ServiceRepository::class)
- */
-class Service
+#[ORM\Entity(repositoryClass: ServiceRepository::class)]
+class Service implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Domain::class, inversedBy="services")
-     */
+    #[ORM\ManyToOne(targetEntity: Domain::class, inversedBy: 'services')]
     private $domain;
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
      */
+    #[ORM\Column(length: 128, unique: true)]
     private $slug;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $picture;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Midwife::class, inversedBy="services")
-     */
+    #[ORM\ManyToMany(targetEntity: Midwife::class, inversedBy: 'services')]
     private $midwives;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $position;
 
     public function __construct()
@@ -159,8 +143,9 @@ class Service
 
         
     }
-    public function __toString()
+    #[\Override]
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 }

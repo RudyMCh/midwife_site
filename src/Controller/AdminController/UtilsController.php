@@ -11,34 +11,32 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class UtilsController
  * @package App\Controller\AdminController
- * @Route("/admin", name="admin_utils_")
  */
+#[Route(path: '/admin', name: 'admin_utils_')]
 class UtilsController extends AbstractController
 {
-    private EntityManagerInterface $em;
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     /**
-     * @Route("/change-status/{class}/{id}/{prop}/{redirect}", name="change_status")
      * @param $class
      * @param $id
      * @param $prop
      * @param $redirect
      * @return RedirectResponse
      */
+    #[Route(path: '/change-status/{class}/{id}/{prop}/{redirect}', name: 'change_status')]
     public function changeStatus($class, $id, $prop, $redirect): RedirectResponse
     {
         $item = $this->em->getRepository($class)->findOneById($id);
-        $setter = 'set'.ucfirst($prop);
-        $getter = 'get'.ucfirst($prop);
-        if(property_exists($item, lcfirst ($prop)))
+        $setter = 'set'.ucfirst((string) $prop);
+        $getter = 'get'.ucfirst((string) $prop);
+        if(property_exists($item, lcfirst ((string) $prop)))
         {
             $item->$setter(!$item->$getter());
         }
         $this->em->flush();
-        return $this->redirect(urldecode($redirect));
+        return $this->redirect(urldecode((string) $redirect));
     }
 
     /**
@@ -47,7 +45,6 @@ class UtilsController extends AbstractController
      * route du parent
      * id de l'élement cible + namespace complet ("Akyos\\CoreBundle\\Entity\\PostDocument")
      * id du parent + namespace complet "Akyos\\CoreBundle\\Entity\\Post"
-     * @Route("/change-position-sub/{route}/{id}/{namespace}/{parent}/{parentClass}", name="change_position_sub", methods={"POST"})
      * @param $route
      * @param $id
      * @param $namespace
@@ -56,6 +53,7 @@ class UtilsController extends AbstractController
      * @param null $parentClass
      * @return RedirectResponse
      */
+    #[Route(path: '/change-position-sub/{route}/{id}/{namespace}/{parent}/{parentClass}', name: 'change_position_sub', methods: ['POST'])]
     public function changePositionSub($route, $id, $namespace, Request $request, $parent = null, $parentClass = null): RedirectResponse
     {
         $repository = $this->em->getRepository($namespace);
@@ -66,7 +64,7 @@ class UtilsController extends AbstractController
             $getter = 'get'.ucfirst($parent);
             $parent = $entityOne->$getter();
             //Pour appeler la collection d'éléments depuis le parent à partir du nom de l'entité mise en param
-            $array = explode('\\', $namespace);
+            $array = explode('\\', (string) $namespace);
             $command = 'get'.array_pop($array).'s';
             $els = $parent->$command();
         }else{

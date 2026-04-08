@@ -23,6 +23,7 @@ class MediaFileType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -53,12 +54,14 @@ class MediaFileType extends AbstractType
         ));
     }
 
+    #[\Override]
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $mediaFile = $form->getData();
         $view->vars['current_file'] = $mediaFile instanceof MediaFile ? $mediaFile : null;
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -69,6 +72,7 @@ class MediaFileType extends AbstractType
         $resolver->setAllowedTypes('sub_dir', 'string');
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'media_file';

@@ -15,20 +15,15 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    private EntityManagerInterface $entityManager;
-    private MidwifeRepository $midwifeRepository;
-    private DomainRepository $domainRepository;
-    public function __construct(EntityManagerInterface $entityManager, DomainRepository $domainRepository, MidwifeRepository $midwifeRepository)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly DomainRepository $domainRepository, private readonly MidwifeRepository $midwifeRepository)
     {
-        $this->entityManager = $entityManager;
-        $this->midwifeRepository = $midwifeRepository;
-        $this->domainRepository = $domainRepository;
     }
+    #[\Override]
     public function getFilters(): array
     {
         return [
-            new TwigFilter('truncate', [$this, 'truncate']),
-            new TwigFilter('mobilePhone', [$this, 'mobilePhone']),
+            new TwigFilter('truncate', $this->truncate(...)),
+            new TwigFilter('mobilePhone', $this->mobilePhone(...)),
 
             // If your filter generates SAFE HTML, you should add a third
             // parameter: ['is_safe' => ['html']]
@@ -36,14 +31,15 @@ class AppExtension extends AbstractExtension
         ];
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('dynamicVariable', [$this, 'dynamicVariable']),
-            new TwigFunction('getTypes', [$this, 'getTypes']),
+            new TwigFunction('dynamicVariable', $this->dynamicVariable(...)),
+            new TwigFunction('getTypes', $this->getTypes(...)),
             new TwigFunction('get_class', 'get_class'),
             new TwigFunction('is_array', 'is_array'),
-            new TwigFunction('countElements', [$this, 'countElements']),
+            new TwigFunction('countElements', $this->countElements(...)),
 
         ];
     }
@@ -54,9 +50,9 @@ class AppExtension extends AbstractExtension
     public function dynamicVariable($el, $field)
     {
         $getter = 'get'.$field;
-        if(count(explode(';', $field)) > 1) {
-            $getter1 = 'get'.explode(';', $field)[0];
-            $getter2 = 'get'.explode(';', $field)[1];
+        if(count(explode(';', (string) $field)) > 1) {
+            $getter1 = 'get'.explode(';', (string) $field)[0];
+            $getter2 = 'get'.explode(';', (string) $field)[1];
             $value = $el->$getter1() ? $el->$getter1()->$getter2() : '';
         } else {
             $value = $el->$getter();
@@ -75,12 +71,12 @@ class AppExtension extends AbstractExtension
     }
     public function truncate($value, int $length, string $after): string
     {
-        return mb_substr($value, 0, $length, 'UTF-8').$after;
+        return mb_substr((string) $value, 0, $length, 'UTF-8').$after;
     }
 
     public function mobilePhone($value): string
     {
-        $array = str_split($value);
+        $array = str_split((string) $value);
         $newValue = '';
         $i = 0;
         foreach ($array as $letter) {

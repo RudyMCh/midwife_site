@@ -23,15 +23,13 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class MidwifeController
  * @package App\Controller\AdminController
- * @Route("/admin/sage-femme", name="admin_midwife_")
  * @IsGranted("ROLE_ADMIN")
  */
+#[Route(path: '/admin/sage-femme', name: 'admin_midwife_')]
 class MidwifeController extends AbstractController
 {
 
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(MidwifeRepository $midwifeRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $els = $paginator->paginate(
@@ -62,11 +60,11 @@ class MidwifeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET","POST"})
      * @param Request $request
      * @param MidwifeHandler $midwifeHandler
      * @return Response
      */
+    #[Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, MidwifeHandler $midwifeHandler): Response
     {
         $midwife = new Midwife();
@@ -95,12 +93,12 @@ class MidwifeController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="edit")
      * @param Request $request
      * @param Midwife $midwife
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Midwife $midwife, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MidwifeType::class, $midwife);
@@ -159,12 +157,12 @@ class MidwifeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param Midwife $midwife
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+    #[Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Request $request,Midwife $midwife, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$midwife->getId(), $request->request->get('_token')))

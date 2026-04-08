@@ -10,12 +10,8 @@ use Symfony\Component\Form\FormInterface;
 
 class ServiceHandler extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-    private ServiceRepository $serviceRepository;
-    public function __construct(EntityManagerInterface $entityManager, ServiceRepository $serviceRepository)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly ServiceRepository $serviceRepository)
     {
-        $this->entityManager = $entityManager;
-        $this->serviceRepository = $serviceRepository;
     }
 
     public function new(FormInterface $form, Request $request): bool

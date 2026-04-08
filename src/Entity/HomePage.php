@@ -8,62 +8,40 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 
-/**
- * @ORM\Entity(repositoryClass=HomePageRepository::class)
- */
+#[ORM\Entity(repositoryClass: HomePageRepository::class)]
 class HomePage
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    /**
-     * @ORM\Column(type="string", length=500)
-     */
+    #[ORM\Column(type: 'string', length: 500)]
     private $catchphrase;
 
-    /**
-     * @ORM\Column(type="string", length=1000, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 1000, nullable: true)]
     private $about;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=MediaFile::class)
-     * @JoinTable(name="home_page_file")
-     */
+    #[ORM\ManyToMany(targetEntity: MediaFile::class)]
+    #[JoinTable(name: 'home_page_file')]
     private $pictures;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $backgroundImage1;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $backgroundImage2;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=MediaFile::class)
-     */
+    #[ORM\ManyToOne(targetEntity: MediaFile::class)]
     private $titleBg;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $metaTitle;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $metaDescription;
 
     public function __construct()
