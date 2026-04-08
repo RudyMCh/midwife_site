@@ -1,58 +1,29 @@
-export default class SlideIn{
-    static init(){
+export default class SlideIn {
+    static init() {
         this.slideIn();
     }
-    static slideIn(){
-        (function($) {
 
-            /**
-             * Copyright 2012, Digital Fusion
-             * Licensed under the MIT license.
-             * http://teamdf.com/jquery-plugins/license/
-             *
-             * @author Sam Sehnert
-             * @desc A small plugin that checks whether elements are within
-             *     the user visible viewport of a web browser.
-             *     only accounts for vertical position, not horizontal.
-             */
+    static slideIn() {
+        const modules = document.querySelectorAll('.module');
+        if (!modules.length) {
+            return;
+        }
 
-            $.fn.visible = function(partial) {
-
-                let $t            = $(this),
-                    $w            = $(window),
-                    viewTop       = $w.scrollTop(),
-                    viewBottom    = viewTop + $w.height(),
-                    _top          = $t.offset().top,
-                    _bottom       = _top + $t.height(),
-                    compareTop    = partial === true ? _bottom : _top,
-                    compareBottom = partial === true ? _top : _bottom;
-
-                return ((compareBottom <= viewBottom) && (compareTop >= viewTop));
-
-            };
-
-        })(jQuery);
-        let win = $(window);
-        let allMods = $(".module");
-
-// Already visible modules
-        allMods.each(function(i, el) {
-            el = $(el);
-            if (el.visible(true)) {
-                el.addClass("already-visible");
-            }
-        });
-
-        win.scroll(function(event) {
-
-            allMods.each(function(i, el) {
-                el = $(el);
-                if (el.visible(true)) {
-                    console.log("scroll")
-                    el.addClass("come-in");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('come-in');
+                    observer.unobserve(entry.target);
                 }
             });
+        }, { threshold: 0.1 });
 
+        modules.forEach((el) => {
+            if (el.getBoundingClientRect().top < window.innerHeight) {
+                el.classList.add('already-visible');
+            } else {
+                observer.observe(el);
+            }
         });
     }
 }
