@@ -1,16 +1,20 @@
 <?php
+
 namespace App\Form\Handler;
 
 use App\Entity\Path;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class PathHandler extends AbstractController
+class PathHandler
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Doctrine\Persistence\ManagerRegistry $managerRegistry)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly CsrfTokenManagerInterface $csrfTokenManager,
+    ) {
     }
 
     public function new(FormInterface $form, Request $request): bool
@@ -18,11 +22,12 @@ class PathHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $path = $form->getData();
-            $entityManager = $this->managerRegistry->getManager();
-            $entityManager->persist($path);
-            $entityManager->flush();
+            $this->entityManager->persist($path);
+            $this->entityManager->flush();
+
             return true;
         }
+
         return false;
     }
 
@@ -31,14 +36,17 @@ class PathHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
+
             return true;
         }
+
         return false;
     }
 
     public function delete(Path $path, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$path->getId(), $request->request->getString('_token'))) {
+        $token = new CsrfToken('delete'.$path->getId(), $request->request->getString('_token'));
+        if ($this->csrfTokenManager->isTokenValid($token)) {
             $this->entityManager->remove($path);
             $this->entityManager->flush();
         }

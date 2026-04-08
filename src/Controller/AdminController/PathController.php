@@ -1,35 +1,18 @@
 <?php
+
 namespace App\Controller\AdminController;
 
 use App\Entity\Path;
 use App\Form\PathType;
-use App\Form\Handler\PathHandler;
-use App\Repository\PathRepository;
-use App\Services\Tools;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
 
-/**
- * Class PathController
- * @package App\Controller\AdminController
- */
 #[\Symfony\Component\Routing\Attribute\Route(path: '/admin/path', name: 'admin_path_')]
 #[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]
 class PathController extends AbstractController
 {
-    /**
-     * @param Request $request
-     * @param Path $path
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
     #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, Path $path, EntityManagerInterface $entityManager): Response
     {
@@ -41,42 +24,33 @@ class PathController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_midwife_edit', ['id'=>$midwife->getId()]);
+            return $this->redirectToRoute('admin_midwife_edit', ['id' => $midwife->getId()]);
         }
+
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $path,
-            'route'=> 'admin_path',
+            'route' => 'admin_path',
             'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => $path->getCity(),
-            'breadcrumb'=>[
-                [
-                    'route'=>'admin_midwife_edit',
-                    'params'=>["id"=>$midwife->getId()],
-                    'text'=>$midwife->getFirstname().' '.$midwife->getLastname()
-                ],
-                [
-                    'text'=>$path->getCity()
-                ]
+            'breadcrumb' => [
+                ['route' => 'admin_midwife_edit', 'params' => ['id' => $midwife->getId()], 'text' => $midwife->getFirstname().' '.$midwife->getLastname()],
+                ['text' => $path->getCity()],
             ],
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param Path $path
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
     #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
-    public function delete(Request $request,Path $path, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Path $path, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$path->getId(), $request->request->getString('_token'))) {
             $entityManager->remove($path);
             $entityManager->flush();
         }
+
         $midwife = $path->getMidwife();
         assert($midwife !== null);
-        return $this->redirectToRoute('admin_midwife_edit', ['id'=>$midwife->getId()]);
+
+        return $this->redirectToRoute('admin_midwife_edit', ['id' => $midwife->getId()]);
     }
 }

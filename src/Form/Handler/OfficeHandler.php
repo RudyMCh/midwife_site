@@ -1,16 +1,20 @@
 <?php
+
 namespace App\Form\Handler;
 
 use App\Entity\Office;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class OfficeHandler extends AbstractController
+class OfficeHandler
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Doctrine\Persistence\ManagerRegistry $managerRegistry)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly CsrfTokenManagerInterface $csrfTokenManager,
+    ) {
     }
 
     public function new(FormInterface $form, Request $request): bool
@@ -18,11 +22,12 @@ class OfficeHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $office = $form->getData();
-            $entityManager = $this->managerRegistry->getManager();
-            $entityManager->persist($office);
-            $entityManager->flush();
+            $this->entityManager->persist($office);
+            $this->entityManager->flush();
+
             return true;
         }
+
         return false;
     }
 
@@ -31,14 +36,17 @@ class OfficeHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
+
             return true;
         }
+
         return false;
     }
 
     public function delete(Office $office, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$office->getId(), $request->request->getString('_token'))) {
+        $token = new CsrfToken('delete'.$office->getId(), $request->request->getString('_token'));
+        if ($this->csrfTokenManager->isTokenValid($token)) {
             $this->entityManager->remove($office);
             $this->entityManager->flush();
         }

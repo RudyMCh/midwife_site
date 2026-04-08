@@ -1,28 +1,20 @@
 <?php
+
 namespace App\Controller\AdminController;
 
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\Handler\UserHandler;
 use App\Repository\UserRepository;
-use App\Services\Tools;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
-/**
- * Class UserController
- * @package App\Controller\AdminController
- */
 #[\Symfony\Component\Routing\Attribute\Route(path: '/admin/user', name: 'admin_user_')]
 class UserController extends AbstractController
 {
-
     #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -31,16 +23,15 @@ class UserController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
+
         return $this->render('admin/crud/index.html.twig', [
-            'els'=>$els,
-            'paginator'=>false,
-            'search'=>false,
-            'class'=> User::class,
-            'route'=> 'admin_user',
-            'breadcrumb'=>[
-                [
-                    'text'=>'tous les éléments'
-                ]
+            'els' => $els,
+            'paginator' => false,
+            'search' => false,
+            'class' => User::class,
+            'route' => 'admin_user',
+            'breadcrumb' => [
+                ['text' => 'tous les éléments'],
             ],
             'fields' => [
                 'Id' => 'Id',
@@ -49,18 +40,12 @@ class UserController extends AbstractController
                 'Roles' => 'Roles',
                 'Prénom' => 'Firstname',
                 'Nom' => 'Lastname',
-
             ],
             'title' => 'Tous les élements',
-            'add_button_label'=>'Ajouter un élément'
+            'add_button_label' => 'Ajouter un élément',
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param UserHandler $userHandler
-     * @return Response
-     */
     #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserHandler $userHandler): Response
     {
@@ -71,68 +56,47 @@ class UserController extends AbstractController
         }
 
         return $this->render('admin/crud/_form.html.twig', [
-            'form'=>$form,
-            'el'=>$user,
-            'button_label'=>'Créer',
-            'route'=>'admin_user',
-            'title'=>'Ajouter un élément',
-            'breadcrumb'=>[
-                [
-                    'route'=>'admin_user_index',
-                    'text'=>'tous les éléments'
-                ],
-                [
-                    'text'=>'ajouter un élément'
-                ]
+            'form' => $form,
+            'el' => $user,
+            'button_label' => 'Créer',
+            'route' => 'admin_user',
+            'title' => 'Ajouter un élément',
+            'breadcrumb' => [
+                ['route' => 'admin_user_index', 'text' => 'tous les éléments'],
+                ['text' => 'ajouter un élément'],
             ],
-
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param User $user
-     * @param UserHandler $userHandler
-     * @return Response
-     */
     #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, User $user, UserHandler $userHandler): Response
     {
         $form = $this->createForm(UserType::class, $user);
         if ($userHandler->edit($form, $request)) {
-            return $this->redirectToRoute('admin_user_edit', ['id'=>$user->getId()]);
+            return $this->redirectToRoute('admin_user_edit', ['id' => $user->getId()]);
         }
+
         return $this->render('admin/crud/_form.html.twig', [
             'el' => $user,
-            'route'=> 'admin_user',
+            'route' => 'admin_user',
             'form' => $form,
             'button_label' => 'Mettre à jour',
             'title' => 'Edition',
-            'breadcrumb'=>[
-                [
-                    'route'=>'admin_user_index',
-                    'text'=>'users'
-                ],
-                [
-                    'text'=>'édition '
-                ]
+            'breadcrumb' => [
+                ['route' => 'admin_user_index', 'text' => 'users'],
+                ['text' => 'édition'],
             ],
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param User $user
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
     #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'delete', methods: ['DELETE'])]
-    public function delete(Request $request,User $user, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->getString('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }
+
         return $this->redirectToRoute('admin_user_index');
     }
 }

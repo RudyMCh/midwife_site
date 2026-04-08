@@ -1,16 +1,20 @@
 <?php
+
 namespace App\Form\Handler;
 
 use App\Entity\Domain;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class DomainHandler extends AbstractController
+class DomainHandler
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Doctrine\Persistence\ManagerRegistry $managerRegistry)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly CsrfTokenManagerInterface $csrfTokenManager,
+    ) {
     }
 
     public function new(FormInterface $form, Request $request): bool
@@ -18,11 +22,12 @@ class DomainHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $domain = $form->getData();
-            $entityManager = $this->managerRegistry->getManager();
-            $entityManager->persist($domain);
-            $entityManager->flush();
+            $this->entityManager->persist($domain);
+            $this->entityManager->flush();
+
             return true;
         }
+
         return false;
     }
 
@@ -31,14 +36,17 @@ class DomainHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
+
             return true;
         }
+
         return false;
     }
 
     public function delete(Domain $domain, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$domain->getId(), $request->request->getString('_token'))) {
+        $token = new CsrfToken('delete'.$domain->getId(), $request->request->getString('_token'));
+        if ($this->csrfTokenManager->isTokenValid($token)) {
             $this->entityManager->remove($domain);
             $this->entityManager->flush();
         }

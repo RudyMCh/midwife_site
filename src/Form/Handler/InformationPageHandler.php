@@ -1,16 +1,20 @@
 <?php
+
 namespace App\Form\Handler;
 
 use App\Entity\InformationPage;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class InformationPageHandler extends AbstractController
+class InformationPageHandler
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly \Doctrine\Persistence\ManagerRegistry $managerRegistry)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly CsrfTokenManagerInterface $csrfTokenManager,
+    ) {
     }
 
     public function new(FormInterface $form, Request $request): bool
@@ -18,11 +22,12 @@ class InformationPageHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $informationPage = $form->getData();
-            $entityManager = $this->managerRegistry->getManager();
-            $entityManager->persist($informationPage);
-            $entityManager->flush();
+            $this->entityManager->persist($informationPage);
+            $this->entityManager->flush();
+
             return true;
         }
+
         return false;
     }
 
@@ -31,14 +36,17 @@ class InformationPageHandler extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
+
             return true;
         }
+
         return false;
     }
 
     public function delete(InformationPage $informationPage, Request $request): void
     {
-        if ($this->isCsrfTokenValid('delete'.$informationPage->getId(), $request->request->getString('_token'))) {
+        $token = new CsrfToken('delete'.$informationPage->getId(), $request->request->getString('_token'));
+        if ($this->csrfTokenManager->isTokenValid($token)) {
             $this->entityManager->remove($informationPage);
             $this->entityManager->flush();
         }
