@@ -4,12 +4,14 @@ namespace App\Controller\FrontController;
 use App\Entity\Domain;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/domaine', name: 'domain_')]
 class DomainController extends AbstractController
 {
     #[Route(path: '/{slug}', name: 'show')]
+    #[Cache(public: true, maxage: 3600, mustRevalidate: true)]
     public function show(Domain $domain): Response
     {
         $metaTitle = $domain->getMetaTitle() ?? $domain->getName() . ' — Sages-femmes Quetigny';

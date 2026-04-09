@@ -7,6 +7,9 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - .:/var/www/html:rw
+      - vendor:/var/www/html/vendor
+      - assets_vendor:/var/www/html/public/assets/vendor
+      - var:/var/www/html/var
       - uploads:/var/www/html/public/uploads
       - thumbs:/var/www/html/public/thumbs
       - secured:/var/www/html/securedSpace
@@ -22,6 +25,7 @@ services:
     image: nginx:1.27-alpine
     volumes:
       - .:/var/www/html:ro
+      - assets_vendor:/var/www/html/public/assets/vendor:ro
       - uploads:/var/www/html/public/uploads:ro
       - thumbs:/var/www/html/public/thumbs:ro
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
@@ -50,3 +54,6 @@ volumes:
   uploads:
   thumbs:
   secured:
+  vendor:
+  assets_vendor:
+  var:

@@ -1,0 +1,44 @@
+{% extends 'admin/layouts/layout.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{{ path('admin_media_file_index') }}">Médiathèque</a></li>
+    <li class="breadcrumb-item" aria-current="page">{{ file.filename }}</li>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            {% set ext = file.filename|split('.')|last|lower %}
+            {% if ext in ['jpg','jpeg','png','gif','webp'] %}
+                <img src="{{ file.path }}" alt="{{ file.alt }}" class="img-fluid rounded">
+                <p class="mt-2 small text-muted">Miniature :</p>
+                <img src="/thumbs/{{ file.filename }}" alt="{{ file.alt }}" class="img-thumbnail" style="max-width:200px"
+                     onerror="this.style.display='none'">
+            {% elseif ext in ['mp4','webm'] %}
+                <video controls class="w-100"><source src="{{ file.path }}" type="video/{{ ext }}"></video>
+            {% elseif ext == 'pdf' %}
+                <embed src="{{ file.path }}" type="application/pdf" style="width:100%;height:400px">
+            {% else %}
+                <a href="{{ file.path }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-download"></i> {{ file.filename }}
+                </a>
+            {% endif %}
+            <p class="mt-3 small text-muted">
+                <strong>Fichier :</strong> {{ file.filename }}<br>
+                <strong>Dossier :</strong> {{ file.directory }}<br>
+                <strong>Ajouté le :</strong> {{ file.createdAt|date('d/m/Y') }}
+            </p>
+        </div>
+        <div class="col-md-8">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-outline-success">Enregistrer</button>
+                <a href="{{ path('admin_media_file_index') }}" class="btn btn-outline-secondary">Annuler</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

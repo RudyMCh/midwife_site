@@ -14,11 +14,13 @@
                     <a href="#" class="{{ 'midwife' in route ? 'active' : '' }}">Notre équipe <i class="fas fa-chevron-down"></i></a>
                     <ul>
                         {% for midwife in getMidwives() %}
+                            {% if midwife.slug %}
                             <li><a href="{{ path('midwife_show', {'slug': midwife.slug}) }}"
                                    class="{{ midwife.slug is same as(app.request.attributes.get('slug')) ? 'active' : '' }}">
                                     {{ midwife.firstname }} {{ midwife.lastname }}
                                 </a>
                             </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </li>
@@ -65,9 +67,11 @@
                             Retour
                         </li>
                         {% for midwife in getMidwives() %}
+                            {% if midwife.slug %}
                             <li>
                                 <a href="{{ path('midwife_show', {'slug': midwife.slug}) }}">{{ midwife.firstname }} {{ midwife.lastname }}</a>
                             </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </li>

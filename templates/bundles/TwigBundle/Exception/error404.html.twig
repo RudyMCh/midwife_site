@@ -1,19 +1,44 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
-{% block title %}Erreur 404{% endblock %}
+{% block title %}Page introuvable — 404{% endblock %}
 
 {% block content %}
-    <div class="title" style="background-color:lightgrey;">
-        <h1>Désolé</h1>
-        <div class="overlay-light"></div>
+<div class="title" style="background-color:lightgrey;">
+    <h1>Page introuvable</h1>
+    <div class="overlay-light"></div>
+</div>
+
+<section class="container my-5 text-center">
+    <p class="lead">Cette page n'existe pas ou a été déplacée.</p>
+    <a href="{{ path('homepage_homepage') }}" class="btn btn-outline-secondary mt-3">
+        <i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil
+    </a>
+</section>
+
+<section class="container my-5">
+    <h2 class="text-center mb-4">Prendre rendez-vous</h2>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+        {% for midwife in getMidwives() %}
+            {% if midwife.doctolibUrl %}
+            <a href="{{ midwife.doctolibUrl }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary">
+                <i class="fas fa-calendar-alt"></i>
+                {{ midwife.firstname }} {{ midwife.lastname }}
+            </a>
+            {% endif %}
+        {% endfor %}
     </div>
-    <h2 class="my-5 text-center">Cette page n'existe pas !</h2>
-    <p class="text-center">La page sur à laquelle vous essayez d'accéder n'existe pas, veuillez vérifier votre URL.</p>
-    <div class="text-center aky-error-404-back">
-        <a href="{{ path('homepage_homepage') }}" class="mt-5 text-center"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a>
+</section>
+
+<section class="container my-5">
+    <h2 class="text-center mb-4">Nos domaines de compétence</h2>
+    <div class="row justify-content-center">
+        {% for domain in getDomains() %}
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+            <a href="{{ path('domain_show', {'slug': domain.slug}) }}" class="btn btn-outline-secondary w-100">
+                {{ domain.name }}
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    <div class="mt-5 small aky-error-404-message">
-        <div>Message d'origine:</div>
-        <p>{{ exception.message~' '~exception.statusCode~' '~exception.statusText }}</p>
-    </div>
+</section>
 {% endblock %}

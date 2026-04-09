@@ -71,8 +71,15 @@ class ImageUploadService
     {
         $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeName = $this->slugger->slug($originalName);
+        $ext = $this->supportsWebP($file) ? 'webp' : ($file->guessExtension() ?? 'jpg');
 
-        return $safeName.'-'.uniqid('', false).'.'.$file->guessExtension();
+        return $safeName.'-'.uniqid('', false).'.'.$ext;
+    }
+
+    private function supportsWebP(UploadedFile $file): bool
+    {
+        return in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif', 'image/webp'], true)
+            && function_exists('imagewebp');
     }
 
     private function makeThumb(UploadedFile $file, string $newFilename): void
@@ -106,13 +113,15 @@ class ImageUploadService
         }
 
         imagecopyresampled($destImage, $sourceImage, 0, 0, 0, 0, self::THUMB_SIZE, $thumbHeight, $width, $height);
-        imagejpeg($destImage, $dest, 90);
+
+        $dest = preg_replace('/\.[^.]+$/', '.webp', $dest) ?? $dest;
+        imagewebp($destImage, $dest, 85);
 
         imagedestroy($sourceImage);
         imagedestroy($destImage);
     }
 
-    private function getRatioWeight(UploadedFile $file): ?int
+    public function getRatioWeight(UploadedFile $file): ?int
     {
         $weight = $file->getSize();
         if ($weight === false || $weight <= self::MAX_WEIGHT) {
@@ -124,7 +133,7 @@ class ImageUploadService
         return max($ratio, self::MIN_QUALITY);
     }
 
-    private function getRatioResize(string $pathname): ?int
+    public function getRatioResize(string $pathname): ?int
     {
         $info = @getimagesize($pathname);
         if ($info === false) {
@@ -142,7 +151,7 @@ class ImageUploadService
         return (int) (min($ratioW, $ratioH) * 100);
     }
 
-    private function resizeUploadedImage(string $pathname, int $ratio): void
+    public function resizeUploadedImage(string $pathname, int $ratio): void
     {
         $info = @getimagesize($pathname);
         if ($info === false) {
@@ -170,13 +179,13 @@ class ImageUploadService
         }
 
         imagecopyresampled($dest, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-        imagejpeg($dest, $pathname, 95);
+        imagewebp($dest, $pathname, 90);
 
         imagedestroy($source);
         imagedestroy($dest);
     }
 
-    private function compressUploadedImage(string $pathname, int $quality): void
+    public function compressUploadedImage(string $pathname, int $quality): void
     {
         $info = @getimagesize($pathname);
         if ($info === false) {
@@ -188,7 +197,7 @@ class ImageUploadService
             return;
         }
 
-        imagejpeg($image, $pathname, $quality);
+        imagewebp($image, $pathname, $quality);
         imagedestroy($image);
     }
 
@@ -198,6 +207,7 @@ class ImageUploadService
             'image/jpeg' => imagecreatefromjpeg($pathname),
             'image/png' => imagecreatefrompng($pathname),
             'image/gif' => imagecreatefromgif($pathname),
+            'image/webp' => imagecreatefromwebp($pathname),
             default => null,
         };
 

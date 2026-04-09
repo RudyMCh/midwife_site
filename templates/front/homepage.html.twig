@@ -4,7 +4,7 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
+  "@type": "MedicalOrganization",
   "name": {{ office.name|json_encode|raw }},
   "medicalSpecialty": "Midwifery",
   "address": {
@@ -57,7 +57,9 @@
             <div class="midwives-card">
 
         {% for midwife in midwives %}
-            {% include 'front/components/midwife-card.html.twig' %}
+            {% if midwife.slug %}
+                {% include 'front/components/midwife-card.html.twig' %}
+            {% endif %}
         {% endfor %}
             </div>
         </div>
@@ -97,7 +99,7 @@
                 <div class="carousel-inner">
                     {% for picture in homepage.pictures %}
                         <div class="carousel-item {{ loop.index is same as(1)? 'active' : '' }}">
-                            <img src="{{ media_path(picture) }}" class="d-block w-100" alt="{{ picture.alt ?? '' }}">
+                            <img src="{{ media_path(picture) }}" class="d-block w-100" alt="{{ picture.alt ?? '' }}" loading="lazy">
                         </div>
                     {% endfor %}
 

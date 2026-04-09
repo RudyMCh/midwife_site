@@ -13,9 +13,11 @@
   "url": {{ app.request.uri|json_encode|raw }},
   {% if midwife.email %}"email": {{ midwife.email|json_encode|raw }},{% endif %}
   {% if midwife.phone %}"telephone": {{ midwife.phone|json_encode|raw }},{% endif %}
+  {% if midwife.rpps %}"identifier": [{"@type": "PropertyValue", "name": "RPPS", "value": {{ midwife.rpps|json_encode|raw }}}, {% if midwife.adeli %}{"@type": "PropertyValue", "name": "ADELI", "value": {{ midwife.adeli|json_encode|raw }}}{% endif %}],{% endif %}
+  {% if midwife.siret %}"taxID": {{ midwife.siret|json_encode|raw }},{% endif %}
   {% if midwife.doctolibUrl %}"sameAs": {{ midwife.doctolibUrl|json_encode|raw }},{% endif %}
   "worksFor": {
-    "@type": "MedicalBusiness",
+    "@type": "MedicalOrganization",
     "name": "Cabinet de sages-femmes Quetigny",
     "medicalSpecialty": "Midwifery"
   }
@@ -34,7 +36,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <img src="{{ media_path(midwife.pictureSelf) }}" alt="photo de {{ midwife.lastname }}" >
+                    <img src="{{ media_path(midwife.pictureSelf) }}" alt="photo de {{ midwife.lastname }}" loading="lazy">
                 </div>
                 <div class="col-lg-6 midwife-description">
                     {{ midwife.description|raw }}
@@ -90,7 +92,7 @@
                 <div class="carousel-inner">
                     {% for picture in midwife.pictures %}
                         <div class="carousel-item {{ loop.index is same as(1)? 'active' : '' }}">
-                            <img src="{{ media_path(picture) }}" class="midwife-carousel-picture" alt="{{ picture.alt ?? '' }}">
+                            <img src="{{ media_path(picture) }}" class="midwife-carousel-picture" alt="{{ picture.alt ?? '' }}" loading="lazy">
                         </div>
                     {% endfor %}
 

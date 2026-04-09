@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
+#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false)]
 class Service implements \Stringable
 {
+    use SoftDeleteableEntity;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -26,9 +28,7 @@ class Service implements \Stringable
     #[ORM\ManyToOne(targetEntity: Domain::class, inversedBy: 'services')]
     private ?Domain $domain = null;
 
-    /**
-     * @Gedmo\Slug(fields={"name"})
-     */
+    #[Gedmo\Slug(fields: ['name'])]
     #[ORM\Column(length: 128, unique: true)]
     private string $slug = '';
 

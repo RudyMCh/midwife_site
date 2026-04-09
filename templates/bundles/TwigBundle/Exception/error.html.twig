@@ -4,17 +4,14 @@
 
 {% block content %}
 <div class="title" style="background-color:lightgrey;">
-    <h1>Désolé</h1>
+    <h1>Une erreur est survenue</h1>
     <div class="overlay-light"></div>
 </div>
 
-<h2 class="my-5 text-center">l'accès vous est refusé !</h2>
-<p class="text-center">Vous n'avez pas l'autorisation d'accéder à ce contenu.</p>
-<div class="text-center  aky-error-403-back">
-    <a href="{{ path('homepage_homepage') }}" class="mt-5 text-center"><i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil</a>
-</div>
-<div class="mt-5 small  aky-error-403-message">
-    <div>Message d'origine:</div>
-    <p>{{ exception.message~' '~exception.statusCode~' '~exception.statusText }}</p>
-</div>
+<section class="container my-5 text-center">
+    <p class="lead">Nous rencontrons un problème temporaire. Veuillez réessayer dans quelques instants.</p>
+    <a href="{{ path('homepage_homepage') }}" class="btn btn-outline-secondary mt-3">
+        <i class="fas fa-long-arrow-alt-left"></i> Retour à l'accueil
+    </a>
+</section>
 {% endblock %}

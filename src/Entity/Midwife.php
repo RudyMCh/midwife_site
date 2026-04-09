@@ -8,11 +8,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MidwifeRepository::class)]
+#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false)]
 class Midwife implements \Stringable
 {
+    use TimestampableEntity;
+    use SoftDeleteableEntity;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -24,6 +29,7 @@ class Midwife implements \Stringable
     /**
      * @Gedmo\Slug(fields={"firstname", "lastname"})
      */
+    #[Gedmo\Slug(fields: ['firstname', 'lastname'])]
     #[ORM\Column(length: 128, unique: true)]
     private string $slug = '';
 
@@ -38,9 +44,7 @@ class Midwife implements \Stringable
     #[Assert\Length(min: 15, max: 5000, minMessage: 'Cette description devrait faire au moins 15 caractères', maxMessage: 'Cette description ne peut pas faire plus de 5000 caractères')]
     private ?string $description = null;
 
-    /**
-     * @Assert\CssColor
-     */
+    #[Assert\CssColor]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $backgroundColor1 = null;
 
@@ -55,6 +59,27 @@ class Midwife implements \Stringable
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Assert\Email(message: " l'email {{ value }} n'est pas valide")]
     private ?string $email = null;
+
+    #[ORM\Column(type: 'string', length: 11, nullable: true)]
+    #[Assert\Regex('/^\d{11}$/', message: 'Le numéro RPPS doit contenir exactement 11 chiffres')]
+    private ?string $rpps = null;
+
+    #[ORM\Column(type: 'string', length: 9, nullable: true)]
+    #[Assert\Regex('/^\d{9}$/', message: 'Le numéro ADELI doit contenir exactement 9 chiffres')]
+    private ?string $adeli = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $rcpLibelle = null;
+
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private ?string $rcpNumeroContrat = null;
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private ?string $numeroOrdinal = null;
+
+    #[ORM\Column(type: 'string', length: 14, nullable: true)]
+    #[Assert\Regex('/^\d{14}$/', message: 'Le SIRET doit contenir exactement 14 chiffres')]
+    private ?string $siret = null;
 
     /** @var Collection<int, Path> */
     #[ORM\OneToMany(targetEntity: Path::class, mappedBy: 'midwife', orphanRemoval: true)]
@@ -216,6 +241,78 @@ class Midwife implements \Stringable
     /**
      * @return Collection<int, Path>
      */
+    public function getRpps(): ?string
+    {
+        return $this->rpps;
+    }
+
+    public function setRpps(?string $rpps): self
+    {
+        $this->rpps = $rpps;
+
+        return $this;
+    }
+
+    public function getAdeli(): ?string
+    {
+        return $this->adeli;
+    }
+
+    public function setAdeli(?string $adeli): self
+    {
+        $this->adeli = $adeli;
+
+        return $this;
+    }
+
+    public function getRcpLibelle(): ?string
+    {
+        return $this->rcpLibelle;
+    }
+
+    public function setRcpLibelle(?string $rcpLibelle): self
+    {
+        $this->rcpLibelle = $rcpLibelle;
+
+        return $this;
+    }
+
+    public function getRcpNumeroContrat(): ?string
+    {
+        return $this->rcpNumeroContrat;
+    }
+
+    public function setRcpNumeroContrat(?string $rcpNumeroContrat): self
+    {
+        $this->rcpNumeroContrat = $rcpNumeroContrat;
+
+        return $this;
+    }
+
+    public function getNumeroOrdinal(): ?string
+    {
+        return $this->numeroOrdinal;
+    }
+
+    public function setNumeroOrdinal(?string $numeroOrdinal): self
+    {
+        $this->numeroOrdinal = $numeroOrdinal;
+
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): self
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
     public function getPaths(): Collection
     {
         return $this->paths;

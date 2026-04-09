@@ -20,4 +20,14 @@ class MediaFileRepository extends ServiceEntityRepository
     {
         return $this->findOneBy(['filename' => $filename]);
     }
+
+    public function search(string $term): array
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.filename LIKE :term OR m.title LIKE :term OR m.alt LIKE :term')
+            ->setParameter('term', '%'.$term.'%')
+            ->orderBy('m.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

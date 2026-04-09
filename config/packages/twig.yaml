@@ -1,5 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        matomo_url: '%env(MATOMO_URL)%'
+        matomo_site_id: '%env(int:MATOMO_SITE_ID)%'
     paths:
         '%kernel.project_dir%/vendor/knplabs/knp-paginator-bundle/templates': KnpPaginator
     form_themes:

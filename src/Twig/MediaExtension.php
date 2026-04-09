@@ -27,7 +27,7 @@ class MediaExtension extends AbstractExtension
         return $file->getPath();
     }
 
-    public function mediaRender(?MediaFile $file, string $class = '', string $fallback = ''): string
+    public function mediaRender(?MediaFile $file, string $class = '', string $fallback = '', bool $lazy = true): string
     {
         if ($file === null) {
             return $fallback;
@@ -44,12 +44,15 @@ class MediaExtension extends AbstractExtension
             );
         }
 
+        $lazyAttr = $lazy ? ' loading="lazy"' : '';
+
         return match ($ext) {
             'jpg', 'jpeg', 'png', 'gif', 'webp' => sprintf(
-                '<img src="%s" class="%s" alt="%s">',
+                '<img src="%s" class="%s" alt="%s"%s>',
                 htmlspecialchars($file->getPath()),
                 htmlspecialchars($class),
-                htmlspecialchars($file->getAlt() ?? '')
+                htmlspecialchars($file->getAlt() ?? ''),
+                $lazyAttr
             ),
             'mp4', 'webm' => sprintf(
                 '<video controls class="%s"><source src="%s" type="video/%s"></video>',
@@ -71,7 +74,7 @@ class MediaExtension extends AbstractExtension
         };
     }
 
-    public function mediaThumb(?MediaFile $file, string $class = '', string $fallback = ''): string
+    public function mediaThumb(?MediaFile $file, string $class = '', string $fallback = '', bool $lazy = true): string
     {
         if ($file === null) {
             return $fallback;
@@ -81,10 +84,11 @@ class MediaExtension extends AbstractExtension
 
         if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'], true)) {
             return sprintf(
-                '<img src="/thumbs/%s" class="%s" alt="%s">',
+                '<img src="/thumbs/%s" class="%s" alt="%s"%s>',
                 htmlspecialchars($file->getFilename()),
                 htmlspecialchars($class),
-                htmlspecialchars($file->getAlt() ?? '')
+                htmlspecialchars($file->getAlt() ?? ''),
+                $lazy ? ' loading="lazy"' : ''
             );
         }
 

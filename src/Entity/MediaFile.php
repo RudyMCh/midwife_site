@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\MediaFileRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -32,11 +31,6 @@ class MediaFile implements \Stringable
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $description = null;
 
-    /**
-     * @Gedmo\Slug(fields={"title"})
-     */
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
-    private ?string $slug = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $alt = null;
@@ -101,11 +95,6 @@ class MediaFile implements \Stringable
         $this->description = $description;
 
         return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
     }
 
     public function getAlt(): ?string

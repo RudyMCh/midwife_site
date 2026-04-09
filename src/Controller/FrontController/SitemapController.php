@@ -11,6 +11,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SitemapController extends AbstractController
 {
+    #[Route(path: '/robots.txt', name: 'robots_txt', defaults: ['_format' => 'txt'])]
+    public function robotsTxt(): Response
+    {
+        $sitemapUrl = $this->generateUrl('sitemap', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $content = "User-agent: *\nDisallow: /admin/\nDisallow: /login\nDisallow: /reset-password\n\nSitemap: {$sitemapUrl}\n";
+
+        return new Response($content, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
+    }
+
     #[Route(path: '/sitemap.xml', name: 'sitemap', defaults: ['_format' => 'xml'])]
     public function sitemap(
         MidwifeRepository $midwifeRepository,
@@ -35,6 +44,7 @@ class SitemapController extends AbstractController
                 'loc' => $this->generateUrl('midwife_show', ['slug' => $midwife->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 'priority' => '0.9',
                 'changefreq' => 'monthly',
+                'lastmod' => $midwife->getUpdatedAt()->format('Y-m-d'),
             ];
         }
 
@@ -43,6 +53,7 @@ class SitemapController extends AbstractController
                 'loc' => $this->generateUrl('domain_show', ['slug' => $domain->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 'priority' => '0.8',
                 'changefreq' => 'monthly',
+                'lastmod' => $domain->getUpdatedAt()->format('Y-m-d'),
             ];
         }
 

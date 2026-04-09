@@ -39,6 +39,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('get_class', 'get_class'),
             new TwigFunction('is_array', 'is_array'),
             new TwigFunction('countElements', $this->countElements(...)),
+            new TwigFunction('getMidwives', $this->getMidwives(...)),
+            new TwigFunction('getDomains', $this->getDomains(...)),
         ];
     }
 
