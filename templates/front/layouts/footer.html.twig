@@ -11,18 +11,18 @@
                     <ul class="footer-info-list">
                         {% if office.address %}
                             <li>
-                                <i class="fas fa-map-marker-alt footer-icon"></i>
+                                <i class="fas fa-map-marker-alt footer-icon" aria-hidden="true"></i>
                                 <span>{{ office.address }}<br>{{ office.zipcode }} {{ office.city }}</span>
                             </li>
                         {% endif %}
                         {% if office.phone %}
                             <li>
-                                <i class="fas fa-phone footer-icon"></i>
+                                <i class="fas fa-phone footer-icon" aria-hidden="true"></i>
                                 <a href="tel:{{ office.phone }}">{{ office.phone|mobilePhone }}</a>
                             </li>
                         {% endif %}
                         <li>
-                            <i class="fas fa-clock footer-icon"></i>
+                            <i class="fas fa-clock footer-icon" aria-hidden="true"></i>
                             <span>Lun – Ven : 8h – 19h<br>Sam : 8h – 12h</span>
                         </li>
                     </ul>
@@ -53,12 +53,12 @@
                             <div class="footer-midwife-contact">
                                 {% if midwife.phone %}
                                     <a href="tel:{{ midwife.phone }}">
-                                        <i class="fas fa-phone"></i> {{ midwife.phone|mobilePhone }}
+                                        <i class="fas fa-phone" aria-hidden="true"></i> {{ midwife.phone|mobilePhone }}
                                     </a>
                                 {% endif %}
                                 {% if midwife.email %}
                                     <a href="mailto:{{ midwife.email }}">
-                                        <i class="far fa-envelope"></i> {{ midwife.email }}
+                                        <i class="far fa-envelope" aria-hidden="true"></i> {{ midwife.email }}
                                     </a>
                                 {% endif %}
                                 {% if midwife.doctolibUrl %}

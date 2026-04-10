@@ -2,6 +2,21 @@
 
 {% block og_type %}profile{% endblock %}
 
+{% block og_image %}
+    {% if midwife.pictureSelf %}
+        <meta property="og:image" content="{{ absolute_url(media_path(midwife.pictureSelf)) }}">
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+{% block twitter_image %}
+    {% if midwife.pictureSelf %}
+        <meta name="twitter:image" content="{{ absolute_url(media_path(midwife.pictureSelf)) }}">
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block json_ld %}
 <script type="application/ld+json">
 {
@@ -36,7 +51,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <img src="{{ media_path(midwife.pictureSelf) }}" alt="photo de {{ midwife.lastname }}" loading="lazy">
+                    <img src="{{ media_path(midwife.pictureSelf) }}" alt="Photo de {{ midwife.firstname }} {{ midwife.lastname }}, sage-femme" loading="lazy">
                 </div>
                 <div class="col-lg-6 midwife-description">
                     {{ midwife.description|raw }}
@@ -51,7 +66,7 @@
             </div>
             <div class="midwife-description-contact">
                 <div class="midwife-horizontal-card-main-bottom-phone">
-                    <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone"></i> <span>{{ midwife.phone|mobilePhone }}</span></a>
+                    <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone" aria-hidden="true"></i> <span>{{ midwife.phone|mobilePhone }}</span></a>
                 </div>
                 <div class="doctolib">
                     {% include 'front/components/doctolib.html.twig' %}
@@ -72,9 +87,9 @@
                     <div class="domain-card">
                         <div class="domain-card-header">
                             <div class="domain-card-header-logo">
-                                <i class="fas fa-baby fa-3x"></i>
+                                <i class="fas fa-baby fa-3x" aria-hidden="true"></i>
                             </div>
-                            <h4 class="text-center py-3">{{ domain.name }}</h4>
+                            <h3 class="text-center py-3">{{ domain.name }}</h3>
                         </div>
                         <ul>
                             {% for service in domain.services|filter(a=> a in midwife.services) %}
@@ -92,7 +107,7 @@
                 <div class="carousel-inner">
                     {% for picture in midwife.pictures %}
                         <div class="carousel-item {{ loop.index is same as(1)? 'active' : '' }}">
-                            <img src="{{ media_path(picture) }}" class="midwife-carousel-picture" alt="{{ picture.alt ?? '' }}" loading="lazy">
+                            <img src="{{ media_path(picture) }}" class="midwife-carousel-picture" alt="{{ picture.alt ?? 'Photo de ' ~ midwife.firstname ~ ' ' ~ midwife.lastname }}" loading="lazy">
                         </div>
                     {% endfor %}
 
@@ -115,7 +130,7 @@
                 <ul>
                     {% for path in midwife.paths %}
                         <li>
-                            <i class="fas fa-user-nurse"></i> - {{ path.title }} - {{ path.city }} - {{ path.start }}:{{ path.end }}
+                            <i class="fas fa-user-nurse" aria-hidden="true"></i> - {{ path.title }} - {{ path.city }} - {{ path.start }}:{{ path.end }}
                         </li>
                     {% endfor %}
                 </ul>
@@ -129,7 +144,7 @@
             <ul>
                 {% for degree in midwife.degrees %}
                     <li>
-                        <i class="fas fa-graduation-cap"></i> - {{ degree.title }} - {{ degree.establishment }} - {{ degree.year }}
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i> - {{ degree.title }} - {{ degree.establishment }} - {{ degree.year }}
                     </li>
 
                 {% endfor %}

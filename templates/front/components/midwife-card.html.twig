@@ -1,4 +1,4 @@
-<div class="midwife-card module">
+<article class="midwife-card module">
     <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-card-picture" >
         <div class="midwife-card-picture-image" style="background-image:url('{{ media_path(midwife.picture) }}')" data-tooltip="tooltip" title="en savoir plus">
 
@@ -16,11 +16,11 @@
     </div>
     <div class="midwife-card-footer">
         <div class="midwife-card-footer-phone">
-            <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone"></i> <span class="number">{{ midwife.phone|mobilePhone }}</span></a>
+            <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone" aria-hidden="true"></i> <span class="number">{{ midwife.phone|mobilePhone }}</span></a>
         </div>
         <div class="midwife-card-footer-doctolib">
             {% include '/front/components/doctolib.html.twig' %}
         </div>
     </div>
 
-</div>
+</article>

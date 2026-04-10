@@ -134,14 +134,14 @@ En France, le RGAA s'applique aux sites de professionnels de santé. Les lacunes
 
 ### B. Corrections HTML/accessibilité
 
-- [ ] **B1** — Implémenter `og:image` sur chaque page (midwife, domain, homepage, information) avec fallback image par défaut
-- [ ] **B2** — Ajouter `twitter:card` et `twitter:image` dans `base.html.twig`
-- [ ] **B3** — Corriger la hiérarchie heading dans `domain.html.twig` (supprimer le saut h1→h4)
-- [ ] **B4** — Ajouter `aria-label` distinctifs sur les deux `<nav>` (desktop / mobile)
-- [ ] **B5** — Ajouter `aria-expanded="false"` et `aria-controls` côté HTML sur les éléments gérés par JS (`footer-midwife-contact`, burger menu niveaux)
-- [ ] **B6** — Ajouter `aria-hidden="true"` sur toutes les icônes FontAwesome décoratives
-- [ ] **B7** — Remplacer les `alt=""` par des descriptions contextuelles (ou supprimer si vraiment décoratif avec `alt=""` explicite ET `role="presentation"`)
-- [ ] **B8** — Envelopper les cartes sage-femme dans des `<article>` ou une `<ul>/<li>` selon le contexte
+- [x] **B1** — `og:image` implémenté sur homepage, midwife, domain (image de fond) ; fallback `apple-touch-icon` dans `base.html.twig` ; `informationUtiles` hérite du fallback
+- [x] **B2** — `twitter:card` (summary_large_image) et `twitter:image` ajoutés dans `base.html.twig` ; overrides dans homepage, midwife, domain
+- [x] **B3** — Hiérarchie heading corrigée : h4→h3 dans les cartes domaine (homepage, midwife, midwife-horizontal-card) + SCSS mis à jour (`_domains-card`, `_homepage`, `_midwife-horizontal-card`)
+- [x] **B4** — `aria-label="Navigation principale"` et `aria-label="Navigation mobile"` ajoutés sur les deux `<nav>` du header
+- [x] **B5** — `role="button"` + `aria-expanded="false"` + `aria-controls="menu-burger-nav"` sur le toggle burger ; `role="button"` + `aria-expanded="false"` sur les 3 `.js-openLevel` ; `id="menu-burger-nav"` sur la nav burger
+- [x] **B6** — `aria-hidden="true"` ajouté sur toutes les icônes FA décoratives (header, footer, midwife-card, midwife, homepage)
+- [x] **B7** — Alt fallbacks contextuels : "Photo du cabinet" (carousel homepage), "Photo de Prénom Nom" (carousel midwife + pictureSelf)
+- [x] **B8** — `<div>` → `<article>` sur `midwife-card.html.twig` et `midwife-horizontal-card.html.twig`
 - [ ] **B9** — Vérifier les ratios de contraste WCAG AA sur les couleurs principales (outil : https://webaim.org/resources/contrastchecker/)
 - [ ] **B10** — Vérifier le focus visible sur tous les éléments interactifs (input, button, a)
 

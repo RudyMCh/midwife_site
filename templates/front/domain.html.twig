@@ -1,5 +1,20 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
+{% block og_image %}
+    {% if domain.titleBg %}
+        <meta property="og:image" content="{{ absolute_url(media_path(domain.titleBg)) }}">
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+{% block twitter_image %}
+    {% if domain.titleBg %}
+        <meta name="twitter:image" content="{{ absolute_url(media_path(domain.titleBg)) }}">
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     {% set style = domain.titleBg is not null ? 'background-image:url("'~media_path(domain.titleBg) ~'")' : 'background-color : '~domain.titleColorBg %}
     <div class="title" style="{{ style }}">

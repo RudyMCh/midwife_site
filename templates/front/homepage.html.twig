@@ -1,5 +1,20 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
+{% block og_image %}
+    {% if homepage.titleBg %}
+        <meta property="og:image" content="{{ absolute_url(media_path(homepage.titleBg)) }}">
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+{% block twitter_image %}
+    {% if homepage.titleBg %}
+        <meta name="twitter:image" content="{{ absolute_url(media_path(homepage.titleBg)) }}">
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block json_ld %}
 <script type="application/ld+json">
 {
@@ -76,9 +91,9 @@
                         <div class="domain-card module">
                             <div class="domain-card-header">
                                 <div class="domain-card-header-logo">
-                                    <i class="fas fa-baby fa-3x"></i>
+                                    <i class="fas fa-baby fa-3x" aria-hidden="true"></i>
                                 </div>
-                                <a href="{{ path('domain_show', {'slug':domain.slug}) }}" class="domains-card-title"><h4 class="text-center py-3">{{ domain.name }}</h4></a>
+                                <a href="{{ path('domain_show', {'slug':domain.slug}) }}" class="domains-card-title"><h3 class="text-center py-3">{{ domain.name }}</h3></a>
 
                             </div>
                             <ul>
@@ -99,7 +114,7 @@
                 <div class="carousel-inner">
                     {% for picture in homepage.pictures %}
                         <div class="carousel-item {{ loop.index is same as(1)? 'active' : '' }}">
-                            <img src="{{ media_path(picture) }}" class="d-block w-100" alt="{{ picture.alt ?? '' }}" loading="lazy">
+                            <img src="{{ media_path(picture) }}" class="d-block w-100" alt="{{ picture.alt ?? 'Photo du cabinet' }}" loading="lazy">
                         </div>
                     {% endfor %}
 

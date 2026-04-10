@@ -1,4 +1,4 @@
-<div class="midwife-horizontal-card">
+<article class="midwife-horizontal-card">
     <div class="midwife-horizontal-card-top">
         <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-horizontal-card-top-picture" >
             <div class="midwife-horizontal-card-top-picture-image" style="background-image:url('{{ media_path(midwife.picture) }}')">
@@ -7,11 +7,11 @@
     </div>
     <div class="midwife-horizontal-card-main">
         <div class="midwife-horizontal-card-main-top">
-            <h4>{{ midwife.firstname }} {{ midwife.lastname }}</h4>
+            <h3>{{ midwife.firstname }} {{ midwife.lastname }}</h3>
         </div>
         <div class="midwife-horizontal-card-main-bottom">
             <div class="midwife-horizontal-card-main-bottom-phone">
-                <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone"></i> <span>{{ midwife.phone }}</span></a>
+                <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone" aria-hidden="true"></i> <span>{{ midwife.phone }}</span></a>
             </div>
             <div class="midwife-horizontal-card-main-bottom-doctolib">
                 {% include '/front/components/doctolib.html.twig' %}
@@ -19,4 +19,4 @@
         </div>
 
     </div>
-</div>
+</article>

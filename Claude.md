@@ -21,6 +21,57 @@ Le projet est sain. On entre dans une **phase nouvelle**, orientée contenu, UX 
 
 ---
 
+# Architecture technique
+
+## Structure des répertoires clés
+- `/src/` : code métier Symfony
+- `/templates/` : templates Twig
+- `/assets/` : CSS (Sass), JS vanilla, images
+- `/public/` : point d'entrée web
+- `/doc/` : documentation projet
+- `/config/` : configuration Symfony
+- `/migrations/` : migrations Doctrine
+
+## Services clés
+- `ImageUploadService` : gestion native des uploads d'images (remplace FileManagerBundle)
+- TinyMCE : éditeur WYSIWYG (v6)
+- Tom Select : remplacement moderne de Select2
+
+## Commandes utiles
+```bash
+# Lancer l'environnement de dev
+docker compose up -d
+
+# Fixtures
+php bin/console doctrine:fixtures:load
+
+# PHPStan
+vendor/bin/phpstan analyse
+
+# PHP-CS-Fixer
+vendor/bin/php-cs-fixer fix
+```
+
+---
+
+
+# Contraintes et limitations
+
+- **Hébergement mutualisé o2switch** : pas de déploiement Docker en prod, pas d'accès SSH avancé
+- **Matomo cookieless** : pas de cookie consent nécessaire
+- **Budget** : site vitrine, pas de sur-ingénierie
+- **Cible** : femmes, femmes enceintes → design rassurant, professionnel, chaleureux
+
+---
+# Prochaines étapes prioritaires
+
+1. **Charte graphique** : couleurs, typographies, ambiance visuelle
+2. **Refonte page sage-femme** : équilibre texte/image
+3. **Blog** : système complet avec gestion SEO
+4. **Helper SEO** : guide intégré dans l'admin
+
+---
+
 # Objectifs de la phase actuelle
 
 ## 1. Visuel et style
@@ -72,3 +123,13 @@ Le projet est sain. On entre dans une **phase nouvelle**, orientée contenu, UX 
 - Tracking : Matomo (cookieless)
 - Pas de jQuery
 - TinyMCE v6 pour le rich text
+
+---
+
+
+# Décisions techniques passées (à ne pas remettre en question)
+
+- ✅ Webpack Encore → AssetMapper : migration terminée, ne pas revenir en arrière
+- ✅ jQuery → Vanilla JS : pas de réintroduction de jQuery
+- ✅ FileManagerBundle supprimé : utiliser `ImageUploadService`
+- ✅ CKEditor → TinyMCE v6 : ne pas changer d'éditeur
