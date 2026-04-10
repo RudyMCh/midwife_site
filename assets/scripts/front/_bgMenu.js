@@ -8,7 +8,6 @@ class backgroundMenu {
     sentinel = document.querySelector('#sentinel');
     header = document.querySelector('header');
     let x = window.matchMedia("(max-width: 768px)");
-    console.log(x);
     if (x.matches) { // If media query matches
       header.classList.remove("is-sticky");
     }else{

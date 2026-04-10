@@ -1,33 +1,46 @@
-export default class ImagePreviewCompress{
-    static init(){
+export default class ImagePreviewCompress {
+    static init() {
         this.preview();
     }
-    static preview(){
-        let compressBtn = document.getElementById('compressImage');
 
-        let fileId = compressBtn.dataset.fileId;
-        let img = document.getElementById("previewCompressedImage");
-        console.log(img)
+    static preview() {
+        const compressBtn = document.getElementById('compressImage');
+        if (!compressBtn) return;
 
-        compressBtn.addEventListener('click', function(){
-            let value = document.getElementById('image_compress_quality').value;
-            console.log(value)
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "/admin/compress-preview/" + fileId)
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        const fileId = compressBtn.dataset.fileId;
+        const img = document.getElementById('previewCompressedImage');
 
-            xhr.onreadystatechange = function(){
-                console.log(xhr.response)
-                console.log(JSON.parse(xhr.response))
-                let response = JSON.parse(xhr.response);
-                if(response.error){
-                    img.after('p', response.error);
-                }else if(response.path){
-                    
-                    img.setAttribute("src", response.path);
+        let errorMsg = null;
+
+        compressBtn.addEventListener('click', async () => {
+            const value = document.getElementById('image_compress_quality').value;
+
+            errorMsg?.remove();
+            errorMsg = null;
+
+            try {
+                const response = await fetch('/admin/compress-preview/' + fileId, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'quality=' + encodeURIComponent(value),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP ${response.status}`);
                 }
+
+                const data = await response.json();
+
+                if (data.error) {
+                    errorMsg = document.createElement('p');
+                    errorMsg.textContent = data.error;
+                    img.after(errorMsg);
+                } else if (data.path) {
+                    img.setAttribute('src', data.path);
+                }
+            } catch (err) {
+                console.error('Compression échouée :', err);
             }
-            xhr.send('quality='+value)
-        })
+        });
     }
 }

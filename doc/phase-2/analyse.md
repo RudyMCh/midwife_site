@@ -147,10 +147,10 @@ En France, le RGAA s'applique aux sites de professionnels de santé. Les lacunes
 
 ### C. Corrections JavaScript
 
-- [ ] **C1** — Supprimer tous les `console.log()` dans `burger.js` et `imagePreviewCompress.js`
-- [ ] **C2** — Remplacer `XMLHttpRequest` par `fetch()` dans `imagePreviewCompress.js` avec gestion d'erreur
-- [ ] **C3** — Documenter ou éliminer le `setTimeout(200)` dans `main.js` (trouver la vraie cause du timing)
-- [ ] **C4** — Ajouter `aria-hidden` sur les icônes dans les templates modifiés par le JS burger
+- [x] **C1** — `console.log()` supprimés dans `imagePreviewCompress.js` (×4) et `_bgMenu.js` (×1) ; `burger.js` était déjà propre
+- [x] **C2** — `XMLHttpRequest` remplacé par `fetch()` async/await dans `imagePreviewCompress.js` ; gestion d'erreur HTTP + réseau via try/catch
+- [x] **C3** — `setTimeout(200)` supprimé dans `main.js` : redondant avec `DOMContentLoaded`, aucune dépendance asynchrone réelle identifiée
+- [x] **C4** — Icônes burger déjà couvertes par B6 (`aria-hidden="true"`) ; `aria-expanded` mis à jour dynamiquement dans `burger.js` (ouverture/fermeture du menu principal et des sous-niveaux)
 
 ### D. Visuel et style (objectif 1)
 
