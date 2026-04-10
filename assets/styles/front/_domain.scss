@@ -1,35 +1,39 @@
-.domain{
-  &-service{
-    margin: 100px 0;
-    img{
+.domain {
+  &-service {
+    margin: $space-section 0;
+
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    &-description{
-      h2{
+    &-description {
+      h2 {
         text-transform: capitalize;
-        margin: 50px 0 ;
-        color: rgb(253, 63, 146);
+        margin: $space-xl 0;
+        color: $color-secondary;
         font-weight: 700;
-        font-family: Tangerine, 'cursive';
-        font-size: 80px;
+        font-family: $font-display;
+        font-size: $font-size-h2-hero;
       }
-      h3{
-        color: #107aca;
-        font-size: 15px;
 
+      h3 {
+        color: $color-doctolib;
+        font-size: 15px;
       }
-      p{
+
+      p {
         text-align: justify;
       }
+
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       padding: 30px;
-      &-midwives{
+
+      &-midwives {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -37,25 +41,29 @@
       }
     }
   }
-  &-service-container-odd{
+
+  &-service-container-odd {
     display: flex;
     flex-direction: row;
   }
-  &-service-container-even{
+
+  &-service-container-even {
     display: flex;
     flex-direction: row-reverse;
   }
 }
 
-@media(max-width:992px) {
-  .domain-service-container-odd, .domain-service-container-even{
+@media (max-width: $bp-lg) {
+  .domain-service-container-odd,
+  .domain-service-container-even {
     flex-direction: column-reverse;
   }
-  .domain-service-description{
-    h2{
-      margin: 10px 0
-    }
-    padding: 0;
 
+  .domain-service-description {
+    h2 {
+      margin: 10px 0;
+    }
+
+    padding: 0;
   }
 }

@@ -1,5 +1,9 @@
 # Conclusions et perspectives — projet SageFemme
 
+> **Document archivé — 2026-04-10**
+> Toutes les actions listées ici ont été traitées (étapes 1-9 complètes, environnement Docker fonctionnel, fixtures prêtes, site fonctionnel).
+> La phase suivante est décrite dans `CLAUDE.md`.
+
 _Analyse réalisée le 2026-04-08 — après complétion des 8 étapes des directives_
 
 ---

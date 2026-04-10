@@ -8,29 +8,58 @@
 @import '_midwife-horizontal-card.scss';
 @import 'domains-card', 'service', 'midwife', 'menu-burger', '../common/login', 'footer', 'domain', 'slide-in', "waze-btn";
 
-.domain-iframe{
+// ── Composant partagé — bouton téléphone CTA ─────────────────────────────────
+// Utilisé dans .midwife-card-footer-phone et .midwife-horizontal-card
+.btn-phone {
+  display: flex;
+  justify-content: center;
+  border: 2px solid $color-phone-border;
+  background: linear-gradient($color-phone-from, $color-phone-to);
+  padding: 10px 15px;
+  border-radius: $radius-md;
+  color: $color-white;
+  text-decoration: none;
+  font-size: 18px;
+
+  i {
+    margin-right: 11px;
+    align-self: center;
+  }
+
+  &:hover i {
+    transform: scale(1.2);
+  }
+}
+
+// ── Layout global ─────────────────────────────────────────────────────────────
+.domain-iframe {
   height: 500px;
 }
-body{
+
+body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  font-family: 'Helvetica', sans-serif;
-  header{
+  font-family: $font-body;
+
+  header {
     width: 100%;
     flex: initial;
   }
+
   main {
     width: 100%;
     flex: 1;
-    h1{
+
+    h1 {
       font-weight: 700;
-      font-family: 'Tangerine', cursive;
-      font-size: 100px;
+      font-family: $font-display;
+      font-size: $font-size-h1;
     }
   }
-  footer{
+
+  footer {
     width: 100%;
     flex: initial;
   }

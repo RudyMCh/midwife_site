@@ -1,19 +1,22 @@
-#wazeBtn{
+#wazeBtn {
   display: none;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
-  .waze{
-    background: url("/logos/waze-logo.png") no-repeat center / cover;
+  margin-bottom: $space-xl;
+
+  .waze {
+    background: url('/logos/waze-logo.png') no-repeat center / cover;
     width: 90px;
     height: 50px;
-    i{
-      fill: white;
+
+    i {
+      fill: $color-white;
     }
   }
 }
-@media (max-width: 500px){
-  #wazeBtn{
+
+@media (max-width: $bp-sm) {
+  #wazeBtn {
     display: flex;
   }
 }

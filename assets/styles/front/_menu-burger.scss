@@ -1,21 +1,17 @@
-// SASS Variables
-$white: #fff;
-$navy: #2e2f35;
-$navy-dark: #1e1e24;
-$navy-light: #494a50;
-$grey: #a5a5a4;
-$green: #20c270;
-$green-dark: #18a960;
+// Menu burger — composant navigation mobile
+// Les variables $burger-* sont définies dans common/_variables.scss
 
-// Moves menu to the left/right side of screen
 $menu-orientation: right;
-.menu-burger{
+
+.menu-burger {
   display: none;
 }
-@media (max-width: 768px) {
-  .menu-burger{
+
+@media (max-width: $bp-md) {
+  .menu-burger {
     display: flex;
   }
+
   .pushNav {
     width: 100%;
     right: 100%;
@@ -23,32 +19,32 @@ $menu-orientation: right;
 }
 
 ul.pushNav {
-  //padding: 0 0 0 100px;
   padding: 0;
   margin: 0;
   list-style-type: none;
 }
 
 .pushNav {
-  display:flex;
+  display: flex;
   flex-direction: column;
   height: 100%;
   position: fixed;
   top: 0;
-  z-index: 100;
+  z-index: $z-burger;
   overflow: hidden;
-  background: $navy;
-  transition: ease-in-out 0.5s;
+  background: $burger-bg;
+  transition: ease-in-out $transition-slow;
+
   hr {
     border: 1px solid #555;
   }
 }
 
-.pushNav ,.pushNav a {
+.pushNav, .pushNav a {
   font-size: 1em;
-  font-family: helvetica, sans-serif;
+  font-family: $font-body;
   font-weight: 100;
-  color: $white;
+  color: $color-white;
   text-decoration: none;
 }
 
@@ -58,7 +54,7 @@ ul.pushNav {
 }
 
 .js-topPushNav.isOpen, .pushNav_level.isOpen {
-  right : 0;
+  right: 0;
 }
 
 .closeLevel, .openLevel {
@@ -69,31 +65,30 @@ ul.pushNav {
   padding: 1em 0;
   display: block;
   text-indent: 20px;
-  transition: background 0.4s ease-in-out;
+  transition: background $transition-base;
 
   &:hover {
-    background: $navy-light;
+    background: $burger-bg-light;
   }
 }
 
 .hdg {
-  background-color: $navy-dark;
+  background-color: $burger-bg-dark;
 }
 
 .closeLevel, .closeLevel > i {
   font-size: 1em;
-  color: $grey;
+  color: $burger-text;
   align-self: end;
   padding-right: 20px;
 }
+
 .pushNavIsOpen .screen {
   height: 100%;
   opacity: 1;
 }
 
-
-// Font Awesome styles - delete if not using font awesome
 .fa {
   display: inline;
-  padding: 5px;
+  padding: $space-xs;
 }

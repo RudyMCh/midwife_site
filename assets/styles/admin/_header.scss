@@ -1,42 +1,45 @@
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(51, 0, 61);
-  color:white;
-  min-height : 7rem;
+  background-color: $color-admin-header;
+  color: $color-white;
+  min-height: 7rem;
 
-  &-logo{
-    margin:1rem;
-    a{
-      img {
-        width: 200px;
-        height: 100%;
-        object-fit: contain;
-      }
+  &-logo {
+    margin: 1rem;
+
+    a img {
+      width: 200px;
+      height: 100%;
+      object-fit: contain;
     }
-    &-nav{
+
+    &-nav {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-content: center;
     }
   }
-  &-deconnexion{
+
+  &-deconnexion {
     float: right;
     border-radius: 10px;
-    border: 2px solid white;
-
+    border: 2px solid $color-white;
     margin-right: 1rem;
-    &:hover{
-      background-color: white;
+
+    &:hover {
+      background-color: $color-white;
     }
-    a{
-      color: white;
+
+    a {
+      color: $color-white;
       padding: 0 1rem;
-      &:hover{
+
+      &:hover {
         text-decoration: none;
-        color: steelblue;
+        color: $color-admin-accent;
       }
     }
   }

@@ -1,20 +1,22 @@
-.crud{
-  &-bool-form{
-    label{
-      &:hover{
+.crud {
+  &-bool-form {
+    label {
+      &:hover {
         cursor: pointer;
       }
     }
   }
-  &-collection{
+
+  &-collection {
     display: flex;
     flex-wrap: wrap;
-    &-item{
-      background-color: #333;
-      color: white;
-      border-radius: 3px;
-      padding: 3px;
-      border: 1px double #333;
+
+    &-item {
+      background-color: $color-dark;
+      color: $color-white;
+      border-radius: $radius-sm;
+      padding: $space-xs;
+      border: 1px double $color-dark;
       margin: 1px;
     }
   }

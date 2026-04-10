@@ -1,30 +1,34 @@
-.midwives-card{
+.midwives-card {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap ;
+  flex-wrap: wrap;
 }
-.midwife-card{
+
+.midwife-card {
   width: 400px;
   height: 600px;
   display: flex;
-  border-radius: 8px;
+  border-radius: $radius-lg;
   overflow: hidden;
   flex-direction: column;
-  border: 1px solid grey;
+  border: 1px solid $color-gray;
   position: relative;
-  margin: 50px;
-  &-top{
+  margin: $space-xl;
+
+  &-top {
     flex: 0 0 25%;
     display: flex;
     justify-content: center;
     align-items: start;
     padding: 15px;
-    h3{
-      color: white;
+
+    h3 {
+      color: $color-white;
     }
   }
-  &-picture{
+
+  &-picture {
     position: absolute;
     display: block;
     top: 12%;
@@ -32,25 +36,27 @@
     transform: translate(-50%, -10%);
     width: 200px;
     height: 200px;
-    border-radius: 50%;
-    z-index: 120;
+    border-radius: $radius-full;
+    z-index: $z-card-img;
     overflow: hidden;
 
-    &-image{
+    &-image {
       background: center center / cover no-repeat;
       width: 100%;
       height: 100%;
-      transition: 0.5s;
-      &:hover{
+      transition: $transition-slow;
+
+      &:hover {
         transform: scale(1.1);
       }
     }
   }
-  &-main{
+
+  &-main {
     position: relative;
-    color: white;
-    flex:0 0 75%;
-    background-color: #232187;
+    color: $color-white;
+    flex: 0 0 75%;
+    background-color: $color-primary;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -59,93 +65,88 @@
     font-style: italic;
     font-size: 22px;
     font-weight: 700;
-    p{
-      z-index: 500;
 
+    p {
+      z-index: $z-card-content;
     }
   }
-  &-footer{
-    background-color: whitesmoke;
+
+  &-footer {
+    background-color: $color-bg-light;
     position: absolute;
     bottom: 0;
     right: 0;
     left: 0;
-    padding: 5px;
+    padding: $space-xs;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    &-phone{
-      a{
-        display: flex;
-        justify-content: center;
-        border: 2px solid rgb(70, 229, 101);
-        background: linear-gradient( rgb(88, 241, 115), rgb(3, 187, 41));
-        padding: 10px 15px;
-        border-radius: 5px;
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        i{
-          margin-right: 11px;
-          align-self: center;
-        }
-        &:hover{
-          i{
-            transform: scale(1.2);
-          }
-        }
-      }
+
+    &-phone a {
+      @extend .btn-phone;
     }
-    &-doctolib{
+
+    &-doctolib {
       font-size: 18px;
     }
   }
-  &-mini{
+
+  &-mini {
     display: flex;
     justify-content: center;
     align-content: center;
     margin-right: 10px;
-    &-picture{
+
+    &-picture {
       width: 50px;
       height: 50px;
-      border-radius: 50%;
-      z-index: 120;
+      border-radius: $radius-full;
+      z-index: $z-card-img;
       overflow: hidden;
-      margin-right: 5px;
-      &-link{
+      margin-right: $space-xs;
+
+      &-link {
         display: block;
-        &-image{
+
+        &-image {
           height: 50px;
           background: center center / cover no-repeat;
-          transition: 0.5s;
-          &:hover{
+          transition: $transition-slow;
+
+          &:hover {
             transform: scale(1.1);
           }
         }
       }
     }
-    &-doctolib{
+
+    &-doctolib {
       display: flex;
       justify-content: center;
       align-items: center;
-      &-wrapper{
-        padding: 5px 10px;
-        background-color: rgb(16, 122, 202);
-        border-radius: 5px;
+
+      &-wrapper {
+        padding: $space-xs 10px;
+        background-color: $color-doctolib;
+        border-radius: $radius-md;
       }
     }
   }
 }
-@media (max-width: 518px){
-  .midwives-card{
+
+@media (max-width: $bp-sm) {
+  .midwives-card {
     flex-direction: column;
   }
-  .midwife-card{
+
+  .midwife-card {
     margin: 30px 0;
     width: 100%;
-    &-footer{
+
+    &-footer {
       flex-direction: column;
-      &-phone{
+
+      &-phone {
         text-align: center;
         margin-bottom: 10px;
       }

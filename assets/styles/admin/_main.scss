@@ -1,3 +1,4 @@
+@import '../common/variables';
 @import 'header', 'footer', 'sidebar', '../common/login', 'admin-midwife';
 @import 'global';
 
@@ -25,11 +26,11 @@ label.custom-file-label{
   justify-content: space-between;
   align-items: center;
 
-  &-first{
-    &-title{
+  &-first {
+    &-title {
       font-size: 1.4rem;
       font-weight: 600;
-      color: steelblue;
+      color: $color-admin-accent;
     }
   }
   &-second{

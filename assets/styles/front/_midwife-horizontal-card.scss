@@ -1,82 +1,78 @@
-.midwives-service{
+.midwives-service {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.midwife-horizontal-card{
-  margin: 20px 50px 50px;
+.midwife-horizontal-card {
+  margin: 20px $space-xl $space-xl;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: $radius-md;
 
-  &-top{
+  &-top {
     margin: 0 25px;
     display: flex;
     justify-content: center;
     align-items: center;
-    &-picture{
+
+    &-picture {
       display: block;
       height: 150px;
       width: 150px;
-      border-radius: 50%;
-      z-index: 999;
+      border-radius: $radius-full;
+      z-index: $z-header;
       overflow: hidden;
-      &-image{
+
+      &-image {
         background: center center / cover no-repeat;
         width: 100%;
         height: 100%;
-        transition: 0.5s;
-        &:hover{
+        transition: $transition-slow;
+
+        &:hover {
           transform: scale(1.1);
         }
       }
     }
   }
-  &-main{
+
+  &-main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 5px;
+    padding: $space-xs;
     width: 100%;
-    &-top{
-      h4{
+
+    &-top {
+      h4 {
         text-align: center;
         font-weight: 600;
       }
     }
-    &-bottom{
+
+    &-bottom {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      &-phone{
+
+      &-phone {
         display: flex;
         justify-content: center;
         margin: 20px 0;
-        a{
-          display: block;
-          border: 1px solid rgb(70, 229, 101);
-          background: linear-gradient( rgb(88, 241, 115), rgb(3, 187, 41));
-          padding: 10px 15px;
-          border-radius: 5px;
-          color: white;
-          text-decoration: none;
-          font-size: 18px;
-          span{
+
+        a {
+          @extend .btn-phone;
+
+          span {
             font-weight: 600;
-          }
-          &:hover{
-            i{
-              transform: scale(1.2);
-            }
           }
         }
       }
-      &-doctolib{
-        font-size: 12px;
-        //padding: 5px;
 
+      &-doctolib {
+        font-size: 12px;
       }
     }
   }

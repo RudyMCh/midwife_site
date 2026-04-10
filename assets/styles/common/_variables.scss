@@ -1,4 +1,104 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Design tokens — Projet SageFemme
+//
+// Centralise toutes les valeurs de style réutilisables.
+// Ne jamais écrire de couleur, taille de fonte, z-index ou breakpoint
+// en dur dans un fichier partiel — référencer ces variables.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Couleurs marque ──────────────────────────────────────────────────────────
+$color-primary:   #232187; // bleu marine — identité visuelle principale
+$color-secondary: #fd3f92; // rose — titres de sections, accents
+
+// ── Couleurs fonctionnelles ──────────────────────────────────────────────────
+$color-accent:   #800080; // violet — nav hover/actif, sidebar admin
+$color-doctolib: #107aca; // bleu Doctolib (couleur partenaire imposée)
+
+// Bouton téléphone CTA
+$color-phone-border: #46e565;
+$color-phone-from:   #58f173;
+$color-phone-to:     #03bb29;
+
+// Overlay (appliqués sur images héros)
+$overlay-dark:   rgba(0, 0, 0, 0.8);
+$overlay-medium: rgba(0, 0, 0, 0.5);
+$overlay-light:  rgba(0, 0, 0, 0.3);
+
+// ── Couleurs neutres ─────────────────────────────────────────────────────────
+$color-white:    #ffffff;
+$color-dark:     #333333; // texte sombre, éléments UI
+$color-gray:     #808080; // gris moyen — bordures, dropdown, texte sticky nav
+$color-bg-light: #f5f5f5; // whitesmoke — fond clair
+
+// Section sage-femmes (page service)
+$color-service-bg: #ffb6c1; // lightpink
+
+// ── Couleurs admin ───────────────────────────────────────────────────────────
+$color-admin-header: #33003d; // header admin — violet très foncé
+$color-admin-accent: #4682b4; // steelblue — titres, liens actifs admin
+$color-text:         #313131; // texte foncé (sidebar, labels)
+
+// ── Menu burger (couleurs propres au composant) ──────────────────────────────
+$burger-bg:       #2e2f35;
+$burger-bg-dark:  #1e1e24;
+$burger-bg-light: #494a50;
+$burger-text:     #a5a5a4;
+
+// ── Typographie ──────────────────────────────────────────────────────────────
+$font-body:    'Helvetica', 'Arial', sans-serif;
+$font-display: 'Tangerine', cursive; // titres décoratifs
+
+$font-size-nav:     1.25rem;  //  20px — liens de navigation
+$font-size-h1:      6.25rem;  // 100px — h1 display (Tangerine)
+$font-size-h2:      3.125rem; //  50px — h2 sections (Tangerine)
+$font-size-h2-hero: 5rem;     //  80px — h2 héros page domaine (Tangerine)
+
+// ── Espacements ──────────────────────────────────────────────────────────────
+$space-xs:        4px;
+$space-sm:        8px;
+$space-md:       16px;
+$space-lg:       32px;
+$space-xl:       50px;  // espacement cartes, padding internes larges
+$space-section: 100px;  // marge verticale inter-sections
+$space-section-lg: 150px; // marge pour sections service
+
+// ── Rayons de bordure ────────────────────────────────────────────────────────
+$radius-sm:   3px;
+$radius-md:   5px;
+$radius-lg:   8px;
+$radius-full: 50%;
+
+// ── Ombres ───────────────────────────────────────────────────────────────────
+$shadow-card: 1px 5px 5px $color-primary;
+
+// ── Transitions ──────────────────────────────────────────────────────────────
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// ── Z-index ──────────────────────────────────────────────────────────────────
+// Couches :
+//   1-100   → éléments UI de base
+//   120-500 → contenu en position absolue dans une carte
+//   998+    → éléments de premier plan (header, overlays)
+$z-burger-icon:     2;    // icône hamburger (derrière le sticky header)
+$z-burger:        100;    // menu burger mobile + pushNav
+$z-card-img:      120;    // photo ronde sur carte sage-femme
+$z-card-content:  500;    // texte au-dessus du fond de carte
+$z-titlebar:      998;    // h1 sur les barres de titre héros
+$z-header:        999;    // header fixe + photo carte horizontale
+$z-header-sticky: 1001;   // header en mode sticky (au-dessus de tout)
+
+// ── Breakpoints ──────────────────────────────────────────────────────────────
+// Alignés sur Bootstrap 5. Ne pas créer de breakpoints intermédiaires.
+// Remplacent les 500px, 518px et 610px non standards du code historique.
+$bp-sm:   576px;
+$bp-md:   768px;
+$bp-lg:   992px;
+$bp-xl:  1200px;
+
+// ── Bootstrap theme-colors ───────────────────────────────────────────────────
 $theme-colors: (
-    "blue": #232187,
-    "pink": rgb(253, 63, 146),
+    "primary":   $color-primary,
+    "secondary": $color-secondary,
 );
