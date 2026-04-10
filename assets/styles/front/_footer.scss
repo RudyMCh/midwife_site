@@ -1,41 +1,146 @@
-footer{
-  a{
+.footer-main {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  // Écrase les variables CSS Bootstrap pour les liens dans le footer
+  --bs-link-color: #adb5bd;
+  --bs-link-color-rgb: 173, 181, 189;
+  --bs-link-hover-color: #fff;
+  --bs-link-hover-color-rgb: 255, 255, 255;
+
+  // Neutralise tous les bullets et paddings de liste dans le footer
+  ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  // Liens : couleur uniforme, pas de bleu Bootstrap
+  a {
     text-decoration: none;
-  }
-  h5{
-    color: white;
-  }
-  .footer{
-    &-column{
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      flex-direction: column;
-      margin-top: 50px;
+    color: #adb5bd;
+    transition: color 0.2s;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:visited {
+      color: #fff;
     }
-    &-midwife{
+  }
+
+  .footer-section-title {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+
+  // ── Colonne 1 : infos cabinet ──────────────────────────────────────────
+  .footer-info-list {
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      color: #adb5bd;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .footer-icon {
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+      width: 14px;
+      text-align: center;
       color: #6c757d;
-      margin-bottom: 20px;
-      &-name{
-        &:hover{
-          cursor: pointer;
-        }
-        text-align: center;
-        margin-bottom: 18px;
-      }
-      &-contact{
-        display: none;
-        &.display{
-            display: block;
-        }
-        background-color: currentColor;
-        border-radius: 5px;
-        padding: 5px;
-        &-phone, &-email{
-          a{
-            color: rgb(33, 37, 41);
-          }
-        }
+    }
+  }
+
+  // ── Colonne 2 : navigation ─────────────────────────────────────────────
+  .footer-nav-list {
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      font-size: 0.9rem;
+    }
+  }
+
+  // ── Colonne 3 : sages-femmes ───────────────────────────────────────────
+  .footer-midwife-list {
+    width: 100%;
+  }
+
+  .footer-midwife {
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-midwife-name {
+    display: block;
+    color: #dee2e6;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .footer-midwife-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-left: 0.25rem;
+    font-size: 0.87rem;
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      overflow-wrap: break-word;
+      word-break: break-all;
+      max-width: 100%;
+    }
+
+    // Bouton Doctolib mini : ramène à la ligne sans déborder
+    .btn-doctolib-mini {
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+// ── Barre inférieure ──────────────────────────────────────────────────────
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1rem 0;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  .footer-bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #6c757d;
+
+    a {
+      color: #6c757d;
+      text-decoration: none;
+
+      &:hover {
+        color: #adb5bd;
       }
     }
   }

@@ -2,9 +2,11 @@
 
 namespace App\Twig;
 
+use App\Entity\Office;
 use App\Entity\Service;
 use App\Repository\DomainRepository;
 use App\Repository\MidwifeRepository;
+use App\Repository\OfficeRepository;
 use App\Services\PropertyInspectorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
@@ -17,6 +19,7 @@ class AppExtension extends AbstractExtension
         private readonly EntityManagerInterface $entityManager,
         private readonly DomainRepository $domainRepository,
         private readonly MidwifeRepository $midwifeRepository,
+        private readonly OfficeRepository $officeRepository,
         private readonly PropertyInspectorService $propertyInspector,
     ) {
     }
@@ -41,6 +44,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('countElements', $this->countElements(...)),
             new TwigFunction('getMidwives', $this->getMidwives(...)),
             new TwigFunction('getDomains', $this->getDomains(...)),
+            new TwigFunction('getMidwivesByService', $this->getMidwivesByService(...)),
+            new TwigFunction('getOffice', $this->getOffice(...)),
         ];
     }
 
@@ -79,19 +84,9 @@ class AppExtension extends AbstractExtension
 
     public function mobilePhone(mixed $value): string
     {
-        $array = str_split((string) $value);
-        $newValue = '';
-        $i = 0;
-        foreach ($array as $letter) {
-            if ($i !== 0 && $i % 2 !== 0) {
-                $newValue .= $letter;
-            } else {
-                $newValue .= ' '.$letter;
-            }
-            ++$i;
-        }
+        $digits = preg_replace('/\D/', '', (string) $value);
 
-        return $newValue;
+        return trim(chunk_split($digits, 2, ' '));
     }
 
     /** @param class-string $class */
@@ -110,6 +105,11 @@ class AppExtension extends AbstractExtension
     public function getMidwives(): array
     {
         return $this->midwifeRepository->findAll();
+    }
+
+    public function getOffice(): ?Office
+    {
+        return $this->officeRepository->findOneBy([]);
     }
 
     /** @return array<int, \App\Entity\Midwife> */

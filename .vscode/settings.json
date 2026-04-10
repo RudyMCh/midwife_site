@@ -1,3 +1,5 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "php-cs-fixer.executable": "{workspace}/vendor/bin/php-cs-fixer",
+    "php-cs-fixer.configFile": ".php-cs-fixer.php"
 }

@@ -29,7 +29,6 @@ class HomePageController extends AbstractController
             throw $this->createNotFoundException('Données de la page d\'accueil manquantes.');
         }
 
-        dd($midwifeRepository->findAll());
         return $this->render('front/homepage.html.twig', [
             'midwives' => $midwifeRepository->findAll(),
             'domains' => $domainRepository->findAll(),

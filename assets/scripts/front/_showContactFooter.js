@@ -1,16 +1,26 @@
-export default class ShowContactFooter{
-    static init(){
-        this.show();
+export default class ShowContactFooter {
+    static init() {
+        this.setup();
     }
 
-    static show() {
-        let midwifeContact = document.getElementsByClassName('footer-midwife-name');
-        [...midwifeContact].forEach(midwife=>midwife.addEventListener("click", function(e){
-            let target = e.currentTarget;
-            let contactBox = target.nextElementSibling;
-            contactBox.classList.toggle("display");
-            let  contactBoxes = document.getElementsByClassName('footer-midwife-contact');
-            [...contactBoxes].forEach(box=> box !== contactBox ? box.classList.remove('display') : null)
-        }))
+    static setup() {
+        const buttons = document.querySelectorAll('.footer-midwife-name');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+                // Ferme tous les autres
+                buttons.forEach(other => {
+                    other.setAttribute('aria-expanded', 'false');
+                    other.nextElementSibling?.classList.remove('display');
+                });
+
+                // Bascule l'actif
+                if (!isOpen) {
+                    btn.setAttribute('aria-expanded', 'true');
+                    btn.nextElementSibling?.classList.add('display');
+                }
+            });
+        });
     }
 }

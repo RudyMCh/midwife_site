@@ -1,50 +1,84 @@
-<footer class="bg-dark">
+{% set office = getOffice() %}
+
+<footer class="footer-main bg-dark text-white">
     <div class="container">
-        <div class="row py-5 border-top">
+        <div class="row py-5">
+
+            {# ── Colonne 1 : Cabinet ─────────────────────────────────────── #}
             <div class="col-md-4 footer-column">
-                <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-                </a>
-                <p class="text-muted">© {{ date('now')|date('Y') }}</p>
-            </div>
-            <div class="col-md-4 footer-column">
-                <h5>Menu</h5>
-                <ul class="nav flex-column justify-content-center align-items-center">
-                    <li class="nav-item mb-2"><a href="{{ path('homepage_homepage') }}" class="nav-link p-0 text-muted">Accueil</a></li>
-                    {% for domain in getDomains() %}
-                        <li class="nav-item mb-2"><a href="{{ path('domain_show', {'slug' : domain.slug}) }}" class="nav-link p-0 text-muted">{{ domain.name }}</a></li>
-                    {% endfor %}
-                    <li class="nav-item mb-2"><a href="{{ path('informations_utiles') }}" class="nav-link p-0 text-muted">Infos utiles</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4 footer-column">
-                <h5>Contacts</h5>
-                <ul class="nav flex-column">
-                    {% for midwife in getMidwives() %}
+                {% if office %}
+                    <h5 class="footer-section-title">{{ office.name }}</h5>
+                    <ul class="footer-info-list">
+                        {% if office.address %}
+                            <li>
+                                <i class="fas fa-map-marker-alt footer-icon"></i>
+                                <span>{{ office.address }}<br>{{ office.zipcode }} {{ office.city }}</span>
+                            </li>
+                        {% endif %}
+                        {% if office.phone %}
+                            <li>
+                                <i class="fas fa-phone footer-icon"></i>
+                                <a href="tel:{{ office.phone }}">{{ office.phone|mobilePhone }}</a>
+                            </li>
+                        {% endif %}
                         <li>
-                            <div class="footer-midwife">
-                                <div class="footer-midwife-name">
-                                    {{ midwife.firstname }} {{ midwife.lastname }}
-                                </div>
-                                <div class="footer-midwife-contact">
-                                    <div class="footer-midwife-contact-phone">
-                                        {% if midwife.phone is not null %}
-                                            <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone"></i> {{ midwife.phone|mobilePhone }}</a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="footer-midwife-contact-email">
-                                        {% if midwife.email is not null %}
-                                            <a href="mailto:{{ midwife.email }}"><i class="far fa-envelope"></i> {{ midwife.email }}</a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="footer-midwife-contact-email">
-                                        <a href="{{ path('midwife_show', {'slug': midwife.slug}) }}">voir plus</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <i class="fas fa-clock footer-icon"></i>
+                            <span>Lun – Ven : 8h – 19h<br>Sam : 8h – 12h</span>
                         </li>
+                    </ul>
+                {% endif %}
+            </div>
+
+            {# ── Colonne 2 : Navigation ──────────────────────────────────── #}
+            <div class="col-md-4 footer-column">
+                <h5 class="footer-section-title">Navigation</h5>
+                <ul class="footer-nav-list">
+                    <li><a href="{{ path('homepage_homepage') }}">Accueil</a></li>
+                    {% for domain in getDomains() %}
+                        <li><a href="{{ path('domain_show', {'slug': domain.slug}) }}">{{ domain.name }}</a></li>
                     {% endfor %}
+                    <li><a href="{{ path('informations_utiles') }}">Infos utiles</a></li>
                 </ul>
+            </div>
+
+            {# ── Colonne 3 : Sages-femmes ────────────────────────────────── #}
+            <div class="col-md-4 footer-column">
+                <h5 class="footer-section-title">Nos sages-femmes</h5>
+                <div class="footer-midwife-list">
+                    {% for midwife in getMidwives() %}
+                        <div class="footer-midwife">
+                            <a href="{{ path('midwife_show', {'slug': midwife.slug}) }}" class="footer-midwife-name">
+                                {{ midwife.firstname }} {{ midwife.lastname }}
+                            </a>
+                            <div class="footer-midwife-contact">
+                                {% if midwife.phone %}
+                                    <a href="tel:{{ midwife.phone }}">
+                                        <i class="fas fa-phone"></i> {{ midwife.phone|mobilePhone }}
+                                    </a>
+                                {% endif %}
+                                {% if midwife.email %}
+                                    <a href="mailto:{{ midwife.email }}">
+                                        <i class="far fa-envelope"></i> {{ midwife.email }}
+                                    </a>
+                                {% endif %}
+                                {% if midwife.doctolibUrl %}
+                                    {% include 'front/components/doctolib-mini.html.twig' with {'midwife': midwife} %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>{# /row #}
+    </div>{# /container #}
+
+    {# ── Barre inférieure ────────────────────────────────────────────────── #}
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="footer-bottom-inner">
+                <span>© {{ date('now')|date('Y') }} {{ office ? office.name : 'Cabinet Albandea-Gauthier' }}</span>
+                <a href="{{ path('informations_utiles') }}">Mentions légales</a>
             </div>
         </div>
     </div>

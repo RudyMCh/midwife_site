@@ -32,7 +32,16 @@ services:
     depends_on:
       - php
     restart: unless-stopped
-
+  adminer:
+      image: adminer:latest
+      container_name: adminer
+      restart: unless-stopped
+      ports:
+        - "8090:8080"          # Accède à http://localhost:8080
+      environment:
+        ADMINER_DEFAULT_SERVER: database
+      depends_on:
+        - database
   database:
     image: mariadb:11.4
     environment:

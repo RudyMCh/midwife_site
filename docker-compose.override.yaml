@@ -21,3 +21,16 @@ services:
     image: schickling/mailcatcher
     ports:
       - "1080:1080"
+
+  sass:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - .:/var/www/html:rw
+      - vendor:/var/www/html/vendor
+      - var:/var/www/html/var
+    entrypoint: ["docker-php-entrypoint"]
+    command: php bin/console sass:build --watch
+    depends_on:
+      - php

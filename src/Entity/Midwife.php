@@ -31,7 +31,7 @@ class Midwife implements \Stringable
      */
     #[Gedmo\Slug(fields: ['firstname', 'lastname'])]
     #[ORM\Column(length: 128, unique: true)]
-    private string $slug = '';
+    private ?string $slug = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $firstname = '';
@@ -53,7 +53,7 @@ class Midwife implements \Stringable
     private ?string $doctolibUrl = null;
 
     #[ORM\Column(type: 'string', length: 15, nullable: true)]
-    #[Assert\Regex('/^[0-9]{10}$/', message: 'Le numéro de téléphone {{ value }} ne doit contenir que des chiffres et faire une longueur de 10 caractères')]
+    #[Assert\Regex('/^(0[0-9]{9}|\+33[0-9]{9})$/', message: 'Le numéro de téléphone {{ value }} est invalide (formats acceptés : 0612345678 ou +33612345678)')]
     private ?string $phone = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -191,7 +191,7 @@ class Midwife implements \Stringable
         return $this;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }

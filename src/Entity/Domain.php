@@ -35,11 +35,9 @@ class Domain implements \Stringable
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private ?string $titleColorBg = null;
 
-    /**
-     * @Gedmo\Slug(fields={"name"})
-     */
+    #[Gedmo\Slug(fields: ['name'])]
     #[ORM\Column(length: 128, unique: true)]
-    private string $slug = '';
+    private ?string $slug = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $metaTitle = null;

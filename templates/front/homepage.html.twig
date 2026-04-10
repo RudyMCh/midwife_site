@@ -124,6 +124,11 @@
         <div id="wazeBtn">
             <a href="https://waze.com/ul?q={{ (office.address~' '~office.zipcode~ ' '~office.city)|url_encode }}?ll={{ office.latitude }},-{{ office.longitude }}&navigate=yes" class="btn waze"></a>
         </div>
-        <iframe src="{{ office.urlGoogleMap }}"></iframe>
+        <iframe
+            src="https://maps.google.com/maps?q={{ (office.address~' '~office.zipcode~' '~office.city)|url_encode }}&output=embed"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
     </section>
 {% endblock %}
