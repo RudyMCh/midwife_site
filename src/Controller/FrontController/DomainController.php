@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\FrontController;
 
 use App\Entity\Domain;
@@ -14,7 +15,7 @@ class DomainController extends AbstractController
     #[Cache(public: true, maxage: 3600, mustRevalidate: true)]
     public function show(Domain $domain): Response
     {
-        $metaTitle = $domain->getMetaTitle() ?? $domain->getName() . ' — Sages-femmes Quetigny';
+        $metaTitle = $domain->getMetaTitle() ?? $domain->getName().' — Sages-femmes Quetigny';
 
         return $this->render('front/domain.html.twig', [
             'domain' => $domain,

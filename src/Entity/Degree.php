@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DegreeRepository;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DegreeRepository::class)]
 class Degree

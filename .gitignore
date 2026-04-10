@@ -17,7 +17,9 @@
 .idea/
 .vscode/
 *.swp
-
+.phpunit.result.cache
+phpunit.xml.dist.bak
+test-results
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php
 /.php-cs-fixer.cache

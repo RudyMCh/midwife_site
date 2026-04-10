@@ -31,7 +31,6 @@ class MediaFile implements \Stringable
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $description = null;
 
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $alt = null;
 

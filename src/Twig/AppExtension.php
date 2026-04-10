@@ -65,7 +65,7 @@ class AppExtension extends AbstractExtension
             [$part1, $part2] = explode(';', $field, 2);
             $intermediate = $el->{'get'.$part1}();
 
-            return $intermediate !== null ? $intermediate->{'get'.$part2}() : '';
+            return null !== $intermediate ? $intermediate->{'get'.$part2}() : '';
         }
 
         $value = $el->{'get'.$field}();

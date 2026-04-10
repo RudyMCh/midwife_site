@@ -27,6 +27,7 @@ class PropertyInspectorService
 
     /**
      * @param class-string $class
+     *
      * @return array<string>|null
      */
     public function getProperties(string $class): ?array
@@ -41,6 +42,6 @@ class PropertyInspectorService
     {
         $types = $this->propertyInfo->getTypes($class, $property);
 
-        return $types !== null && isset($types[0]) ? $types[0] : null;
+        return null !== $types && isset($types[0]) ? $types[0] : null;
     }
 }

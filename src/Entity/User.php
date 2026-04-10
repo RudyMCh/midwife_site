@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     }
 
     /**
-     * The public representation of the user (e.g. a username, an email address, etc.)
+     * The public representation of the user (e.g. a username, an email address, etc.).
      *
      * @see UserInterface
      */
@@ -67,9 +67,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     #[\Override]
     public function getUserIdentifier(): string
     {
-        if ($this->email === '') {
+        if ('' === $this->email) {
             throw new \LogicException('User email is not set.');
         }
+
         return $this->email;
     }
 
@@ -118,7 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     public function setPlainPassword(?string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
-        if ($plainPassword !== null) {
+        if (null !== $plainPassword) {
             $this->password = '';
         }
     }
@@ -130,7 +131,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-         $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getLastname(): ?string
@@ -163,6 +164,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
         if (!$user instanceof PasswordAuthenticatedUserInterface) {
             return false;
         }
+
         return $this->password === $user->getPassword();
     }
 }

@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\InformationPageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\MediaFile;
 
 #[ORM\Entity(repositoryClass: InformationPageRepository::class)]
 class InformationPage

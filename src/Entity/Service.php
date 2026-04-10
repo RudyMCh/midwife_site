@@ -88,7 +88,6 @@ class Service implements \Stringable
         return $this;
     }
 
-
     public function getSlug(): string
     {
         return $this->slug;
@@ -140,9 +139,8 @@ class Service implements \Stringable
         $this->position = $position;
 
         return $this;
-
-        
     }
+
     #[\Override]
     public function __toString(): string
     {

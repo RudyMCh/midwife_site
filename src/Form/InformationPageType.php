@@ -17,10 +17,10 @@ class InformationPageType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label'=>'Titre'
+                'label' => 'Titre',
             ])
             ->add('titleBg', MediaFileType::class, [
-                'label'=>'Background image du titre'
+                'label' => 'Background image du titre',
             ])
             ->add('legal', TextareaType::class, [
                 'label' => 'Texte légal',
@@ -40,13 +40,13 @@ class InformationPageType extends AbstractType
             ])
             ->add('mention')
             ->add('metaTitle', TextType::class, [
-                'label' => "Titre SEO",
-                'help' => "70 caracteres maximum.",
+                'label' => 'Titre SEO',
+                'help' => '70 caracteres maximum.',
                 'required' => false,
             ])
             ->add('metaDescription', TextareaType::class, [
-                'label' => "Description pour le referencement",
-                'help' => "80-160 caracteres.",
+                'label' => 'Description pour le referencement',
+                'help' => '80-160 caracteres.',
                 'required' => false,
                 'attr' => ['rows' => 3],
             ])

@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 #[\Symfony\Component\Routing\Attribute\Route(path: '/admin', name: 'admin_utils_')]
 class UtilsController extends AbstractController
@@ -20,7 +19,7 @@ class UtilsController extends AbstractController
     {
         /** @var class-string $class */
         $item = $this->em->getRepository($class)->find($id);
-        if ($item === null) {
+        if (null === $item) {
             return $this->redirect(urldecode($redirect));
         }
         $setter = 'set'.ucfirst($prop);
@@ -39,13 +38,13 @@ class UtilsController extends AbstractController
         /** @var class-string $namespace */
         $repository = $this->em->getRepository($namespace);
         $entityOne = $repository->find($id);
-        if ($entityOne === null) {
+        if (null === $entityOne) {
             return $this->redirectToRoute($route.'_index');
         }
         /** @phpstan-ignore-next-line */
         $oldPosition = $entityOne->getPosition();
         $newPosition = $request->query->getInt('position');
-        if ($parent !== null && $parentClass !== null) {
+        if (null !== $parent && null !== $parentClass) {
             $getter = 'get'.ucfirst($parent);
             $parentEntity = $entityOne->$getter();
             $array = explode('\\', $namespace);
@@ -67,7 +66,7 @@ class UtilsController extends AbstractController
                 }
             }
         }
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         $entityOne->setPosition($newPosition);
         $this->em->flush();
 

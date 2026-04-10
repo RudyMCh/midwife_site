@@ -15,34 +15,34 @@ class OfficeType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label'=>'Nom'
+                'label' => 'Nom',
             ])
             ->add('address', TextType::class, [
-                'label'=>'Adresse'
+                'label' => 'Adresse',
             ])
             ->add('zipcode', TextType::class, [
-                'label'=>'Code Postal'
+                'label' => 'Code Postal',
             ])
             ->add('city', TextType::class, [
-                'label'=>'Ville'
+                'label' => 'Ville',
             ])
             ->add('phone', TextType::class, [
-                'label'=>'Téléphone',
-                'required'=>false
+                'label' => 'Téléphone',
+                'required' => false,
             ])
             ->add('about', TextType::class, [
-                'label'=>'A propos',
-                'required'=>false
+                'label' => 'A propos',
+                'required' => false,
             ])
             ->add('urlGoogleMap', TextType::class, [
-                'label'=>'Url GoogleMap',
-                'help'=>'Url disponible dans google map dans l\'option "partager", ne pas mettre la balise iframe, uniquement l\'url (https:// ...)'
+                'label' => 'Url GoogleMap',
+                'help' => 'Url disponible dans google map dans l\'option "partager", ne pas mettre la balise iframe, uniquement l\'url (https:// ...)',
             ])
             ->add('latitude', TextType::class, [
-                'help'=>'Coordonnées utilisées pour le bouton Waze'
+                'help' => 'Coordonnées utilisées pour le bouton Waze',
             ])
             ->add('longitude', TextType::class, [
-                'help'=>'Coordonnées utilisées pour le bouton Waze'
+                'help' => 'Coordonnées utilisées pour le bouton Waze',
             ])
         ;
     }

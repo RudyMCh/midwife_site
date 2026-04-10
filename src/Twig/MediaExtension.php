@@ -20,7 +20,7 @@ class MediaExtension extends AbstractExtension
 
     public function mediaPath(?MediaFile $file, string $fallback = '/utils/no-picture.jpg'): string
     {
-        if ($file === null) {
+        if (null === $file) {
             return $fallback;
         }
 
@@ -29,7 +29,7 @@ class MediaExtension extends AbstractExtension
 
     public function mediaRender(?MediaFile $file, string $class = '', string $fallback = '', bool $lazy = true): string
     {
-        if ($file === null) {
+        if (null === $file) {
             return $fallback;
         }
 
@@ -76,7 +76,7 @@ class MediaExtension extends AbstractExtension
 
     public function mediaThumb(?MediaFile $file, string $class = '', string $fallback = '', bool $lazy = true): string
     {
-        if ($file === null) {
+        if (null === $file) {
             return $fallback;
         }
 

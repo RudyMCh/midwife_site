@@ -25,7 +25,7 @@ class MediaFileController extends AbstractController
         Request $request,
     ): Response {
         $search = $request->query->getString('search');
-        $query = $search !== ''
+        $query = '' !== $search
             ? $repository->createQueryBuilder('m')
                 ->where('m.filename LIKE :term OR m.title LIKE :term OR m.alt LIKE :term')
                 ->setParameter('term', '%'.$search.'%')

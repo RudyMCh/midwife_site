@@ -26,29 +26,29 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
             ->setBackgroundColor1('#e8a0bf')
             ->setAboutMe(
                 'Sage-femme libérale depuis 2015, j\'exerce au cabinet Albandea-Gauthier à Chevigny-Saint-Sauveur, '
-                . 'à quelques minutes de Dijon. Mon accompagnement s\'inscrit dans une approche globale et bienveillante : '
-                . 'je vous suis de la déclaration de grossesse jusqu\'aux premières semaines de vie de votre bébé, '
-                . 'en passant par la rééducation périnéale et le suivi gynécologique de prévention.'
+                .'à quelques minutes de Dijon. Mon accompagnement s\'inscrit dans une approche globale et bienveillante : '
+                .'je vous suis de la déclaration de grossesse jusqu\'aux premières semaines de vie de votre bébé, '
+                .'en passant par la rééducation périnéale et le suivi gynécologique de prévention.'
             )
             ->setDescription(
                 'Diplômée en 2015 de l\'École de Sages-Femmes de Dijon, j\'ai débuté ma carrière en maternité avant '
-                . 'd\'ouvrir mon cabinet libéral à Chevigny-Saint-Sauveur en 2016 avec ma consœur Marie Albandea. '
-                . 'Ma pratique est centrée sur l\'écoute, la disponibilité et le respect de vos choix. '
-                . "\n\n"
-                . 'Je prends en charge le suivi de grossesse (du premier trimestre à l\'accouchement), '
-                . 'la préparation à la naissance (méthode classique, haptonomie, yoga prénatal), '
-                . 'la surveillance du nouveau-né à domicile et la rééducation périnéale après l\'accouchement. '
-                . 'Je réalise également le suivi gynécologique de la femme tout au long de sa vie : '
-                . 'contraception, dépistage (frottis cervico-utérin), consultation de ménopause. '
-                . "\n\n"
-                . 'Formée à l\'acupuncture obstétricale, je propose des séances de déclenchement naturel du travail '
-                . 'et de soulagement des inconforts de fin de grossesse (lombalgie, nausées, version par siège). '
-                . 'N\'hésitez pas à prendre rendez-vous via Doctolib ou à m\'appeler directement.'
+                .'d\'ouvrir mon cabinet libéral à Chevigny-Saint-Sauveur en 2016 avec ma consœur Marie Albandea. '
+                .'Ma pratique est centrée sur l\'écoute, la disponibilité et le respect de vos choix. '
+                ."\n\n"
+                .'Je prends en charge le suivi de grossesse (du premier trimestre à l\'accouchement), '
+                .'la préparation à la naissance (méthode classique, haptonomie, yoga prénatal), '
+                .'la surveillance du nouveau-né à domicile et la rééducation périnéale après l\'accouchement. '
+                .'Je réalise également le suivi gynécologique de la femme tout au long de sa vie : '
+                .'contraception, dépistage (frottis cervico-utérin), consultation de ménopause. '
+                ."\n\n"
+                .'Formée à l\'acupuncture obstétricale, je propose des séances de déclenchement naturel du travail '
+                .'et de soulagement des inconforts de fin de grossesse (lombalgie, nausées, version par siège). '
+                .'N\'hésitez pas à prendre rendez-vous via Doctolib ou à m\'appeler directement.'
             )
             ->setMetaTitle('Chloé Gauthier — Sage-femme à Chevigny-Saint-Sauveur')
             ->setMetaDescription(
                 'Chloé Gauthier, sage-femme libérale à Chevigny-Saint-Sauveur (21). '
-                . 'Suivi de grossesse, gynécologie, préparation à la naissance et rééducation périnéale.'
+                .'Suivi de grossesse, gynécologie, préparation à la naissance et rééducation périnéale.'
             )
             ->setRpps('10101010949')
             ->setAdeli('123456789')
@@ -120,27 +120,27 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
             ->setBackgroundColor1('#7bbfb5')
             ->setAboutMe(
                 'Sage-femme libérale depuis 2014, je partage avec Chloé Gauthier le cabinet de Chevigny-Saint-Sauveur. '
-                . 'Passionnée par l\'accompagnement périnatal, je mets un point d\'honneur à vous offrir un suivi personnalisé, '
-                . 'dans un environnement rassurant et chaleureux, que ce soit pour votre grossesse, votre accouchement '
-                . 'ou votre retour à la maison.'
+                .'Passionnée par l\'accompagnement périnatal, je mets un point d\'honneur à vous offrir un suivi personnalisé, '
+                .'dans un environnement rassurant et chaleureux, que ce soit pour votre grossesse, votre accouchement '
+                .'ou votre retour à la maison.'
             )
             ->setDescription(
                 'Diplômée en 2014 de l\'École de Sages-Femmes de Lyon, j\'ai exercé deux ans en maternité de niveau III '
-                . 'avant de rejoindre l\'exercice libéral. Depuis 2016, j\'exerce au cabinet Albandea-Gauthier '
-                . 'à Chevigny-Saint-Sauveur où je prends en charge l\'ensemble du suivi périnatal. '
-                . "\n\n"
-                . 'Ma pratique inclut le suivi de grossesse physiologique et à risque, la préparation à la naissance '
-                . '(méthode classique et yoga prénatal), les visites à domicile en post-partum, la rééducation périnéale '
-                . 'et le suivi gynécologique de prévention. '
-                . "\n\n"
-                . 'Formée à l\'entretien prénatal précoce (EPP), je propose un espace de parole dès le premier trimestre '
-                . 'pour aborder vos attentes, vos craintes et préparer votre projet de naissance en toute sérénité. '
-                . 'Je suis également référente allaitement au sein du cabinet.'
+                .'avant de rejoindre l\'exercice libéral. Depuis 2016, j\'exerce au cabinet Albandea-Gauthier '
+                .'à Chevigny-Saint-Sauveur où je prends en charge l\'ensemble du suivi périnatal. '
+                ."\n\n"
+                .'Ma pratique inclut le suivi de grossesse physiologique et à risque, la préparation à la naissance '
+                .'(méthode classique et yoga prénatal), les visites à domicile en post-partum, la rééducation périnéale '
+                .'et le suivi gynécologique de prévention. '
+                ."\n\n"
+                .'Formée à l\'entretien prénatal précoce (EPP), je propose un espace de parole dès le premier trimestre '
+                .'pour aborder vos attentes, vos craintes et préparer votre projet de naissance en toute sérénité. '
+                .'Je suis également référente allaitement au sein du cabinet.'
             )
             ->setMetaTitle('Marie Albandea — Sage-femme à Chevigny-Saint-Sauveur')
             ->setMetaDescription(
                 'Marie Albandea, sage-femme à Chevigny-Saint-Sauveur (21). '
-                . 'Grossesse, gynécologie, post-partum et rééducation périnéale. Prise en charge Sécurité Sociale.'
+                .'Grossesse, gynécologie, post-partum et rééducation périnéale. Prise en charge Sécurité Sociale.'
             )
             ->setRpps('20202020938')
             ->setAdeli('987654321')

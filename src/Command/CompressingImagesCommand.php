@@ -33,17 +33,17 @@ class CompressingImagesCommand extends Command
             $pathname = $file->getPathname();
 
             $ratioResize = $this->imageUploadService->getRatioResize($pathname);
-            if ($ratioResize !== null) {
+            if (null !== $ratioResize) {
                 $this->imageUploadService->resizeUploadedImage($pathname, $ratioResize);
             }
 
             $uploadedFile = new UploadedFile($pathname, $file->getFilename(), null, null, true);
             $ratioWeight = $this->imageUploadService->getRatioWeight($uploadedFile);
-            if ($ratioWeight !== null) {
+            if (null !== $ratioWeight) {
                 $this->imageUploadService->compressUploadedImage($pathname, $ratioWeight);
             }
 
-            if ($ratioResize !== null || $ratioWeight !== null) {
+            if (null !== $ratioResize || null !== $ratioWeight) {
                 ++$count;
             }
         }

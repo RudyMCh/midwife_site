@@ -4,14 +4,14 @@ namespace App\Controller\AdminController;
 
 use App\Entity\Domain;
 use App\Entity\Service;
-use App\Form\ServiceType;
 use App\Form\Handler\ServiceHandler;
+use App\Form\ServiceType;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Knp\Component\Pager\PaginatorInterface;
 
 #[\Symfony\Component\Routing\Attribute\Route(path: '/admin/service', name: 'admin_service_')]
 class ServiceController extends AbstractController

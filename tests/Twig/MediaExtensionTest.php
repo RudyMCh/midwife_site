@@ -150,7 +150,7 @@ class MediaExtensionTest extends TestCase
     public function testGetFunctionsRegistersExpectedNames(): void
     {
         $names = array_map(
-            static fn(\Twig\TwigFunction $f) => $f->getName(),
+            static fn (\Twig\TwigFunction $f) => $f->getName(),
             $this->ext->getFunctions()
         );
 
@@ -168,7 +168,7 @@ class MediaExtensionTest extends TestCase
         $file = new MediaFile();
         $file->setDirectory($directory);
         $file->setFilename($filename);
-        if ($alt !== null) {
+        if (null !== $alt) {
             $file->setAlt($alt);
         }
 

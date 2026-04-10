@@ -30,7 +30,7 @@ class MidwifeRepository extends ServiceEntityRepository
             ->setParameter('service', $service)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
     // /**
     //  * @return Midwife[] Returns an array of Midwife objects

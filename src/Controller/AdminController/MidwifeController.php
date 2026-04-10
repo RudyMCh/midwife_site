@@ -6,15 +6,15 @@ use App\Entity\Degree;
 use App\Entity\Midwife;
 use App\Entity\Path;
 use App\Form\DegreeType;
-use App\Form\MidwifeType;
 use App\Form\Handler\MidwifeHandler;
+use App\Form\MidwifeType;
 use App\Form\PathType;
 use App\Repository\MidwifeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Knp\Component\Pager\PaginatorInterface;
 
 #[\Symfony\Component\Routing\Attribute\Route(path: '/admin/sage-femme', name: 'admin_midwife_')]
 #[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]

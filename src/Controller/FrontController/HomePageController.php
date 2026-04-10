@@ -25,7 +25,7 @@ class HomePageController extends AbstractController
         $homePage = $homePageRepository->findAll()[0] ?? null;
         $office = $officeRepository->findAll()[0] ?? null;
 
-        if ($homePage === null || $office === null) {
+        if (null === $homePage || null === $office) {
             throw $this->createNotFoundException('Données de la page d\'accueil manquantes.');
         }
 

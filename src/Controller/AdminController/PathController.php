@@ -19,7 +19,7 @@ class PathController extends AbstractController
         $form = $this->createForm(PathType::class, $path);
         $form->handleRequest($request);
         $midwife = $path->getMidwife();
-        assert($midwife !== null);
+        assert(null !== $midwife);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -49,7 +49,7 @@ class PathController extends AbstractController
         }
 
         $midwife = $path->getMidwife();
-        assert($midwife !== null);
+        assert(null !== $midwife);
 
         return $this->redirectToRoute('admin_midwife_edit', ['id' => $midwife->getId()]);
     }

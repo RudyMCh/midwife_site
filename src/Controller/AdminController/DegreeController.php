@@ -19,7 +19,7 @@ class DegreeController extends AbstractController
         $form = $this->createForm(DegreeType::class, $degree);
         $form->handleRequest($request);
         $midwife = $degree->getMidwife();
-        assert($midwife !== null);
+        assert(null !== $midwife);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -49,7 +49,7 @@ class DegreeController extends AbstractController
         }
 
         $midwife = $degree->getMidwife();
-        assert($midwife !== null);
+        assert(null !== $midwife);
 
         return $this->redirectToRoute('admin_midwife_edit', ['id' => $midwife->getId()]);
     }

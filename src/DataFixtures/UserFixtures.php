@@ -3,10 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
@@ -20,12 +20,12 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $user = new User();
         $user->setPassword($this->passwordEncoder->hashPassword(
             $user,
-            "rootroot"
+            'rootroot'
         ));
-        $user->setEmail("rmasson.pro@gmail.com")
-           ->setLastname("masson")
-           ->setFirstname("rudy")
-           ->setRoles(["ROLE_USER","ROLE_ADMIN"]);
+        $user->setEmail('rmasson.pro@gmail.com')
+           ->setLastname('masson')
+           ->setFirstname('rudy')
+           ->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $manager->persist($user);
 
         $manager->flush();

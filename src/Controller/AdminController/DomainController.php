@@ -7,10 +7,10 @@ use App\Form\DomainType;
 use App\Form\Handler\DomainHandler;
 use App\Repository\DomainRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Knp\Component\Pager\PaginatorInterface;
 
 #[\Symfony\Component\Routing\Attribute\Route(path: '/admin/domain', name: 'admin_domain_')]
 #[\Symfony\Component\Security\Http\Attribute\IsGranted('ROLE_ADMIN')]

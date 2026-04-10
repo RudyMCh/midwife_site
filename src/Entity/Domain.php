@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use App\Entity\MediaFile;
 
 #[ORM\Entity(repositoryClass: DomainRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false)]
@@ -103,7 +102,7 @@ class Domain implements \Stringable
     }
 
     #[\Override]
-    public function __toString():string
+    public function __toString(): string
     {
         return (string) $this->getName();
     }

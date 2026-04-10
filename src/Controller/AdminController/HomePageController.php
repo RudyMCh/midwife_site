@@ -19,7 +19,6 @@ class HomePageController extends AbstractController
     {
         $homepage = $homePageRepository->findOneBy([]);
         assert($homepage instanceof HomePage);
-
         $form = $this->createForm(HomePageType::class, $homepage);
         $form->handleRequest($request);
 

@@ -15,16 +15,16 @@ class PathType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label'=>'Titre'
+                'label' => 'Titre',
             ])
             ->add('start', TextType::class, [
-                'label'=>'Début du parcours'
+                'label' => 'Début du parcours',
             ])
             ->add('end', TextType::class, [
-                'label'=>'Fin du parcours'
+                'label' => 'Fin du parcours',
             ])
             ->add('city', TextType::class, [
-                'label'=>'Ville'
+                'label' => 'Ville',
             ])
         ;
     }

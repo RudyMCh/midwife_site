@@ -18,31 +18,31 @@ class HomePageType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label'=>'Titre'
+                'label' => 'Titre',
             ])
             ->add('catchphrase', TextType::class, [
-                'label'=>'Phrase d\'accroche'
+                'label' => 'Phrase d\'accroche',
             ])
             ->add('about', TextareaType::class, [
-                'label'=>'A propos'
+                'label' => 'A propos',
             ])
             ->add('pictures', MediaFileCollectionType::class)
             ->add('titleBg', MediaFileType::class, [
-                'label'=>'Barre titre',
-                'help'=>'Image de background du titre de la page'
+                'label' => 'Barre titre',
+                'help' => 'Image de background du titre de la page',
             ])
             ->add('backgroundImage1', MediaFileType::class, [
-                'label'=>'Image 1'
+                'label' => 'Image 1',
             ])
             ->add('backgroundImage2', MediaFileType::class, [
-                'label'=>'Image 2'
+                'label' => 'Image 2',
             ])
             ->add('metaTitle', TextType::class, [
-                'label'=>'Titre pour le référencement de la page',
-                'help'=>'Doit contenir le mot clé principal, ne pas dépasser 65 caractères (10 à 12 mots), être attractive'            ])
+                'label' => 'Titre pour le référencement de la page',
+                'help' => 'Doit contenir le mot clé principal, ne pas dépasser 65 caractères (10 à 12 mots), être attractive'])
             ->add('metaDescription', TextareaType::class, [
-                'label'=>'Description pour le référencement de la page',
-                'help'=>'120 caractères maximum, il est recommandé d’employer des verbes d’action du type « découvrir », « télécharger », « créer », etc.).'
+                'label' => 'Description pour le référencement de la page',
+                'help' => '120 caractères maximum, il est recommandé d’employer des verbes d’action du type « découvrir », « télécharger », « créer », etc.).',
             ])
         ;
     }

@@ -15,16 +15,16 @@ class DegreeType extends AbstractType
     {
         $builder
             ->add('establishment', TextType::class, [
-                'label'=> 'Etablissement'
+                'label' => 'Etablissement',
             ])
             ->add('title', TextType::class, [
-                'label'=>'Titre du diplôme'
+                'label' => 'Titre du diplôme',
             ])
             ->add('year', TextType::class, [
-                'label'=>'Année d\'obtention'
+                'label' => 'Année d\'obtention',
             ])
             ->add('type', TextType::class, [
-                'label'=>'Qualité du diplôme'
+                'label' => 'Qualité du diplôme',
             ])
         ;
     }

@@ -36,11 +36,11 @@ class ImageUploadService
         $ratioResize = $this->getRatioResize($file->getPathname());
         $ratioWeight = $this->getRatioWeight($file);
 
-        if ($ratioResize !== null) {
+        if (null !== $ratioResize) {
             $this->resizeUploadedImage($file->getPathname(), $ratioResize);
         }
 
-        if ($ratioWeight !== null) {
+        if (null !== $ratioWeight) {
             $this->compressUploadedImage($file->getPathname(), $ratioWeight);
         }
 
@@ -53,7 +53,7 @@ class ImageUploadService
         $directoryFromPublic = '/uploads'.($subDir ? '/'.$subDir : '');
 
         $existing = $this->mediaFileRepository->findByFilename($newFilename);
-        if ($existing !== null) {
+        if (null !== $existing) {
             return $existing;
         }
 
@@ -88,14 +88,14 @@ class ImageUploadService
         $pathname = $file->getPathname();
         $info = @getimagesize($pathname);
 
-        if ($info === false) {
+        if (false === $info) {
             return;
         }
 
         [$width, $height] = $info;
         $sourceImage = $this->createImageResource($pathname, $info['mime']);
 
-        if ($sourceImage === null) {
+        if (null === $sourceImage) {
             return;
         }
 
@@ -107,7 +107,7 @@ class ImageUploadService
             imagealphablending($destImage, false);
             imagesavealpha($destImage, true);
             $transparent = imagecolorallocatealpha($destImage, 255, 255, 255, 127);
-            if ($transparent !== false) {
+            if (false !== $transparent) {
                 imagefilledrectangle($destImage, 0, 0, self::THUMB_SIZE, $thumbHeight, $transparent);
             }
         }
@@ -124,7 +124,7 @@ class ImageUploadService
     public function getRatioWeight(UploadedFile $file): ?int
     {
         $weight = $file->getSize();
-        if ($weight === false || $weight <= self::MAX_WEIGHT) {
+        if (false === $weight || $weight <= self::MAX_WEIGHT) {
             return null;
         }
 
@@ -136,7 +136,7 @@ class ImageUploadService
     public function getRatioResize(string $pathname): ?int
     {
         $info = @getimagesize($pathname);
-        if ($info === false) {
+        if (false === $info) {
             return null;
         }
 
@@ -154,7 +154,7 @@ class ImageUploadService
     public function resizeUploadedImage(string $pathname, int $ratio): void
     {
         $info = @getimagesize($pathname);
-        if ($info === false) {
+        if (false === $info) {
             return;
         }
 
@@ -163,7 +163,7 @@ class ImageUploadService
         $newHeight = (int) ($height * $ratio / 100);
 
         $source = $this->createImageResource($pathname, $info['mime']);
-        if ($source === null) {
+        if (null === $source) {
             return;
         }
 
@@ -173,7 +173,7 @@ class ImageUploadService
             imagealphablending($dest, false);
             imagesavealpha($dest, true);
             $transparent = imagecolorallocatealpha($dest, 255, 255, 255, 127);
-            if ($transparent !== false) {
+            if (false !== $transparent) {
                 imagefilledrectangle($dest, 0, 0, $newWidth, $newHeight, $transparent);
             }
         }
@@ -188,12 +188,12 @@ class ImageUploadService
     public function compressUploadedImage(string $pathname, int $quality): void
     {
         $info = @getimagesize($pathname);
-        if ($info === false) {
+        if (false === $info) {
             return;
         }
 
         $image = $this->createImageResource($pathname, $info['mime']);
-        if ($image === null) {
+        if (null === $image) {
             return;
         }
 

@@ -21,30 +21,30 @@ class MidwifeType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label'=>'Prénom'
+                'label' => 'Prénom',
             ])
             ->add('lastname', TextType::class, [
-                'label'=>'Nom'
+                'label' => 'Nom',
             ])
             ->add('aboutMe', TextareaType::class, [
-                'label'=>'A propos de moi',
-                'help'=>'Résumé pour la carte de présentation de la page d\'accueil.',
-                'required'=>false,
-                "attr"=>[
-                    "rows"=> 6
-                ]
+                'label' => 'A propos de moi',
+                'help' => 'Résumé pour la carte de présentation de la page d\'accueil.',
+                'required' => false,
+                'attr' => [
+                    'rows' => 6,
+                ],
             ])
             ->add('picture', MediaFileType::class, [
-                'label'=>'Photo d\'identité',
-                "help"=> "Photo pour les cartes de présentation."
+                'label' => 'Photo d\'identité',
+                'help' => 'Photo pour les cartes de présentation.',
             ])
             ->add('bgCard', MediaFileType::class, [
-                'label'=>'Photo d\'arrière plan de la carte',
-                'help'=>'Photo d\'arrière plan des cartes de présentation individuel'
+                'label' => 'Photo d\'arrière plan de la carte',
+                'help' => 'Photo d\'arrière plan des cartes de présentation individuel',
             ])
-            ->add('backgroundColor1',ColorType::class, [
-                'label'=>'Couleur principale',
-                'help'=> 'Couleur de fond de la carte Sage femme (top) et du titre de sa page si aucune photo n\'a été définie'
+            ->add('backgroundColor1', ColorType::class, [
+                'label' => 'Couleur principale',
+                'help' => 'Couleur de fond de la carte Sage femme (top) et du titre de sa page si aucune photo n\'a été définie',
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
@@ -53,47 +53,47 @@ class MidwifeType extends AbstractType
                 'attr' => ['class' => 'tinymce'],
             ])
             ->add('bgTitle', MediaFileType::class, [
-                'label'=>'Image d\'arrière plan du titre de la page',
-                'help'=>'Photo de fond du titre de la page'
+                'label' => 'Image d\'arrière plan du titre de la page',
+                'help' => 'Photo de fond du titre de la page',
             ])
             ->add('pictureSelf', MediaFileType::class, [
-                'label'=>'Photo principale de la page sage femme'
+                'label' => 'Photo principale de la page sage femme',
             ])
             ->add('pictures', MediaFileCollectionType::class, [
-                'label'=>'Photos du carousel'
+                'label' => 'Photos du carousel',
             ])
             ->add('services', EntityType::class, [
-                'class'=>Service::class,
-                'choice_label'=>'name',
-                'label'=> 'Prestations',
-                "help"=> "Les prestations effectuées par la sage femme.",
-                'multiple'=>true,
-                'required'=>false,
-                'by_reference'=>false,
-                'attr'=>[
-                    'class'=>'select2'
+                'class' => Service::class,
+                'choice_label' => 'name',
+                'label' => 'Prestations',
+                'help' => 'Les prestations effectuées par la sage femme.',
+                'multiple' => true,
+                'required' => false,
+                'by_reference' => false,
+                'attr' => [
+                    'class' => 'select2',
                 ],
             ])
             ->add('phone', TextType::class, [
-                'label'=>"Téléphone",
-                "help"=> "10 caractères",
-                "required"=>false
+                'label' => 'Téléphone',
+                'help' => '10 caractères',
+                'required' => false,
             ])
             ->add('email', TextType::class, [
-                'label'=>"Email",
-                "required"=>false
+                'label' => 'Email',
+                'required' => false,
             ])
             ->add('doctolibUrl', TextType::class, [
-                'label'=>"Url Doctolib",
-                'help'=>'Pour la prise de rendez vous sur Doctolib, l\'url de Doctolib complete'
+                'label' => 'Url Doctolib',
+                'help' => 'Pour la prise de rendez vous sur Doctolib, l\'url de Doctolib complete',
             ])
             ->add('metaTitle', TextType::class, [
-                'label' => "Titre SEO",
-                'help' => "70 caractères maximum. Ex : Prenom Nom — Sage-femme a Quetigny.",
+                'label' => 'Titre SEO',
+                'help' => '70 caractères maximum. Ex : Prenom Nom — Sage-femme a Quetigny.',
                 'required' => false,
             ])
             ->add('metaDescription', TextareaType::class, [
-                'label' => "Description pour le referencement de la page",
+                'label' => 'Description pour le referencement de la page',
                 'help' => "80-160 caracteres. Privilegier des verbes d'action : decouvrir, prendre rendez-vous.",
                 'required' => false,
                 'attr' => ['rows' => 3],
