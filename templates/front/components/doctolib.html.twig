@@ -1,4 +1,7 @@
-<a href="{{ midwife.doctolibUrl is not null ? midwife.doctolibUrl : '#' }}" class="btn-doctolib" target="_blank">
-        <span class="btn-doctolib-content">
-        </span>
+<a href="{{ midwife.doctolibUrl is not null ? midwife.doctolibUrl : '#' }}"
+   class="btn-doctolib"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Prendre rendez-vous avec {{ midwife.firstname }} {{ midwife.lastname }} sur Doctolib">
+    <span class="btn-doctolib-content" aria-hidden="true"></span>
 </a>

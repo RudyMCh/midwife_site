@@ -3,6 +3,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: $radius-md;
   }
 
   margin: $space-section 0;
@@ -16,9 +17,40 @@
   }
 }
 
+// ── Section contact ───────────────────────────────────────────────────────────
+.midwife-contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $space-lg;
+  flex-wrap: wrap;
+  padding: $space-lg 0;
+
+  // .btn-doctolib a margin:auto qui absorbe l'espace en contexte flex → annuler
+  .btn-doctolib {
+    margin: 0;
+  }
+}
+
+// ── Sections parcours et diplômes ─────────────────────────────────────────────
 #degree, #path {
   ul {
     list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: baseline;
+      gap: $space-sm;
+      padding: $space-sm 0;
+      border-bottom: 1px solid $color-bg-light;
+      color: $color-dark;
+
+      i {
+        color: $color-primary;
+        flex-shrink: 0;
+      }
+    }
   }
 }
 
@@ -37,5 +69,55 @@
       object-fit: cover;
       width: 100%;
     }
+  }
+}
+
+// ── Partage réseaux sociaux ───────────────────────────────────────────────────
+.midwife-share {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $space-md;
+  padding: $space-md 0;
+
+  span {
+    font-size: 0.9rem;
+    color: $color-dark;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: $radius-full;
+    color: $color-white;
+    text-decoration: none;
+    transition: $transition-fast;
+
+    &.share-facebook  { background-color: #1877f2; &:hover { background-color: #0e5ecf; } }
+    &.share-whatsapp  { background-color: #25d366; &:hover { background-color: #1aab52; } }
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: $bp-md) {
+  #midwife {
+    margin: $space-lg 0;
+
+    .midwife-description {
+      padding: $space-md;
+    }
+  }
+
+  #midwife-carousel #midwifeCarousel img.midwife-carousel-picture {
+    height: 300px;
+  }
+
+  .midwife-contact {
+    flex-direction: column;
+    align-items: center;
+    gap: $space-md;
   }
 }

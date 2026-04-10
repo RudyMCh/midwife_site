@@ -154,22 +154,22 @@ En France, le RGAA s'applique aux sites de professionnels de santé. Les lacunes
 
 ### D. Visuel et style (objectif 1)
 
-- [ ] **D1** — Recherche et document de références visuelles : couleurs, typographie, style adapté au public cible (femmes, femmes enceintes)
-- [ ] **D2** — Définir la charte graphique finale (palette, polices, ton)
-- [ ] **D3** — Appliquer la charte sur les composants front existants
-- [ ] **D4** — Révision page sage-femme (`midwife.html.twig` + `_midwife.scss`) : équilibre texte/image, rigidité de la mise en page
-- [ ] **D5** — Révision des cartes sage-femme (`midwife-card`, `midwife-horizontal-card`) : cohérence stylistique
-- [ ] **D6** — Ajouter des animations CSS/JS mesurées là où elles apportent de la valeur
-- [ ] **D7** — Révision footer et header (espacement, typographie, hiérarchie visuelle)
-- [ ] **D8** — Vérifier la cohérence visuelle sur mobile (tous les breakpoints)
+- [x] **D1** — Recherche et document de références visuelles : voir `doc/phase-2/charte-graphique.md`
+- [x] **D2** — Charte graphique définie : Option B (vert forêt / brun-ocre / blanc cassé) — palette, polices, règles Tangerine documentées
+- [x] **D3** — Charte appliquée : `_variables.scss` (nouvelle palette + `$font-heading`), `_fonts.scss` (Playfair Display + Source Sans 3, une requête), `_main.scss` (bg-warm, `h3-h6` → Playfair), `_footer.scss` + `footer.html.twig` (fond vert nuit, couleurs variables)
+- [x] **D4** — Page sage-femme révisée : section contact reconstruite (`.btn-phone` direct), séparateurs path/degree corrigés (`-` → `—`/`–`), image avec `border-radius`, `_midwife.scss` responsive ajouté
+- [x] **D5** — Carte horizontale (`_midwife-horizontal-card.scss`) : fond `$color-bg-light`, bordure subtile, ombre, hover vert forêt, photo avec bague blanche et ombre ; h3 couleur `$color-primary`
+- [x] **D6** — `scrollReveal.js` (IntersectionObserver) + import dans `main.js` ; `_slide-in.scss` : `.module` fade+translateY avec stagger, respecte `prefers-reduced-motion`
+- [x] **D7** — Header : `.header-brand` (nom du cabinet, apparaît en sticky) + layout flex container ; sticky state → `$color-bg-warm` + `box-shadow` au lieu de white opaque ; liens sticky → `$color-dark` ; Footer : h5 titles héritent `$font-heading` (Playfair) via règle globale
+- [x] **D8** — `_service.scss` : padding description réduit sur mobile (`$bp-md`) ; `_homepage.scss` : carousel hauteur 260px sur mobile ; `_midwife.scss` : marges et paddings réduits sur mobile
 
 ### E. SEO — invitation à la prise de rendez-vous (objectif 2)
 
-- [ ] **E1** — Évaluer la mise en avant du bouton Doctolib : visibilité, position, couleur, texte d'appel
-- [ ] **E2** — Vérifier et compléter le JSON-LD `MedicalSpecialty` pour les pages domaines
-- [ ] **E3** — Évaluer la pertinence d'un mécanisme de partage réseaux sociaux (boutons partage fiche sage-femme)
-- [ ] **E4** — Compléter `og:image` avec dimensions explicites (`og:image:width`, `og:image:height`)
-- [ ] **E5** — Vérifier le `<link rel="canonical">` sur toutes les pages (actuellement `app.request.uri` — vérifier les paramètres de pagination)
+- [x] **E1** — `rel="noopener noreferrer"` + `aria-label` ajoutés sur tous les boutons Doctolib (`doctolib.html.twig`, `service-description.html.twig`)
+- [x] **E2** — JSON-LD `MedicalWebPage` ajouté dans `domain.html.twig` (specialty Midwifery, about = liste des services, provider = cabinet)
+- [x] **E3** — Boutons partage Facebook + WhatsApp ajoutés sur la fiche sage-femme (`midwife.html.twig`) ; styles dans `_midwife.scss`
+- [-] **E4** — Dimensions `og:image` non ajoutées : les images sont dynamiques (admin), dimensions inconnues au rendu ; le fallback `apple-touch-icon` a déjà 180×180. Nécessiterait un champ `width`/`height` en base → reporté
+- [x] **E5** — Canonical corrigé : `app.request.uri` → `app.request.schemeAndHttpHost ~ app.request.pathInfo` (query params exclus)
 - [ ] **E6** — Audit Lighthouse complet (Performance, SEO, Accessibilité, Best Practices) et documentation des scores de départ
 
 ### F. Blog (objectif 3)

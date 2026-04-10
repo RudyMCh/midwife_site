@@ -10,7 +10,7 @@
         <meta name="robots" content="{% block robots %}INDEX, FOLLOW{% endblock %}">
 
         {% block canonical %}
-            <link rel="canonical" href="{{ app.request.uri }}">
+            <link rel="canonical" href="{{ app.request.schemeAndHttpHost ~ app.request.pathInfo }}">
         {% endblock %}
 
         {# Open Graph #}

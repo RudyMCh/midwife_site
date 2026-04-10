@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
+// Toutes les polices en un seul appel Google Fonts (une seule requête HTTP)
+// Playfair Display : titres sémantiques (h3-h6)
+// Source Sans 3    : corps de texte
+// Tangerine        : titres décoratifs grands formats (h1, h2 sections)
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Tangerine:wght@700&display=swap');

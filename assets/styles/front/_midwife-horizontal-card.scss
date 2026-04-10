@@ -9,6 +9,15 @@
   display: flex;
   flex-direction: column;
   border-radius: $radius-md;
+  background-color: $color-bg-light;
+  border: 1px solid darken($color-bg-light, 6%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  transition: box-shadow $transition-base;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba($color-primary, 0.15);
+  }
 
   &-top {
     margin: 0 25px;
@@ -23,6 +32,9 @@
       border-radius: $radius-full;
       z-index: $z-header;
       overflow: hidden;
+      border: 3px solid $color-white;
+      box-shadow: 0 2px 8px rgba($color-primary, 0.2);
+      margin-top: -20px;
 
       &-image {
         background: center center / cover no-repeat;
@@ -48,6 +60,7 @@
       h3 {
         text-align: center;
         font-weight: 600;
+        color: $color-primary;
       }
     }
 

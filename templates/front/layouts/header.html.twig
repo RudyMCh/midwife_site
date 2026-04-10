@@ -1,12 +1,15 @@
 {% set route = app.request.attributes.get('_route') %}
 <div id="sentinel"></div>
-<header class="is-sticky">
+<header>
     <div class="menu-icon burger js-menuToggle" id="menu-icon" role="button" aria-expanded="false" aria-controls="menu-burger-nav" tabindex="0">
         <span class="menu-icon__line menu-icon__line-left"></span>
         <span class="menu-icon__line"></span>
         <span class="menu-icon__line menu-icon__line-right"></span>
     </div>
-    <div class="container">
+    <div class="container header-container">
+        <div class="header-brand">
+            <a href="{{ path('homepage_homepage') }}">{{ getOffice() ? getOffice().name : '' }}</a>
+        </div>
         <nav class="menu-moustache" aria-label="Navigation principale">
             <ul>
                 <li><a href="{{ path('homepage_homepage') }}" class="{{ route is same as('homepage_homepage') ? 'active' : '' }}">Accueil</a></li>
@@ -113,6 +116,6 @@
             </ul>
 
         </nav>
-    </div>
+    </div>{# /header-container #}
 </header>
 

@@ -16,7 +16,11 @@
                     </div>
                     <div class="midwife-card-mini-doctolib ">
                         <div class="midwife-card-mini-doctolib-wrapper">
-                            <a href="{{ midwife.doctolibUrl is not null ? midwife.doctolibUrl : '#' }}" class="btn btn-doctolib-mini" target="_blank">
+                            <a href="{{ midwife.doctolibUrl is not null ? midwife.doctolibUrl : '#' }}"
+                               class="btn btn-doctolib-mini"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Prendre rendez-vous avec {{ midwife.firstname }} {{ midwife.lastname }} sur Doctolib">
                             </a>
                         </div>
                     </div>

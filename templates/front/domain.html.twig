@@ -15,6 +15,31 @@
     {% endif %}
 {% endblock %}
 
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "name": {{ domain.name|json_encode|raw }},
+  "url": {{ (app.request.schemeAndHttpHost ~ app.request.pathInfo)|json_encode|raw }},
+  "specialty": {
+    "@type": "MedicalSpecialty",
+    "name": "Midwifery"
+  },
+  "about": [
+    {% for service in domain.services|sort((a,b)=> a.position <=> b.position) %}
+    { "@type": "MedicalTherapy", "name": {{ service.name|json_encode|raw }} }{{ not loop.last ? ',' : '' }}
+    {% endfor %}
+  ],
+  "provider": {
+    "@type": "MedicalOrganization",
+    "name": "Cabinet de sages-femmes Quetigny",
+    "medicalSpecialty": "Midwifery"
+  }
+}
+</script>
+{% endblock %}
+
 {% block content %}
     {% set style = domain.titleBg is not null ? 'background-image:url("'~media_path(domain.titleBg) ~'")' : 'background-color : '~domain.titleColorBg %}
     <div class="title" style="{{ style }}">

@@ -7,17 +7,17 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── Couleurs marque ──────────────────────────────────────────────────────────
-$color-primary:   #232187; // bleu marine — identité visuelle principale
-$color-secondary: #fd3f92; // rose — titres de sections, accents
+$color-primary:   #3a6b4e; // vert forêt — identité principale, CTA, bordures
+$color-secondary: #a06035; // brun-ocre chaud — titres Tangerine, accents
+$color-accent:    #5a8c6a; // vert sauge foncé — nav hover/actif, éléments secondaires
 
 // ── Couleurs fonctionnelles ──────────────────────────────────────────────────
-$color-accent:   #800080; // violet — nav hover/actif, sidebar admin
 $color-doctolib: #107aca; // bleu Doctolib (couleur partenaire imposée)
 
-// Bouton téléphone CTA
-$color-phone-border: #46e565;
-$color-phone-from:   #58f173;
-$color-phone-to:     #03bb29;
+// Bouton téléphone CTA — dégradé corail chaud (remplace le vert fluo)
+$color-phone-border: #c4704a;
+$color-phone-from:   #e09070;
+$color-phone-to:     #b85030;
 
 // Overlay (appliqués sur images héros)
 $overlay-dark:   rgba(0, 0, 0, 0.8);
@@ -26,12 +26,18 @@ $overlay-light:  rgba(0, 0, 0, 0.3);
 
 // ── Couleurs neutres ─────────────────────────────────────────────────────────
 $color-white:    #ffffff;
-$color-dark:     #333333; // texte sombre, éléments UI
+$color-dark:     #2d2d2d; // texte corps, éléments UI
 $color-gray:     #808080; // gris moyen — bordures, dropdown, texte sticky nav
-$color-bg-light: #f5f5f5; // whitesmoke — fond clair
+$color-bg-warm:  #fafaf8; // blanc cassé — fond principal du site
+$color-bg-light: #f0ede8; // beige très clair — fond sections alternées
 
-// Section sage-femmes (page service)
-$color-service-bg: #ffb6c1; // lightpink
+// Section sage-femmes (page service) — fond sombre pour texte blanc
+$color-service-bg: $color-primary; // vert forêt (contraste blanc ~5.4:1)
+
+// ── Couleurs footer ──────────────────────────────────────────────────────────
+$color-footer-bg:    #1a2e22; // vert nuit — fond footer
+$color-footer-link:  #a8b8ae; // gris-vert pâle — liens footer
+$color-footer-muted: #6e8078; // gris-vert sombre — texte secondaire footer
 
 // ── Couleurs admin ───────────────────────────────────────────────────────────
 $color-admin-header: #33003d; // header admin — violet très foncé
@@ -45,8 +51,9 @@ $burger-bg-light: #494a50;
 $burger-text:     #a5a5a4;
 
 // ── Typographie ──────────────────────────────────────────────────────────────
-$font-body:    'Helvetica', 'Arial', sans-serif;
-$font-display: 'Tangerine', cursive; // titres décoratifs
+$font-body:    'Source Sans 3', 'Helvetica', sans-serif; // corps de texte
+$font-heading: 'Playfair Display', Georgia, serif;       // titres sémantiques h3-h6
+$font-display: 'Tangerine', cursive;                     // titres décoratifs grands formats (h1, h2 sections)
 
 $font-size-nav:     1.25rem;  //  20px — liens de navigation
 $font-size-h1:      6.25rem;  // 100px — h1 display (Tangerine)

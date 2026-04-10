@@ -42,6 +42,13 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   font-family: $font-body;
+  background-color: $color-bg-warm;
+  color: $color-dark;
+
+  // Titres sémantiques : Playfair Display par défaut sur h3-h6
+  h3, h4, h5, h6 {
+    font-family: $font-heading;
+  }
 
   header {
     width: 100%;

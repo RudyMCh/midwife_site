@@ -37,4 +37,12 @@
   #catchphrase {
     padding: $space-section 20px;
   }
+
+  #office {
+    height: auto;
+
+    #officeCarousel img {
+      height: 260px;
+    }
+  }
 }

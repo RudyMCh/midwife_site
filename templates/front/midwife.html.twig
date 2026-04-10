@@ -64,16 +64,32 @@
             <div class="d-flex justify-content-center align-items-center">
                 <h2>Me contacter</h2>
             </div>
-            <div class="midwife-description-contact">
-                <div class="midwife-horizontal-card-main-bottom-phone">
-                    <a href="tel:{{ midwife.phone }}"><i class="fas fa-phone" aria-hidden="true"></i> <span>{{ midwife.phone|mobilePhone }}</span></a>
-                </div>
-                <div class="doctolib">
-                    {% include 'front/components/doctolib.html.twig' %}
-                </div>
+            <div class="midwife-contact">
+                <a href="tel:{{ midwife.phone }}" class="btn-phone">
+                    <i class="fas fa-phone" aria-hidden="true"></i>
+                    <span>{{ midwife.phone|mobilePhone }}</span>
+                </a>
+                {% include 'front/components/doctolib.html.twig' %}
+            </div>
+            {% set shareUrl = app.request.schemeAndHttpHost ~ app.request.pathInfo %}
+            <div class="midwife-share">
+                <span>Partager :</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ shareUrl|url_encode }}"
+                   class="share-facebook"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Partager la fiche de {{ midwife.firstname }} {{ midwife.lastname }} sur Facebook">
+                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                </a>
+                <a href="https://wa.me/?text={{ (midwife.firstname ~ ' ' ~ midwife.lastname ~ ', sage-femme — ' ~ shareUrl)|url_encode }}"
+                   class="share-whatsapp"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Partager la fiche de {{ midwife.firstname }} {{ midwife.lastname }} sur WhatsApp">
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
-
     </section>
     <section id="services">
         <div class="container">
@@ -130,7 +146,8 @@
                 <ul>
                     {% for path in midwife.paths %}
                         <li>
-                            <i class="fas fa-user-nurse" aria-hidden="true"></i> - {{ path.title }} - {{ path.city }} - {{ path.start }}:{{ path.end }}
+                            <i class="fas fa-user-nurse" aria-hidden="true"></i>
+                            {{ path.title }} — {{ path.city }} — {{ path.start }} – {{ path.end }}
                         </li>
                     {% endfor %}
                 </ul>
@@ -144,9 +161,9 @@
             <ul>
                 {% for degree in midwife.degrees %}
                     <li>
-                        <i class="fas fa-graduation-cap" aria-hidden="true"></i> - {{ degree.title }} - {{ degree.establishment }} - {{ degree.year }}
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                        {{ degree.title }} — {{ degree.establishment }} — {{ degree.year }}
                     </li>
-
                 {% endfor %}
             </ul>
             </div>
