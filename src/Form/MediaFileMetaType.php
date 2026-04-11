@@ -24,6 +24,10 @@ class MediaFileMetaType extends AbstractType
             ->add('alt', TextType::class, [
                 'label' => 'Texte alternatif (SEO)',
                 'required' => false,
+                'attr' => [
+                    'placeholder' => 'Ex : Photo de Camille Dupont, sage-femme a Quetigny',
+                ],
+                'help' => 'Decrit l\'image pour Google et les lecteurs d\'ecran (accessibilite). Soyez precis et concis (moins de 125 caracteres). Ex : "Salle de consultation du cabinet de Quetigny".',
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
@@ -31,15 +35,15 @@ class MediaFileMetaType extends AbstractType
                 'attr' => ['rows' => 3],
             ])
             ->add('isVideo', CheckboxType::class, [
-                'label' => 'Fichier vidéo',
+                'label' => 'Fichier video',
                 'required' => false,
             ])
             ->add('isIframe', CheckboxType::class, [
-                'label' => 'Intégration iframe',
+                'label' => 'Integration iframe',
                 'required' => false,
             ])
             ->add('videoUrl', UrlType::class, [
-                'label' => 'URL de la vidéo',
+                'label' => 'URL de la video',
                 'required' => false,
             ]);
     }

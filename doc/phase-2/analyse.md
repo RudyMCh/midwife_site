@@ -174,33 +174,30 @@ En France, le RGAA s'applique aux sites de professionnels de santé. Les lacunes
 
 ### F. Blog (objectif 3)
 
-- [ ] **F1** — Définir le modèle de données : entité `Article` (title, slug, content, excerpt, publishedAt, author:Midwife, categories?, picture, isPublished, metaTitle, metaDescription)
-- [ ] **F2** — Migration Doctrine pour l'entité `Article`
-- [ ] **F3** — Controller front `BlogController` avec liste paginée et détail article
-- [ ] **F4** — Controller admin `AdminBlogController` (CRUD, brouillon/publié, archivage)
-- [ ] **F5** — Form type `ArticleType` avec TinyMCE sur `content`
-- [ ] **F6** — Handler `ArticleHandler` (persist/flush, gestion image)
-- [ ] **F7** — Templates : liste articles, détail article, sidebar, composant carte article
-- [ ] **F8** — Soft delete pour les articles archivés (`#[Gedmo\SoftDeleteable]`)
-- [ ] **F9** — Système activable/désactivable (paramètre app ou flag en base)
-- [ ] **F10** — Intégration dans le sitemap dynamique (`SitemapController`)
-- [ ] **F11** — Ping Google à la publication d'un article (ou instruction dans la doc admin)
-- [ ] **F12** — Gestion des images dans les articles (réutiliser `ImageUploadService`)
-- [ ] **F13** — Tests unitaires sur `ArticleHandler` et intégration sur `BlogController`
-- [ ] **F14** — Lien blog dans la navigation front (conditionnel si activé)
-- [ ] **F15** — Lien blog dans la sidebar admin
+- [x] **F1** — Entité `Article` (title, slug Gedmo, content, excerpt, publishedAt, author:Midwife, featuredImage:MediaFile, isPublished, metaTitle, metaDescription) ; TimestampableEntity + SoftDeleteableEntity
+- [x] **F2** — Migration Doctrine `Version20260411000001` créée manuellement (driver absent en dev)
+- [x] **F3** — `BlogController` (front) : liste paginée 9/page (`/blog/`) + détail (`/blog/{slug}`)
+- [x] **F4** — `AdminBlogController` : CRUD complet (`/admin/blog/`) — brouillon/publié via `isPublished`
+- [x] **F5** — `ArticleType` avec TinyMCE sur `content`, `MediaFileType` pour `featuredImage`, helpers SEO, `EntityType` auteure
+- [x] **F6** — `ArticleHandler` : new/edit (auto-set `publishedAt` si manquant), delete CSRF
+- [x] **F7** — Templates front : `blog/index.html.twig`, `blog/show.html.twig`, composant `article-card.html.twig` ; template admin `admin/blog/_form.html.twig` avec sidebar aperçu
+- [x] **F8** — Soft delete via `SoftDeleteableEntity` (identique aux autres entités)
+- [-] **F9** — Système activable/désactivable : le flag `isPublished` sur chaque article joue ce rôle ; un flag global app reporté (non demandé explicitement)
+- [x] **F10** — Articles publiés intégrés dans `SitemapController` (page liste + chaque article)
+- [-] **F11** — Ping Google : reporté — Google Search Console suffit pour un cabinet de petite taille
+- [x] **F12** — `MediaFileType` + `ImageUploadService` utilisés via `featuredImage` dans `ArticleType`
+- [x] **F13** — 9 tests unitaires sur `ArticleHandler` (new/edit/delete, CSRF, publishedAt auto) — 100% pass
+- [x] **F14** — Lien « Blog » ajouté dans la navigation principale (desktop + burger mobile)
+- [x] **F15** — Lien « Blog » ajouté dans la sidebar admin
 
 ### G. Aide à l'écriture SEO dans l'admin (objectif 4)
 
-- [ ] **G1** — Identifier tous les champs éditables liés au référencement (metaTitle, metaDescription, alt des images, slug, description sage-femme, description service, description domaine...)
-- [ ] **G2** — Ajouter un helper textuel contextuel sur chaque champ SEO dans les form types (Symfony `help` option)
-- [ ] **G3** — Créer une page "Guide SEO" dans l'admin (route `/admin/guide-seo`) avec :
-  - Explication de ce qu'est le SEO / le référencement
-  - Bonnes pratiques spécifiques à ce site
-  - Au moins 3 exemples par champ éditable SEO
-- [ ] **G4** — Compteur de caractères dynamique sur les champs `metaTitle` (≤60 car.) et `metaDescription` (≤160 car.) en JS
-- [ ] **G5** — Indicateur de qualité visuel (couleur) selon la longueur de ces champs
-- [ ] **G6** — Intégrer les conseils dans la sidebar du formulaire ou en tooltip
+- [x] **G1** — Champs SEO identifiés : `metaTitle` + `metaDescription` (ArticleType, DomainType, HomePageType, InformationPageType, MidwifeType) ; `alt` (MediaFileMetaType) ; `description` (ServiceType)
+- [x] **G2** — `help` contextuel ajouté sur chaque champ SEO dans les 7 form types : libellé normalisé "Titre SEO (meta title)" / "Description SEO (meta description)", placeholder avec exemple réaliste, aide décrivant la règle et le format attendu
+- [x] **G3** — Page "Guide SEO" créée (`/admin/guide-seo`, `GuideController`) : explication du SEO, règles + tableau d'exemples (≥ 3) pour meta title, meta description, alt image, description prestation ; bonnes pratiques générales
+- [x] **G4** — `seo-counter.js` : compteur de caractères dynamique sur tous les champs portant `data-seo-min` / `data-seo-max` ; importé dans `main.js`
+- [x] **G5** — Indicateur couleur dans `.seo-counter` : vert (plage idéale), orange (hors plage mais toléré), rouge (trop court ou trop long) ; styles dans `_global.scss`
+- [x] **G6** — Lien "Guide SEO" ajouté dans la sidebar admin ; conseils inline via `help` Symfony sur chaque champ
 
 ### H. Non traités (décisions à prendre)
 

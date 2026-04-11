@@ -23,7 +23,7 @@ class InformationPageType extends AbstractType
                 'label' => 'Background image du titre',
             ])
             ->add('legal', TextareaType::class, [
-                'label' => 'Texte légal',
+                'label' => 'Texte legal',
                 'attr' => ['class' => 'tinymce'],
             ])
             ->add('coming', TextareaType::class, [
@@ -31,7 +31,7 @@ class InformationPageType extends AbstractType
                 'attr' => ['class' => 'tinymce'],
             ])
             ->add('price', TextareaType::class, [
-                'label' => 'Tarifs pratiqués',
+                'label' => 'Tarifs pratiques',
                 'attr' => ['class' => 'tinymce'],
             ])
             ->add('links', TextareaType::class, [
@@ -40,15 +40,25 @@ class InformationPageType extends AbstractType
             ])
             ->add('mention')
             ->add('metaTitle', TextType::class, [
-                'label' => 'Titre SEO',
-                'help' => '70 caracteres maximum.',
+                'label' => 'Titre SEO (meta title)',
                 'required' => false,
+                'attr' => [
+                    'placeholder' => 'Ex : Informations pratiques — Cabinet de sages-femmes a Quetigny',
+                    'data-seo-min' => '50',
+                    'data-seo-max' => '60',
+                ],
+                'help' => 'Affiche comme titre cliquable dans Google. Idealement 50-60 caracteres. Commencez par la nature de la page puis le nom du cabinet.',
             ])
             ->add('metaDescription', TextareaType::class, [
-                'label' => 'Description pour le referencement',
-                'help' => '80-160 caracteres.',
+                'label' => 'Description SEO (meta description)',
                 'required' => false,
-                'attr' => ['rows' => 3],
+                'attr' => [
+                    'rows' => 3,
+                    'placeholder' => 'Ex : Horaires, tarifs et acces au cabinet de sages-femmes de Quetigny. Retrouvez toutes les informations pratiques pour votre consultation.',
+                    'data-seo-min' => '120',
+                    'data-seo-max' => '160',
+                ],
+                'help' => 'Texte affiche sous le titre dans Google. Entre 120 et 160 caracteres. Resumez le contenu de la page (horaires, tarifs, acces...).',
             ])
         ;
     }

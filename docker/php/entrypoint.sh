@@ -13,6 +13,10 @@ if [ "$APP_ENV" = "dev" ]; then
 
     echo "==> Sass build..."
     php bin/console sass:build
+
+    echo "==> Cache (clear + warmup)..."
+    php bin/console cache:clear
+    php bin/console cache:warmup
 fi
 
 exec docker-php-entrypoint "$@"

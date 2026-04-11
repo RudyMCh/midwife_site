@@ -1,0 +1,245 @@
+{% extends 'admin/layouts/layout.html.twig' %}
+
+{% block title %}Guide SEO{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item" aria-current="page">Guide SEO</li>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                <strong>Qu'est-ce que le SEO ?</strong>
+                Le SEO (<em>Search Engine Optimization</em>) désigne l'ensemble des techniques qui permettent à votre site d'apparaître en haut des résultats Google. Pour un cabinet de sages-femmes, un bon référencement signifie que les patientes de votre secteur vous trouvent facilement lorsqu'elles recherchent « sage-femme Quetigny », « suivi grossesse Dijon », etc.
+            </div>
+        </div>
+    </div>
+
+    {# ── Meta title ─────────────────────────────────────────────────────── #}
+    <div class="card mb-4">
+        <div class="card-header d-flex align-items-center gap-2">
+            <i class="fas fa-heading" aria-hidden="true"></i>
+            <strong>Titre SEO (meta title)</strong>
+            <span class="badge bg-success ms-auto">50–60 caractères</span>
+        </div>
+        <div class="card-body">
+            <p>Le titre SEO est le texte bleu cliquable affiché dans les résultats Google. C'est l'élément le plus important pour le référencement.</p>
+
+            <h6 class="mt-3">Règles à suivre :</h6>
+            <ul>
+                <li>Commencez par le <strong>mot-clé principal</strong> (spécialité ou type de page)</li>
+                <li>Incluez la <strong>ville</strong> pour le référencement local</li>
+                <li>Restez entre <strong>50 et 60 caractères</strong> — au-delà, Google tronque</li>
+                <li>Chaque page doit avoir un titre <strong>unique</strong></li>
+            </ul>
+
+            <h6 class="mt-3">Exemples :</h6>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Page</th>
+                            <th>Bon exemple</th>
+                            <th>À éviter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Accueil</td>
+                            <td><code>Cabinet de sages-femmes à Quetigny — GPT</code></td>
+                            <td><code>Bienvenue sur notre site</code></td>
+                        </tr>
+                        <tr>
+                            <td>Fiche sage-femme</td>
+                            <td><code>Camille Dupont — Sage-femme à Quetigny</code></td>
+                            <td><code>Camille</code></td>
+                        </tr>
+                        <tr>
+                            <td>Domaine grossesse</td>
+                            <td><code>Suivi de grossesse à Quetigny — Cabinet GPT</code></td>
+                            <td><code>Page grossesse du cabinet</code></td>
+                        </tr>
+                        <tr>
+                            <td>Article blog</td>
+                            <td><code>Sophrologie et grossesse : 5 exercices pratiques</code></td>
+                            <td><code>Article du 12 janvier</code></td>
+                        </tr>
+                        <tr>
+                            <td>Infos pratiques</td>
+                            <td><code>Horaires et tarifs — Cabinet de sages-femmes Quetigny</code></td>
+                            <td><code>Informations</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# ── Meta description ────────────────────────────────────────────────── #}
+    <div class="card mb-4">
+        <div class="card-header d-flex align-items-center gap-2">
+            <i class="fas fa-align-left" aria-hidden="true"></i>
+            <strong>Description SEO (meta description)</strong>
+            <span class="badge bg-success ms-auto">120–160 caractères</span>
+        </div>
+        <div class="card-body">
+            <p>La description SEO est le texte gris affiché sous le titre dans Google. Elle n'influence pas directement le classement, mais elle détermine si l'internaute clique ou non sur votre lien.</p>
+
+            <h6 class="mt-3">Règles à suivre :</h6>
+            <ul>
+                <li>Entre <strong>120 et 160 caractères</strong> — au-delà, Google tronque</li>
+                <li>Utilisez des <strong>verbes d'action</strong> : découvrir, consulter, prendre rendez-vous</li>
+                <li>Mentionnez la <strong>ville</strong> et les <strong>spécialités</strong></li>
+                <li>Terminez par un <strong>appel à l'action</strong> clair</li>
+                <li>Chaque page doit avoir une description <strong>unique</strong></li>
+            </ul>
+
+            <h6 class="mt-3">Exemples :</h6>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Page</th>
+                            <th>Bon exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Accueil</td>
+                            <td><code>Cabinet de sages-femmes à Quetigny. Suivi de grossesse, gynécologie et préparation à la naissance. Prenez rendez-vous en ligne sur Doctolib.</code></td>
+                        </tr>
+                        <tr>
+                            <td>Fiche sage-femme</td>
+                            <td><code>Camille Dupont, sage-femme à Quetigny, vous accompagne pour votre grossesse et votre suivi gynécologique. Prise de rendez-vous rapide en ligne.</code></td>
+                        </tr>
+                        <tr>
+                            <td>Domaine grossesse</td>
+                            <td><code>Nos sages-femmes assurent le suivi médical de votre grossesse à Quetigny. Consultations remboursées, disponibles sur Doctolib.</code></td>
+                        </tr>
+                        <tr>
+                            <td>Article blog</td>
+                            <td><code>Découvrez 5 exercices de sophrologie adaptés à la grossesse pour réduire le stress et préparer l'accouchement. Conseils de nos sages-femmes.</code></td>
+                        </tr>
+                        <tr>
+                            <td>Infos pratiques</td>
+                            <td><code>Retrouvez les horaires, tarifs et l'accès au cabinet de sages-femmes de Quetigny. Parking disponible, consultations remboursées.</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# ── Texte alternatif images ─────────────────────────────────────────── #}
+    <div class="card mb-4">
+        <div class="card-header d-flex align-items-center gap-2">
+            <i class="fas fa-image" aria-hidden="true"></i>
+            <strong>Texte alternatif des images (attribut alt)</strong>
+            <span class="badge bg-secondary ms-auto">moins de 125 caractères</span>
+        </div>
+        <div class="card-body">
+            <p>Le texte alternatif (alt) remplace l'image si elle ne se charge pas, et est lu par Google pour comprendre le contenu visuel. Il est aussi essentiel pour l'accessibilité (lecteurs d'écran pour les malvoyants).</p>
+
+            <h6 class="mt-3">Règles à suivre :</h6>
+            <ul>
+                <li>Décrivez <strong>ce que montre l'image</strong>, pas ce qu'elle représente symboliquement</li>
+                <li>Incluez le <strong>prénom</strong> sur les photos de sages-femmes</li>
+                <li>Mentionnez le <strong>lieu</strong> si pertinent</li>
+                <li>Ne commencez pas par « Image de » ou « Photo de » — Google le sait déjà</li>
+                <li>Laissez vide uniquement pour les images purement décoratives</li>
+            </ul>
+
+            <h6 class="mt-3">Exemples :</h6>
+            <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                    <tr><th>Contexte</th><th>Bon exemple</th><th>À éviter</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Portrait sage-femme</td>
+                        <td><code>Camille Dupont, sage-femme à Quetigny</code></td>
+                        <td><code>photo</code></td>
+                    </tr>
+                    <tr>
+                        <td>Salle de consultation</td>
+                        <td><code>Salle de consultation du cabinet de Quetigny</code></td>
+                        <td><code>image1.jpg</code></td>
+                    </tr>
+                    <tr>
+                        <td>Équipement médical</td>
+                        <td><code>Appareil d'échographie utilisé lors du suivi de grossesse</code></td>
+                        <td><code>appareil</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {# ── Description prestation ──────────────────────────────────────────── #}
+    <div class="card mb-4">
+        <div class="card-header d-flex align-items-center gap-2">
+            <i class="fas fa-file-alt" aria-hidden="true"></i>
+            <strong>Description des prestations</strong>
+            <span class="badge bg-secondary ms-auto">300+ mots recommandés</span>
+        </div>
+        <div class="card-body">
+            <p>Le contenu textuel des pages de prestations est l'un des principaux facteurs de référencement. Plus le texte est riche, précis et utile, mieux Google positionne la page.</p>
+
+            <h6 class="mt-3">Règles à suivre :</h6>
+            <ul>
+                <li>Visez au moins <strong>300 mots</strong> par description</li>
+                <li>Structurez avec des <strong>titres</strong> (H2, H3) dans l'éditeur</li>
+                <li>Répondez à la question : <em>à qui s'adresse ce service ? comment se passe une consultation ?</em></li>
+                <li>Citez naturellement le <strong>mot-clé principal</strong> (ex : « suivi de grossesse »)</li>
+                <li>Mentionnez la <strong>prise en charge</strong> (remboursement Sécurité Sociale, Doctolib...)</li>
+            </ul>
+
+            <h6 class="mt-3">Structure suggérée :</h6>
+            <ol>
+                <li>Qu'est-ce que ce service ?</li>
+                <li>À qui s'adresse-t-il ?</li>
+                <li>Comment se déroule une consultation ?</li>
+                <li>Remboursement et prise en charge</li>
+                <li>Prendre rendez-vous</li>
+            </ol>
+        </div>
+    </div>
+
+    {# ── Bonnes pratiques générales ──────────────────────────────────────── #}
+    <div class="card mb-4">
+        <div class="card-header d-flex align-items-center gap-2">
+            <i class="fas fa-check-circle" aria-hidden="true"></i>
+            <strong>Bonnes pratiques générales</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>À faire</h6>
+                    <ul class="text-success">
+                        <li>Remplir les champs SEO sur <strong>toutes</strong> les pages</li>
+                        <li>Utiliser des mots-clés spécifiques à votre ville et spécialités</li>
+                        <li>Rédiger des descriptions uniques pour chaque page</li>
+                        <li>Publier des articles de blog régulièrement (1/mois minimum)</li>
+                        <li>Renseigner le texte alternatif de chaque image uploadée</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>À éviter</h6>
+                    <ul class="text-danger">
+                        <li>Copier-coller le même texte sur plusieurs pages</li>
+                        <li>Laisser les champs SEO vides</li>
+                        <li>Dépasser 60 caractères pour le titre, 160 pour la description</li>
+                        <li>Utiliser des titres vagues (« Notre page », « Services »)</li>
+                        <li>Oublier la ville dans les textes SEO</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

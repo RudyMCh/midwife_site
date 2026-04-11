@@ -61,19 +61,25 @@ class ArticleType extends AbstractType
                 'help' => 'Laissez vide pour utiliser la date actuelle lors de la publication.',
             ])
             ->add('metaTitle', TextType::class, [
-                'label' => 'Meta title (SEO)',
+                'label' => 'Titre SEO (meta title)',
                 'required' => false,
-                'attr' => ['placeholder' => 'Titre affiché dans les résultats Google (≤ 60 caractères)'],
-                'help' => 'Laissez vide pour utiliser le titre de l\'article.',
+                'attr' => [
+                    'placeholder' => 'Ex : Sophrologie pendant la grossesse — Cabinet de sage-femme à Quetigny',
+                    'data-seo-min' => '50',
+                    'data-seo-max' => '60',
+                ],
+                'help' => 'Affiché comme titre cliquable dans Google. Idéalement 50–60 caractères. Commencez par le mot-clé principal. Laissez vide pour utiliser le titre de l\'article.',
             ])
             ->add('metaDescription', TextareaType::class, [
-                'label' => 'Meta description (SEO)',
+                'label' => 'Description SEO (meta description)',
                 'required' => false,
                 'attr' => [
                     'rows' => 3,
-                    'placeholder' => 'Description affichée sous le titre dans Google (≤ 160 caractères)',
+                    'placeholder' => 'Ex : Découvrez nos conseils pour vivre sereinement votre grossesse grâce à la sophrologie. Prenez rendez-vous en ligne.',
+                    'data-seo-min' => '120',
+                    'data-seo-max' => '160',
                 ],
-                'help' => 'Laissez vide pour utiliser le résumé de l\'article.',
+                'help' => 'Texte affiché sous le titre dans Google. Entre 120 et 160 caractères. Utilisez des verbes d\'action (découvrir, prendre rendez-vous…). Laissez vide pour utiliser le résumé.',
             ])
         ;
     }

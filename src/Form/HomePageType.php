@@ -38,11 +38,25 @@ class HomePageType extends AbstractType
                 'label' => 'Image 2',
             ])
             ->add('metaTitle', TextType::class, [
-                'label' => 'Titre pour le référencement de la page',
-                'help' => 'Doit contenir le mot clé principal, ne pas dépasser 65 caractères (10 à 12 mots), être attractive'])
+                'label' => 'Titre SEO (meta title)',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Ex : Cabinet de sages-femmes a Quetigny — Suivi grossesse et gynecologie',
+                    'data-seo-min' => '50',
+                    'data-seo-max' => '60',
+                ],
+                'help' => 'Affiche comme titre cliquable dans Google. Idealement 50-60 caracteres. Incluez la ville et la specialite principale.',
+            ])
             ->add('metaDescription', TextareaType::class, [
-                'label' => 'Description pour le référencement de la page',
-                'help' => '120 caractères maximum, il est recommandé d’employer des verbes d’action du type « découvrir », « télécharger », « créer », etc.).',
+                'label' => 'Description SEO (meta description)',
+                'required' => false,
+                'attr' => [
+                    'rows' => 3,
+                    'placeholder' => 'Ex : Cabinet de sages-femmes a Quetigny. Suivi de grossesse, gynecologie et preparation a la naissance. Prenez rendez-vous sur Doctolib.',
+                    'data-seo-min' => '120',
+                    'data-seo-max' => '160',
+                ],
+                'help' => 'Texte affiche sous le titre dans Google. Entre 120 et 160 caracteres. Mentionnez la ville, les specialites et un appel a l\'action.',
             ])
         ;
     }

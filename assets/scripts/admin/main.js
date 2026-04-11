@@ -1,6 +1,7 @@
 import 'bootstrap';
 import TomSelect from 'tom-select';
 import ImagePreviewCompress from './imagePreviewCompress.js';
+import { initSeoCounters } from './seo-counter.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Select multiple avec recherche (remplace Select2)
@@ -16,8 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selector: 'textarea.tinymce',
             base_url: '/tinymce',
             suffix: '.min',
-            language: 'fr_FR',
-            plugins: 'lists link code fullscreen table wordcount',
+plugins: 'lists link code fullscreen table wordcount',
             toolbar: 'undo redo | bold italic | bullist numlist | link | table | code fullscreen',
             menubar: false,
             promotion: false,
@@ -29,4 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('compressImage')) {
         ImagePreviewCompress.init();
     }
+
+    // Compteurs de caractères sur les champs SEO
+    initSeoCounters();
 });

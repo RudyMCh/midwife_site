@@ -41,11 +41,25 @@ class DomainType extends AbstractType
                 ],
             ])
             ->add('metaTitle', TextType::class, [
-                'label' => 'Titre pour le référencement de la page',
-                'help' => 'Doit contenir le mot clé principal, ne pas dépasser 65 caractères (10 à 12 mots), être attractive'])
+                'label' => 'Titre SEO (meta title)',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Ex : Suivi de grossesse a Quetigny — Cabinet de sage-femme',
+                    'data-seo-min' => '50',
+                    'data-seo-max' => '60',
+                ],
+                'help' => 'Affiche comme titre cliquable dans Google. Idealement 50-60 caracteres. Commencez par le mot-cle principal (la specialite ou la pathologie traitee).',
+            ])
             ->add('metaDescription', TextareaType::class, [
-                'label' => 'Description pour le référencement de la page',
-                'help' => '120 caractères maximum, il est recommandé d’employer des verbes d’action du type « découvrir », « télécharger », « créer », etc.).',
+                'label' => 'Description SEO (meta description)',
+                'required' => false,
+                'attr' => [
+                    'rows' => 3,
+                    'placeholder' => 'Ex : Nos sages-femmes vous accompagnent pour le suivi de votre grossesse. Consultez et prenez rendez-vous en ligne sur Doctolib.',
+                    'data-seo-min' => '120',
+                    'data-seo-max' => '160',
+                ],
+                'help' => 'Texte affiche sous le titre dans Google. Entre 120 et 160 caracteres. Utilisez des verbes d\'action (decouvrir, consulter, prendre rendez-vous...).',
             ])
         ;
     }

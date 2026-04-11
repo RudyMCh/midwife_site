@@ -1,0 +1,29 @@
+# Symfony cache, logs, compiled assets — générés à l'exécution
+var/
+public/assets/
+assets/vendor/
+
+# Dépendances Composer — installées dans le Dockerfile via `composer install`
+# (évite que le vendor du host écrase celui construit dans l'image)
+vendor/
+
+# Git
+.git/
+
+# IDE / outils locaux
+.vscode/
+.idea/
+.claude/
+
+# Tests (pas nécessaires dans le conteneur)
+tests/
+.phpunit.cache/
+
+# Documentation
+doc/
+archives.md
+Claude.md
+
+# Docker (pas besoin dans le conteneur)
+docker-compose*.yaml
+docker-compose*.yml

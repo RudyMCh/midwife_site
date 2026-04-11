@@ -8,7 +8,6 @@ use App\Entity\Service;
 use App\Form\Type\MediaFileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,12 +22,9 @@ class ServiceType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom',
             ])
-//            ->add('position', IntegerType::class, [
-//                'label'=> 'Position',
-// //                'data'=> $options['data']->getId() === null ?$this->serviceRepository->count([]) : $options['data']->getPosition()
-//            ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
+                'help' => 'Contenu principal de la page prestation. Decrivez le service en detail : ce que c\'est, a qui cela s\'adresse, comment se deroule une seance. Un texte riche et detaille ameliore le referencement naturel.',
                 'attr' => ['class' => 'tinymce'],
             ])
             ->add('picture', MediaFileType::class, [
