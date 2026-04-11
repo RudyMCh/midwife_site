@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+echo "==> Assets vendor (importmap)..."
+php bin/console importmap:install
+
 echo "==> Migrations..."
 php bin/console doctrine:migrations:migrate --no-interaction
 
