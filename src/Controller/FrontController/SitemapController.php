@@ -2,6 +2,7 @@
 
 namespace App\Controller\FrontController;
 
+use App\Repository\ArticleRepository;
 use App\Repository\DomainRepository;
 use App\Repository\MidwifeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,7 @@ class SitemapController extends AbstractController
     public function sitemap(
         MidwifeRepository $midwifeRepository,
         DomainRepository $domainRepository,
+        ArticleRepository $articleRepository,
     ): Response {
         $urls = [];
 
@@ -44,7 +46,7 @@ class SitemapController extends AbstractController
                 'loc' => $this->generateUrl('midwife_show', ['slug' => $midwife->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 'priority' => '0.9',
                 'changefreq' => 'monthly',
-                'lastmod' => $midwife->getUpdatedAt()->format('Y-m-d'),
+                'lastmod' => $midwife->getUpdatedAt()?->format('Y-m-d'),
             ];
         }
 
@@ -53,8 +55,25 @@ class SitemapController extends AbstractController
                 'loc' => $this->generateUrl('domain_show', ['slug' => $domain->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 'priority' => '0.8',
                 'changefreq' => 'monthly',
-                'lastmod' => $domain->getUpdatedAt()->format('Y-m-d'),
+                'lastmod' => $domain->getUpdatedAt()?->format('Y-m-d'),
             ];
+        }
+
+        $publishedArticles = $articleRepository->findPublishedQuery()->getQuery()->getResult();
+        if ($publishedArticles) {
+            $urls[] = [
+                'loc' => $this->generateUrl('blog_index', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                'priority' => '0.7',
+                'changefreq' => 'weekly',
+            ];
+            foreach ($publishedArticles as $article) {
+                $urls[] = [
+                    'loc' => $this->generateUrl('blog_show', ['slug' => $article->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
+                    'priority' => '0.7',
+                    'changefreq' => 'monthly',
+                    'lastmod' => $article->getUpdatedAt()->format('Y-m-d'),
+                ];
+            }
         }
 
         $response = new Response(

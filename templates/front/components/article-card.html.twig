@@ -1,0 +1,32 @@
+<article class="article-card module">
+    <a href="{{ path('blog_show', {'slug': article.slug}) }}" class="article-card__link" aria-label="Lire l'article : {{ article.title }}">
+        <div class="article-card__image">
+            {% if article.featuredImage %}
+                <img src="{{ asset('uploads/' ~ article.featuredImage.path) }}"
+                     alt="{{ article.featuredImage.alt ?? article.title }}"
+                     loading="lazy"
+                     width="400" height="250">
+            {% else %}
+                <div class="article-card__image-placeholder" aria-hidden="true"></div>
+            {% endif %}
+        </div>
+        <div class="article-card__body">
+            {% if article.publishedAt %}
+                <time class="article-card__date" datetime="{{ article.publishedAt|date('Y-m-d') }}">
+                    {{ article.publishedAt|date('d/m/Y') }}
+                </time>
+            {% endif %}
+            <h2 class="article-card__title">{{ article.title }}</h2>
+            {% if article.excerpt %}
+                <p class="article-card__excerpt">{{ article.excerpt|striptags|truncate(140, '…') }}</p>
+            {% endif %}
+            {% if article.author %}
+                <p class="article-card__author">
+                    <i class="fas fa-user-circle" aria-hidden="true"></i>
+                    {{ article.author.firstname }} {{ article.author.lastname }}
+                </p>
+            {% endif %}
+            <span class="article-card__cta">Lire l'article</span>
+        </div>
+    </a>
+</article>

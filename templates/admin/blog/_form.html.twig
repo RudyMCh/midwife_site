@@ -1,0 +1,107 @@
+{% extends 'admin/layouts/layout.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block breadcrumb %}
+    {% if breadcrumb is defined %}
+        {% for item in breadcrumb %}
+            {% if item['route'] is defined %}
+                <li class="breadcrumb-item">
+                    <a href="{{ path(item['route']) }}">{{ item['text'] }}</a>
+                </li>
+            {% else %}
+                <li class="breadcrumb-item" aria-current="page">{{ item['text'] }}</li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                {{ form_start(form) }}
+
+                <div class="mb-3">
+                    {{ form_row(form.title) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.excerpt) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.content) }}
+                </div>
+
+                <hr>
+                <h5 class="mb-3">Image &amp; auteure</h5>
+
+                <div class="mb-3">
+                    {{ form_row(form.featuredImage) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.author) }}
+                </div>
+
+                <hr>
+                <h5 class="mb-3">Publication</h5>
+
+                <div class="mb-3">
+                    {{ form_row(form.isPublished) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.publishedAt) }}
+                </div>
+
+                <hr>
+                <h5 class="mb-3">SEO</h5>
+
+                <div class="mb-3">
+                    {{ form_row(form.metaTitle) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.metaDescription) }}
+                </div>
+
+                <div class="mt-4">
+                    <button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>
+                    <a href="{{ path('admin_blog_index') }}" class="btn btn-outline-secondary ms-2">Annuler</a>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+
+            {% if el.id %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Aperçu</div>
+                    <div class="card-body">
+                        {% if el.featuredImage %}
+                            <img src="{{ asset('uploads/' ~ el.featuredImage.path) }}"
+                                 alt="{{ el.featuredImage.alt ?? el.title }}"
+                                 class="img-fluid rounded mb-2">
+                        {% endif %}
+                        <p><strong>Slug :</strong><br><code>{{ el.slug }}</code></p>
+                        <p><strong>Statut :</strong>
+                            {% if el.isPublished %}
+                                <span class="badge bg-success">Publié</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Brouillon</span>
+                            {% endif %}
+                        </p>
+                        {% if el.publishedAt %}
+                            <p><strong>Publié le :</strong> {{ el.publishedAt|date('d/m/Y') }}</p>
+                        {% endif %}
+                        {% if el.isPublished and el.slug %}
+                            <a href="{{ path('blog_show', {'slug': el.slug}) }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i> Voir l'article
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

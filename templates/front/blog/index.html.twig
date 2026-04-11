@@ -1,0 +1,45 @@
+{% extends 'front/layouts/layout.html.twig' %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog — Sages-femmes Quetigny",
+  "url": {{ (app.request.schemeAndHttpHost ~ app.request.pathInfo)|json_encode|raw }},
+  "publisher": {
+    "@type": "MedicalOrganization",
+    "name": "Cabinet de sages-femmes Quetigny",
+    "medicalSpecialty": "Midwifery"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="blog-hero title">
+        <h1>Notre blog</h1>
+        <p class="blog-hero__subtitle">Conseils, actualités et accompagnement autour de la maternité</p>
+        <div class="overlay"></div>
+    </div>
+
+    <section class="blog-list">
+        <div class="container">
+            {% if articles.totalItemCount == 0 %}
+                <p class="blog-list__empty">Aucun article publié pour le moment. Revenez bientôt !</p>
+            {% else %}
+                <div class="blog-grid">
+                    {% for article in articles %}
+                        {% include 'front/components/article-card.html.twig' %}
+                    {% endfor %}
+                </div>
+
+                {% if articles.pageCount > 1 %}
+                    <nav class="blog-pagination" aria-label="Pagination des articles">
+                        {{ knp_pagination_render(articles) }}
+                    </nav>
+                {% endif %}
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

@@ -20,7 +20,14 @@ Stack en place :
 Le projet est sain. On entre dans une **phase nouvelle**, orientée contenu, UX et référencement.
 
 ---
+## Historique
+- `/doc/phase-1/*.md`
 
+## Etape actuelle
+- `/doc/phase-2/analyse.md` : contient la todolist à jour, s'y référer et mettre à jour une fois étape terminée
+
+## Charte graphique
+- `/doc/phase-2/charte-graphique.md`: réfrence pour le style
 # Architecture technique
 
 ## Structure des répertoires clés

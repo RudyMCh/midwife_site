@@ -1,0 +1,336 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Blog — liste des articles, détail article, carte article
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Hero de la page liste ─────────────────────────────────────────────────────
+.blog-hero {
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: $color-primary;
+  color: $color-white;
+  padding: $space-xl $space-md;
+
+  h1 {
+    position: relative;
+    z-index: $z-titlebar;
+    color: $color-white;
+  }
+
+  &__subtitle {
+    position: relative;
+    z-index: $z-titlebar;
+    font-size: 1.1rem;
+    color: rgba($color-white, 0.85);
+    margin-top: $space-sm;
+  }
+}
+
+// ── Liste des articles ────────────────────────────────────────────────────────
+.blog-list {
+  padding: $space-section 0;
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-lg;
+
+    @media (max-width: $bp-lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $bp-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    color: $color-gray;
+    font-size: 1.1rem;
+    padding: $space-xl 0;
+  }
+}
+
+// ── Pagination blog ───────────────────────────────────────────────────────────
+.blog-pagination {
+  margin-top: $space-lg;
+  display: flex;
+  justify-content: center;
+}
+
+// ── Carte article ─────────────────────────────────────────────────────────────
+.article-card {
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow $transition-base, transform $transition-base;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba($color-primary, 0.2);
+    transform: translateY(-3px);
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-color: $color-bg-light;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $transition-slow;
+    }
+  }
+
+  &:hover &__image img {
+    transform: scale(1.04);
+  }
+
+  &__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, $color-bg-light 0%, rgba($color-primary, 0.15) 100%);
+  }
+
+  &__body {
+    padding: $space-md;
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+    flex: 1;
+  }
+
+  &__date {
+    font-size: 0.8rem;
+    color: $color-gray;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: 1.15rem;
+    color: $color-primary;
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  &__excerpt {
+    font-size: 0.9rem;
+    color: $color-dark;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  &__author {
+    font-size: 0.85rem;
+    color: $color-gray;
+
+    i { margin-right: $space-xs; }
+  }
+
+  &__cta {
+    display: inline-block;
+    margin-top: $space-sm;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $color-primary;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color $transition-fast;
+  }
+
+  &:hover &__cta {
+    color: $color-accent;
+  }
+}
+
+// ── Article détail ────────────────────────────────────────────────────────────
+.blog-article {
+
+  &__hero {
+    position: relative;
+    min-height: 380px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    color: $color-white;
+
+    &--no-image {
+      background-color: $color-primary;
+      min-height: 200px;
+      align-items: center;
+
+      .blog-article__title,
+      .blog-article__meta {
+        color: $color-white;
+      }
+    }
+
+    @media (max-width: $bp-md) {
+      min-height: 260px;
+    }
+  }
+
+  &__hero-content {
+    position: relative;
+    z-index: $z-titlebar;
+    padding: $space-lg;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+
+    @media (max-width: $bp-md) {
+      padding: $space-md;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: 2rem;
+    color: $color-white;
+    margin-bottom: $space-sm;
+    line-height: 1.25;
+
+    @media (max-width: $bp-md) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    gap: $space-md;
+    font-size: 0.9rem;
+    color: rgba($color-white, 0.85);
+
+    i { margin-right: $space-xs; }
+  }
+
+  &__body {
+    padding: $space-section 0;
+
+    @media (max-width: $bp-md) {
+      padding: $space-xl 0;
+    }
+  }
+
+  &__content {
+    max-width: 780px;
+    margin: 0 auto $space-xl;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: $color-dark;
+
+    h2, h3, h4 {
+      font-family: $font-heading;
+      color: $color-primary;
+      margin-top: $space-lg;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: $radius-md;
+      margin: $space-md 0;
+    }
+
+    a {
+      color: $color-primary;
+      text-underline-offset: 3px;
+
+      &:hover { color: $color-accent; }
+    }
+
+    blockquote {
+      border-left: 4px solid $color-primary;
+      padding-left: $space-md;
+      color: $color-gray;
+      font-style: italic;
+      margin: $space-md 0;
+    }
+  }
+
+  // Carte auteure
+  &__author-card {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-md;
+    max-width: 780px;
+    margin: 0 auto $space-lg;
+    padding: $space-md;
+    background-color: $color-bg-light;
+    border-radius: $radius-lg;
+    border-left: 4px solid $color-primary;
+  }
+
+  &__author-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: $radius-full;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__author-name {
+    font-family: $font-heading;
+    font-size: 1rem;
+    font-weight: 700;
+    color: $color-primary;
+    margin-bottom: $space-xs;
+  }
+
+  &__author-bio {
+    font-size: 0.9rem;
+    color: $color-dark;
+    line-height: 1.5;
+    margin-bottom: $space-sm;
+  }
+
+  &__nav {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+}
+
+// ── Lien générique en texte ───────────────────────────────────────────────────
+.btn-link {
+  color: $color-primary;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-accent; }
+
+  i { margin-right: $space-xs; }
+}
+
+// ── reduced motion ────────────────────────────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  .article-card {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+
+    &__image img {
+      transition: none;
+    }
+  }
+}
