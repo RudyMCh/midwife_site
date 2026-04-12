@@ -36,7 +36,6 @@ class UserController extends AbstractController
             'fields' => [
                 'Id' => 'Id',
                 'Email' => 'Email',
-                'Username' => 'Username',
                 'Roles' => 'Roles',
                 'Prénom' => 'Firstname',
                 'Nom' => 'Lastname',

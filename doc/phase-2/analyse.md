@@ -142,8 +142,8 @@ En France, le RGAA s'applique aux sites de professionnels de santé. Les lacunes
 - [x] **B6** — `aria-hidden="true"` ajouté sur toutes les icônes FA décoratives (header, footer, midwife-card, midwife, homepage)
 - [x] **B7** — Alt fallbacks contextuels : "Photo du cabinet" (carousel homepage), "Photo de Prénom Nom" (carousel midwife + pictureSelf)
 - [x] **B8** — `<div>` → `<article>` sur `midwife-card.html.twig` et `midwife-horizontal-card.html.twig`
-- [ ] **B9** — Vérifier les ratios de contraste WCAG AA sur les couleurs principales (outil : https://webaim.org/resources/contrastchecker/)
-- [ ] **B10** — Vérifier le focus visible sur tous les éléments interactifs (input, button, a)
+- [x] **B9** — Audit prod Lighthouse a révélé `color-contrast` sur nav sticky active link : `$color-accent` (#5a8c6a) sur `$color-bg-warm` (#fafaf8) = 3.84:1 < 4.5:1 → corrigé : `$color-primary` (#3a6b4e) = 5.9:1 ✓ dans `_header.scss`. Autres couleurs personnalisées à vérifier manuellement si nécessaire.
+- [x] **B10** — `:focus-visible` global ajouté dans `_main.scss` : outline `$color-primary` 2px offset 3px sur tous les éléments interactifs (a, button, input…) ; `:focus:not(:focus-visible)` sans outline pour ne pas pénaliser les utilisateurs souris
 
 ### C. Corrections JavaScript
 
@@ -170,7 +170,7 @@ En France, le RGAA s'applique aux sites de professionnels de santé. Les lacunes
 - [x] **E3** — Boutons partage Facebook + WhatsApp ajoutés sur la fiche sage-femme (`midwife.html.twig`) ; styles dans `_midwife.scss`
 - [-] **E4** — Dimensions `og:image` non ajoutées : les images sont dynamiques (admin), dimensions inconnues au rendu ; le fallback `apple-touch-icon` a déjà 180×180. Nécessiterait un champ `width`/`height` en base → reporté
 - [x] **E5** — Canonical corrigé : `app.request.uri` → `app.request.schemeAndHttpHost ~ app.request.pathInfo` (query params exclus)
-- [ ] **E6** — Audit Lighthouse complet (Performance, SEO, Accessibilité, Best Practices) et documentation des scores de départ
+- [x] **E6** — Audit Lighthouse complet documenté dans `doc/phase-2/lighthouse.md` : scores desktop initial (Perf 66, Access. 70), desktop après corrections I/J (Perf 94, Access. 89), premier audit mobile (Perf 69, Access. 82)
 
 ### F. Blog (objectif 3)
 
@@ -205,19 +205,63 @@ En France, le RGAA s'applique aux sites de professionnels de santé. Les lacunes
 - [-] **H2** — `width`/`height` explicites sur les images dynamiques (dimensions inconnues à la compilation)
 - [ ] **H3** — Tests d'intégration sur les controllers front (reporté depuis phase 1)
 
+### I. Accessibilité — corrections issues de l'audit Lighthouse
+
+_Voir `doc/phase-2/lighthouse.md` pour le détail des diagnostics._
+
+- [x] **I1** — Supprimer `maximum-scale=1` et `user-scalable=0` du `<meta name="viewport">` (`base.html.twig`)
+- [x] **I2** — Contraste footer bottom corrigé : `.footer-bottom-inner` passe de `$color-footer-muted` à `$color-footer-link` (ratio 8.65:1, WCAG AA ✓)
+- [x] **I3** — `aria-label="Voir la fiche de Prénom Nom"` ajouté sur `a.midwife-card-picture` (`midwife-card.html.twig`)
+- [x] **I4** — `aria-label="Ouvrir dans Waze"` ajouté sur le lien Waze (`homepage.html.twig`)
+- [x] **I5** — `aria-label="Ouvrir le menu"` sur `div#menu-icon` ; mis à jour dynamiquement ("Fermer le menu") dans `burger.js`
+- [x] **I6** — `title="Plan d'accès au cabinet"` ajouté sur l'`<iframe>` Google Maps (`homepage.html.twig`)
+- [x] **I7** — `<hr>` dans `<ul>` remplacé par `<li class="nav-separator" role="separator"><hr></li>` ; style dans `_header.scss`
+- [x] **I8** — Footer h5→h4 puis **h4→h3** (audit prod a révélé un saut h2→h4 : dernier heading du contenu homepage est h2, footer sautait à h4) ; séquence finale h1→h2→h3 ✓ ; `.footer-section-title` utilise un sélecteur de classe, rendu inchangé
+
+### J. Performance — gains immédiats issus de l'audit Lighthouse
+
+- [x] **J1** — `<link rel="preload" as="image" fetchpriority="high">` ajouté dans `{% block preload %}` de `homepage.html.twig` ; bloc vide dans `base.html.twig`
+- [x] **J2** — Google Fonts sorti du `@import` SCSS (render-blocking tardif) → `<link rel="preconnect">` + `<link rel="stylesheet">` dans `base.html.twig` ; `display=swap` déjà présent dans l'URL
+- [-] **J3** — FA `font-display: swap` : impact mesuré à 5ms dans le rapport — trop marginal pour re-déclarer tous les `@font-face` vendorisés
+- [x] **J4** — `symfonycasts/sass-bundle ^0.9.0` applique automatiquement `--style=compressed` quand `APP_ENV=prod` : CSS minifié sans configuration supplémentaire. Vérifié : `symfonycasts_sass.yaml` ne surcharge pas le style. Les scores Lighthouse prod (K1/L1) ont été obtenus avec `APP_DEBUG=0`, confirmant les assets minifiés (Desktop 97–98/100)
+- [-] **J5** — PurgeCSS / allègement Bootstrap + FA : gain ~300 Ko CSS — chantier architectural, reporté phase 3
+
+### K. SEO — vérification prod
+
+- [x] **K1** — Audit prod réalisé (APP_DEBUG=0) : Desktop 98/100, Mobile 72/100, SEO 100/100 ✓ — documenté dans `doc/phase-2/lighthouse.md`. **Note : audit sans photos uploadées → score perf mobile optimiste.**
+- [x] **K2** — SEO 100/100 en prod confirme l'absence de `X-Robots-Tag: noindex` (Symfony n'active plus `disallow_search_engine_index` avec `APP_DEBUG=0`)
+
+### L. Images — impact à mesurer
+
+> Audit prod réalisé sans photos uploadées. Ces points sont à traiter dès que le contenu photo est en place.
+
+- [x] **L1** — Audit avec photos réelles : Desktop 97/100, Mobile 66/100, LCP mobile 5.8 s (−6 pts vs sans photos, dû au réseau simulé + CSS, pas aux images)
+- [x] **L2** — `ImageUploadService` convertit automatiquement en WebP (confirmé sur audit réseau) ; images ≤ 64 Ko — aucune action nécessaire
+- [x] **L3** — `{% block preload %}` ajouté dans `midwife.html.twig` (preload `bgTitle` si présent) et `blog/show.html.twig` (preload `featuredImage` si présent). `blog/index.html.twig` non traité : hero CSS-only (`background-color: $color-primary`), pas d'image à précharger
+
 ---
 
 ## Priorisation
 
-| Priorité | Tâche | Pourquoi |
-|---|---|---|
-| 1 | A1, A2, A3 | Design system — socle de tout chantier visuel |
-| 2 | A4 | Fiabilité (CDN externe supprimé) |
-| 3 | B1, B2 | SEO/social immédiat, peu d'effort |
-| 4 | C1, C2, C3 | Qualité code, prod-ready |
-| 5 | B3–B10 | Accessibilité (RGAA) |
-| 6 | D1–D8 | Visuel et style |
-| 7 | E1–E6 | SEO approfondi |
-| 8 | F1–F15 | Blog (fonctionnalité longue) |
-| 9 | G1–G6 | Aide à l'écriture SEO |
-| 10 | H3 | Tests intégration |
+| Priorité | Tâche | Statut | Pourquoi |
+|---|---|---|---|
+| 1 | A1, A2, A3 | ✓ fait | Design system — socle de tout chantier visuel |
+| 2 | A4 | ✓ fait | Fiabilité (CDN externe supprimé) |
+| 3 | B1, B2 | ✓ fait | SEO/social immédiat, peu d'effort |
+| 4 | C1, C2, C3 | ✓ fait | Qualité code, prod-ready |
+| 5 | B3–B8 | ✓ fait | Accessibilité (RGAA) |
+| 6 | D1–D8 | ✓ fait | Visuel et style |
+| 7 | E1–E6 | ✓ fait | SEO approfondi |
+| 8 | F1–F15 | ✓ fait | Blog (fonctionnalité longue) |
+| 9 | G1–G6 | ✓ fait | Aide à l'écriture SEO |
+| 10 | I1–I8 | ✓ fait | Accessibilité Lighthouse (+19 pts desktop) |
+| 11 | J1–J2 | ✓ fait | Performance Lighthouse (+28 pts desktop, LCP 5.6s→1.2s) |
+| 12 | K1, K2 | ✓ fait | Audit prod (Desktop 98, Mobile 72, SEO 100) — sans photos |
+| 13 | L1, L2 | ✓ fait | Audit avec photos (Desktop 97, Mobile 66) — WebP confirmé natif |
+| 14 | B10 | ✓ fait | Focus visible clavier (`:focus-visible` global) |
+| 15 | J4 | ✓ fait | Minification CSS prod confirmée (sass-bundle `--style=compressed`) |
+| 16 | L3 | ✓ fait | Preload LCP étendu fiche sage-femme + article blog |
+| — | **Phase 2 terminée** ✓ | | |
+| — | **Reporté phase 3** | | |
+| 18 | H3 | reporté phase 3 | Tests intégration |
+| 19 | J5 | reporté phase 3 | PurgeCSS Bootstrap/FA (~300 Ko gain, gain majeur mobile) |

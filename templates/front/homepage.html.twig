@@ -1,5 +1,11 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
+{% block preload %}
+    {% if homepage.titleBg %}
+        <link rel="preload" as="image" href="{{ media_path(homepage.titleBg) }}" fetchpriority="high">
+    {% endif %}
+{% endblock %}
+
 {% block og_image %}
     {% if homepage.titleBg %}
         <meta property="og:image" content="{{ absolute_url(media_path(homepage.titleBg)) }}">
@@ -137,10 +143,11 @@
             </div>
         </div>
         <div id="wazeBtn">
-            <a href="https://waze.com/ul?q={{ (office.address~' '~office.zipcode~ ' '~office.city)|url_encode }}?ll={{ office.latitude }},-{{ office.longitude }}&navigate=yes" class="btn waze"></a>
+            <a href="https://waze.com/ul?q={{ (office.address~' '~office.zipcode~ ' '~office.city)|url_encode }}?ll={{ office.latitude }},-{{ office.longitude }}&navigate=yes" class="btn waze" aria-label="Ouvrir dans Waze"></a>
         </div>
         <iframe
             src="https://maps.google.com/maps?q={{ (office.address~' '~office.zipcode~' '~office.city)|url_encode }}&output=embed"
+            title="Plan d'accès au cabinet"
             allowfullscreen
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">

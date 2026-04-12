@@ -1,5 +1,5 @@
 <article class="midwife-card module">
-    <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-card-picture" >
+    <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-card-picture" aria-label="Voir la fiche de {{ midwife.firstname }} {{ midwife.lastname }}">
         <div class="midwife-card-picture-image" style="background-image:url('{{ media_path(midwife.picture) }}')" data-tooltip="tooltip" title="en savoir plus">
 
         </div>

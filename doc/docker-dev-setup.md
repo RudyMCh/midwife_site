@@ -115,3 +115,4 @@ docker compose up --build       # reconstruit l'image et redémarre
 
 L'entrypoint recrée tout dans l'ordre correct. Aucune intervention manuelle
 n'est nécessaire.
+

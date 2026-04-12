@@ -1,5 +1,11 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
+{% block preload %}
+    {% if midwife.bgTitle %}
+        <link rel="preload" as="image" href="{{ media_path(midwife.bgTitle) }}" fetchpriority="high">
+    {% endif %}
+{% endblock %}
+
 {% block og_type %}profile{% endblock %}
 
 {% block og_image %}

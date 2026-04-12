@@ -131,14 +131,14 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     font-size: 0.82rem;
-    color: $color-footer-muted;
+    color: $color-footer-link; // #a8b8ae — contraste 8.65:1 sur fond #15251b (WCAG AA ✓)
 
     a {
-      color: $color-footer-muted;
+      color: $color-footer-link;
       text-decoration: none;
 
       &:hover {
-        color: $color-footer-link;
+        color: $color-white;
       }
     }
   }

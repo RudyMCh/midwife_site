@@ -1,5 +1,6 @@
-// Toutes les polices en un seul appel Google Fonts (une seule requête HTTP)
+// Google Fonts — chargé via <link> dans base.html.twig (découverte HTML, non render-blocking)
+// Ne pas remettre de @import ici : un @import url() dans un CSS est toujours render-blocking
+// car il n'est découvert qu'après analyse du fichier CSS parent.
 // Playfair Display : titres sémantiques (h3-h6)
 // Source Sans 3    : corps de texte
 // Tangerine        : titres décoratifs grands formats (h1, h2 sections)
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Tangerine:wght@700&display=swap');

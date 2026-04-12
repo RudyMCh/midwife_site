@@ -18,7 +18,7 @@ header {
       }
 
       &.active {
-        color: $color-accent;
+        color: $color-primary; // #3a6b4e sur $color-bg-warm (#fafaf8) = ratio ~5.9:1 (WCAG AA ✓)
       }
     }
   }
@@ -198,6 +198,18 @@ header {
         color: $color-white;
         font-size: 1.3rem;
         font-weight: 700;
+      }
+    }
+
+    .nav-separator {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      hr {
+        border-color: $burger-bg-light;
+        opacity: 1;
+        margin: 0.4rem 1rem;
       }
     }
   }

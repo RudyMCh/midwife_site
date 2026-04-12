@@ -31,6 +31,19 @@
   }
 }
 
+// ── Focus visible — accessibilité clavier ─────────────────────────────────────
+// :focus-visible s'applique uniquement à la navigation clavier (pas au clic souris)
+// outline désactivé pour :focus sans :focus-visible (navigateurs modernes)
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 3px;
+  border-radius: $radius-sm;
+}
+
 // ── Layout global ─────────────────────────────────────────────────────────────
 .domain-iframe {
   height: 500px;

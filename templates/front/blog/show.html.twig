@@ -1,5 +1,11 @@
 {% extends 'front/layouts/layout.html.twig' %}
 
+{% block preload %}
+    {% if article.featuredImage %}
+        <link rel="preload" as="image" href="{{ asset('uploads/' ~ article.featuredImage.path) }}" fetchpriority="high">
+    {% endif %}
+{% endblock %}
+
 {% block og_type %}article{% endblock %}
 
 {% block og_image %}

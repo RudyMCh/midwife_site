@@ -7,7 +7,7 @@
             {# ── Colonne 1 : Cabinet ─────────────────────────────────────── #}
             <div class="col-md-4 footer-column">
                 {% if office %}
-                    <h5 class="footer-section-title">{{ office.name }}</h5>
+                    <h3 class="footer-section-title">{{ office.name }}</h3>
                     <ul class="footer-info-list">
                         {% if office.address %}
                             <li>
@@ -31,7 +31,7 @@
 
             {# ── Colonne 2 : Navigation ──────────────────────────────────── #}
             <div class="col-md-4 footer-column">
-                <h5 class="footer-section-title">Navigation</h5>
+                <h3 class="footer-section-title">Navigation</h3>
                 <ul class="footer-nav-list">
                     <li><a href="{{ path('homepage_homepage') }}">Accueil</a></li>
                     {% for domain in getDomains() %}
@@ -43,7 +43,7 @@
 
             {# ── Colonne 3 : Sages-femmes ────────────────────────────────── #}
             <div class="col-md-4 footer-column">
-                <h5 class="footer-section-title">Nos sages-femmes</h5>
+                <h3 class="footer-section-title">Nos sages-femmes</h3>
                 <div class="footer-midwife-list">
                     {% for midwife in getMidwives() %}
                         <div class="footer-midwife">

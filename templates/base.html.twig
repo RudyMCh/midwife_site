@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{% block title %}{{ meta_title is defined and meta_title ? meta_title : 'Sages-femmes Quetigny' }}{% endblock %}</title>
 
@@ -36,6 +36,13 @@
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
+
+        {% block preload %}{% endblock %}
+
+        {# Google Fonts — preconnect + link HTML pour éviter le render-blocking du @import CSS #}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Tangerine:wght@700&display=swap">
 
         <link rel="stylesheet" href="{{ asset('styles/front.scss') }}">
         {% block stylesheets %}{% endblock %}

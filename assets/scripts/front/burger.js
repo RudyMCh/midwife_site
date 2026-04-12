@@ -19,6 +19,7 @@ class Burger {
             topNav.classList.add('isOpen');
             document.body.classList.add('pushNavIsOpen');
             menuTrigger?.setAttribute('aria-expanded', 'true');
+            menuTrigger?.setAttribute('aria-label', 'Fermer le menu');
         }
 
         function closePushNav() {
@@ -29,6 +30,7 @@ class Burger {
             });
             document.body.classList.remove('pushNavIsOpen');
             menuTrigger?.setAttribute('aria-expanded', 'false');
+            menuTrigger?.setAttribute('aria-label', 'Ouvrir le menu');
         }
 
         menuTrigger?.addEventListener('click', (e) => {

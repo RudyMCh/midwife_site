@@ -1,7 +1,7 @@
 {% set route = app.request.attributes.get('_route') %}
 <div id="sentinel"></div>
 <header>
-    <div class="menu-icon burger js-menuToggle" id="menu-icon" role="button" aria-expanded="false" aria-controls="menu-burger-nav" tabindex="0">
+    <div class="menu-icon burger js-menuToggle" id="menu-icon" role="button" aria-expanded="false" aria-controls="menu-burger-nav" aria-label="Ouvrir le menu" tabindex="0">
         <span class="menu-icon__line menu-icon__line-left"></span>
         <span class="menu-icon__line"></span>
         <span class="menu-icon__line menu-icon__line-right"></span>
@@ -111,7 +111,7 @@
                     {% endfor %}
                     </ul>
                 </li>
-                <hr/>
+                <li class="nav-separator" aria-hidden="true"><hr></li>
                 <li><a href="{{ path('informations_utiles') }}" class="{{ route is same as('info_utiles') ? 'active' : '' }}">Info utiles</a></li>
                 <li><a href="{{ path('blog_index') }}" class="{{ 'blog_' in route ? 'active' : '' }}">Blog</a></li>
 
