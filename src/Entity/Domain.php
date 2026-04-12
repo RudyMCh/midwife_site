@@ -68,7 +68,7 @@ class Domain implements \Stringable
 
     public function getSlug(): string
     {
-        return $this->slug;
+        return $this->slug ?? '';
     }
 
     /**

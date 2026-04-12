@@ -16,17 +16,17 @@ final class Version20260408160000 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql("ALTER TABLE midwife ADD meta_title VARCHAR(70) DEFAULT NULL");
-        $this->addSql("ALTER TABLE midwife MODIFY meta_description VARCHAR(160) DEFAULT NULL");
-        $this->addSql("ALTER TABLE information_page ADD meta_title VARCHAR(70) DEFAULT NULL");
-        $this->addSql("ALTER TABLE information_page ADD meta_description VARCHAR(160) DEFAULT NULL");
+        $this->addSql('ALTER TABLE midwife ADD meta_title VARCHAR(70) DEFAULT NULL');
+        $this->addSql('ALTER TABLE midwife MODIFY meta_description VARCHAR(160) DEFAULT NULL');
+        $this->addSql('ALTER TABLE information_page ADD meta_title VARCHAR(70) DEFAULT NULL');
+        $this->addSql('ALTER TABLE information_page ADD meta_description VARCHAR(160) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql("ALTER TABLE midwife DROP COLUMN meta_title");
-        $this->addSql("ALTER TABLE midwife MODIFY meta_description VARCHAR(120) DEFAULT NULL");
-        $this->addSql("ALTER TABLE information_page DROP COLUMN meta_title");
-        $this->addSql("ALTER TABLE information_page DROP COLUMN meta_description");
+        $this->addSql('ALTER TABLE midwife DROP COLUMN meta_title');
+        $this->addSql('ALTER TABLE midwife MODIFY meta_description VARCHAR(120) DEFAULT NULL');
+        $this->addSql('ALTER TABLE information_page DROP COLUMN meta_title');
+        $this->addSql('ALTER TABLE information_page DROP COLUMN meta_description');
     }
 }

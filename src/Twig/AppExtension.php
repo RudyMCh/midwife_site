@@ -84,7 +84,7 @@ class AppExtension extends AbstractExtension
 
     public function mobilePhone(mixed $value): string
     {
-        $digits = preg_replace('/\D/', '', (string) $value);
+        $digits = (string) preg_replace('/\D/', '', (string) $value);
 
         return trim(chunk_split($digits, 2, ' '));
     }

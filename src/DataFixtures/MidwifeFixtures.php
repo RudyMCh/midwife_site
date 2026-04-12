@@ -17,7 +17,7 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
     public function load(ObjectManager $manager): void
     {
         // ── Chloé Gauthier ──────────────────────────────────────────────────────
-        $chloe = new Midwife()
+        $chloe = (new Midwife())
             ->setLastname('Gauthier')
             ->setFirstname('Chloé')
             ->setPhone('+33646429076')
@@ -32,7 +32,7 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
             )
             ->setDescription(
                 'Diplômée en 2015 de l\'École de Sages-Femmes de Dijon, j\'ai débuté ma carrière en maternité avant '
-                .'d\'ouvrir mon cabinet libéral à Chevigny-Saint-Sauveur en 2016 avec ma consœur Marie Albandea. '
+                .'d\'ouvrir mon cabinet libéral à Chevigny-Saint-Sauveur en 2016 avec ma consœur Aurelie Albandea. '
                 .'Ma pratique est centrée sur l\'écoute, la disponibilité et le respect de vos choix. '
                 ."\n\n"
                 .'Je prends en charge le suivi de grossesse (du premier trimestre à l\'accouchement), '
@@ -65,7 +65,7 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
             ['title' => 'Sage-femme libérale — Cabinet Albandea-Gauthier', 'start' => '2016', 'end' => null,   'city' => 'Chevigny-Saint-Sauveur'],
             ['title' => 'Sage-femme en maternité (niveau IIa)',              'start' => '2015', 'end' => '2016', 'city' => 'Dijon'],
         ] as $p) {
-            $path = new Path()
+            $path = (new Path())
                 ->setTitle($p['title'])
                 ->setStart($p['start'])
                 ->setEnd($p['end'])
@@ -80,7 +80,7 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
             ['title' => 'Diplôme d\'État de Sage-Femme',           'establishment' => 'École de Sages-Femmes de Dijon',  'year' => '2015', 'type' => 'Diplôme d\'État'],
             ['title' => 'DU Acupuncture obstétricale et néonatale', 'establishment' => 'Université de Bourgogne — Dijon', 'year' => '2018', 'type' => 'Diplôme Universitaire'],
         ] as $d) {
-            $degree = new Degree()
+            $degree = (new Degree())
                 ->setTitle($d['title'])
                 ->setEstablishment($d['establishment'])
                 ->setYear($d['year'])
@@ -110,12 +110,12 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
             $svc->addMidwife($chloe);
         }
 
-        // ── Marie Albandea ───────────────────────────────────────────────────────
-        $marie = new Midwife()
+        // ── Aurelie Albandea ───────────────────────────────────────────────────────
+        $aurelie = (new Midwife())
             ->setLastname('Albandea')
-            ->setFirstname('Marie')
+            ->setFirstname('Aurélie')
             ->setPhone('0380453212')
-            ->setEmail('marie.albandea@cabinet-albandea-gauthier.fr')
+            ->setEmail('aurelie.albandea@cabinet-albandea-gauthier.fr')
             ->setDoctolibUrl('https://www.doctolib.fr/sage-femme/chevigny-saint-sauveur/marie-albandea')
             ->setBackgroundColor1('#7bbfb5')
             ->setAboutMe(
@@ -137,9 +137,9 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
                 .'pour aborder vos attentes, vos craintes et préparer votre projet de naissance en toute sérénité. '
                 .'Je suis également référente allaitement au sein du cabinet.'
             )
-            ->setMetaTitle('Marie Albandea — Sage-femme à Chevigny-Saint-Sauveur')
+            ->setMetaTitle('Aurelie Albandea — Sage-femme à Chevigny-Saint-Sauveur')
             ->setMetaDescription(
-                'Marie Albandea, sage-femme à Chevigny-Saint-Sauveur (21). '
+                'Aurelie Albandea, sage-femme à Chevigny-Saint-Sauveur (21). '
                 .'Grossesse, gynécologie, post-partum et rééducation périnéale. Prise en charge Sécurité Sociale.'
             )
             ->setRpps('20202020938')
@@ -150,39 +150,39 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
             ->setSiret('82283745600020')
         ;
 
-        $manager->persist($marie);
+        $manager->persist($aurelie);
 
-        // Parcours professionnel — Marie
+        // Parcours professionnel — Aurelie
         foreach ([
             ['title' => 'Sage-femme libérale — Cabinet Albandea-Gauthier', 'start' => '2016', 'end' => null,   'city' => 'Chevigny-Saint-Sauveur'],
             ['title' => 'Sage-femme en maternité (niveau III)',              'start' => '2014', 'end' => '2016', 'city' => 'Lyon'],
         ] as $p) {
-            $path = new Path()
+            $path = (new Path())
                 ->setTitle($p['title'])
                 ->setStart($p['start'])
                 ->setEnd($p['end'])
                 ->setCity($p['city'])
-                ->setMidwife($marie)
+                ->setMidwife($aurelie)
             ;
             $manager->persist($path);
         }
 
-        // Diplômes — Marie
+        // Diplômes — Aurelie
         foreach ([
             ['title' => 'Diplôme d\'État de Sage-Femme',                'establishment' => 'École de Sages-Femmes de Lyon',              'year' => '2014', 'type' => 'Diplôme d\'État'],
             ['title' => 'Capacité en Entretien Prénatal Précoce (EPP)', 'establishment' => 'Collège National des Sages-Femmes de France', 'year' => '2017', 'type' => 'Certificat de capacité'],
         ] as $d) {
-            $degree = new Degree()
+            $degree = (new Degree())
                 ->setTitle($d['title'])
                 ->setEstablishment($d['establishment'])
                 ->setYear($d['year'])
                 ->setType($d['type'])
-                ->setMidwife($marie)
+                ->setMidwife($aurelie)
             ;
             $manager->persist($degree);
         }
 
-        // Services — Marie
+        // Services — Aurelie
         foreach ([
             DomainFixtures::SERVICE_SUIVI_GROSSESSE,
             DomainFixtures::SERVICE_CONSULTATION_PRENATALE,
@@ -199,7 +199,7 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
         ] as $ref) {
             /** @var Service $svc */
             $svc = $this->getReference($ref, Service::class);
-            $svc->addMidwife($marie);
+            $svc->addMidwife($aurelie);
         }
 
         $manager->flush();

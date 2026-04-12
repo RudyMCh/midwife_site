@@ -145,7 +145,7 @@ class ImageUploadServiceTest extends TestCase
         $result = $this->service->upload($uploadedFile);
 
         $this->assertInstanceOf(MediaFile::class, $result);
-        $this->assertMatchesRegularExpression('/\.(jpe?g)$/', $result->getFilename());
+        $this->assertMatchesRegularExpression('/\.webp$/', $result->getFilename());
         $this->assertStringContainsString('ma-photo', $result->getFilename());
         $this->assertSame('/uploads', $result->getDirectory());
     }

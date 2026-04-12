@@ -7,7 +7,7 @@ use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
 
-/**
+/*
  * Migration Symfony 5.4 → 7.4 / PHP 7.4 → 8.4
  *
  * Ordre d'exécution recommandé :

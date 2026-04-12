@@ -21,6 +21,7 @@ class MediaFileRepository extends ServiceEntityRepository
         return $this->findOneBy(['filename' => $filename]);
     }
 
+    /** @return list<MediaFile> */
     public function search(string $term): array
     {
         return $this->createQueryBuilder('m')

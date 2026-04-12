@@ -238,9 +238,6 @@ class Midwife implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection<int, Path>
-     */
     public function getRpps(): ?string
     {
         return $this->rpps;
@@ -313,6 +310,9 @@ class Midwife implements \Stringable
         return $this;
     }
 
+    /**
+     * @return Collection<int, Path>
+     */
     public function getPaths(): Collection
     {
         return $this->paths;

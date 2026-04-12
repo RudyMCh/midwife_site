@@ -23,7 +23,7 @@ class ArticleHandler
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Article $article */
             $article = $form->getData();
-            if ($article->isPublished() && $article->getPublishedAt() === null) {
+            if ($article->isPublished() && null === $article->getPublishedAt()) {
                 $article->setPublishedAt(new \DateTime());
             }
             $this->entityManager->persist($article);
@@ -41,7 +41,7 @@ class ArticleHandler
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Article $article */
             $article = $form->getData();
-            if ($article->isPublished() && $article->getPublishedAt() === null) {
+            if ($article->isPublished() && null === $article->getPublishedAt()) {
                 $article->setPublishedAt(new \DateTime());
             }
             $this->entityManager->flush();
