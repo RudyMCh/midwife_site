@@ -141,9 +141,10 @@ header {
           background-color: $color-gray;
           border-bottom: 1px solid $color-accent;
 
-          ul li {
-            position: relative;
-            top: -60px;
+          // Le sous-menu services s'ouvre à droite du domaine,
+          // en surchargeant le top: 60px hérité de `ul ul`.
+          > ul {
+            top: 0;
             left: 250px;
           }
         }

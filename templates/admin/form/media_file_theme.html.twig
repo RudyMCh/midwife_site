@@ -14,6 +14,21 @@
 
         {{ form_widget(form.existing_id) }}
         {{ form_widget(form.new_file) }}
+        {{ form_errors(form.new_file) }}
+
+        {% if image_hint is defined and image_hint %}
+            <p class="image-hint">
+                <i class="fas fa-circle-info" aria-hidden="true"></i>
+                {{ image_hint.label }}
+                {% if image_hint.width is defined and image_hint.height is defined %}
+                    &mdash; {{ image_hint.width }}&thinsp;&times;&thinsp;{{ image_hint.height }}&thinsp;px minimum
+                {% endif %}
+                {% if image_hint.ratio is defined %}
+                    ({{ image_hint.ratio }})
+                {% endif %}
+            </p>
+            <p class="image-hint-feedback" role="alert" aria-live="polite"></p>
+        {% endif %}
     </div>
 {% endblock %}
 

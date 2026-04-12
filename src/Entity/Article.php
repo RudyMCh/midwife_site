@@ -25,8 +25,8 @@ class Article implements \Stringable
     private string $title = '';
 
     #[Gedmo\Slug(fields: ['title'])]
-    #[ORM\Column(length: 128, unique: true)]
-    private string $slug = '';
+    #[ORM\Column(length: 128, unique: true, nullable: true)]
+    private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private string $content = '';
@@ -69,7 +69,7 @@ class Article implements \Stringable
         return $this;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }

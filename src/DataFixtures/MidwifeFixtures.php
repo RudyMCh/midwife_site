@@ -13,6 +13,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class MidwifeFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
+    public const MIDWIFE_CHLOE = 'midwife-chloe';
+    public const MIDWIFE_AURELIE = 'midwife-aurelie';
+
     #[\Override]
     public function load(ObjectManager $manager): void
     {
@@ -59,6 +62,7 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
         ;
 
         $manager->persist($chloe);
+        $this->addReference(self::MIDWIFE_CHLOE, $chloe);
 
         // Parcours professionnel — Chloé
         foreach ([
@@ -151,6 +155,7 @@ class MidwifeFixtures extends Fixture implements FixtureGroupInterface, Dependen
         ;
 
         $manager->persist($aurelie);
+        $this->addReference(self::MIDWIFE_AURELIE, $aurelie);
 
         // Parcours professionnel — Aurelie
         foreach ([

@@ -41,6 +41,7 @@ class ArticleType extends AbstractType
                 'label' => 'Image à la une',
                 'required' => false,
                 'sub_dir' => 'blog',
+                'image_hint' => ['label' => 'Vignette article (og:image)', 'width' => 1200, 'height' => 630, 'ratio' => '16:9 paysage'],
             ])
             ->add('author', EntityType::class, [
                 'class' => Midwife::class,

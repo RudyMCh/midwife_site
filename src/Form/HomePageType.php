@@ -26,16 +26,23 @@ class HomePageType extends AbstractType
             ->add('about', TextareaType::class, [
                 'label' => 'A propos',
             ])
-            ->add('pictures', MediaFileCollectionType::class)
+            ->add('pictures', MediaFileCollectionType::class, [
+                'entry_options' => [
+                    'image_hint' => ['label' => 'Photo carousel accueil', 'width' => 1920, 'height' => 800, 'ratio' => '16:9 paysage'],
+                ],
+            ])
             ->add('titleBg', MediaFileType::class, [
                 'label' => 'Barre titre',
                 'help' => 'Image de background du titre de la page',
+                'image_hint' => ['label' => 'Bannière d\'accueil (héros)', 'width' => 1920, 'height' => 600, 'ratio' => '16:5 paysage large'],
             ])
             ->add('backgroundImage1', MediaFileType::class, [
                 'label' => 'Image 1',
+                'image_hint' => ['label' => 'Image de section', 'width' => 1200, 'height' => 400, 'ratio' => 'paysage'],
             ])
             ->add('backgroundImage2', MediaFileType::class, [
                 'label' => 'Image 2',
+                'image_hint' => ['label' => 'Image de section', 'width' => 1200, 'height' => 400, 'ratio' => 'paysage'],
             ])
             ->add('metaTitle', TextType::class, [
                 'label' => 'Titre SEO (meta title)',

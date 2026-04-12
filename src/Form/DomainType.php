@@ -24,6 +24,7 @@ class DomainType extends AbstractType
             ])
             ->add('titleBg', MediaFileType::class, [
                 'label' => 'Image de background du titre',
+                'image_hint' => ['label' => 'Bannière de domaine (héros)', 'width' => 1920, 'height' => 600, 'ratio' => '16:5 paysage large'],
             ])
             ->add('titleColorBg', ColorType::class, [
                 'label' => 'Couleur de fond du backGround',

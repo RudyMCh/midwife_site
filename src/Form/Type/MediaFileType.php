@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class MediaFileType extends AbstractType
 {
@@ -26,12 +27,39 @@ class MediaFileType extends AbstractType
     #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $hint = $options['image_hint'];
+        $fileAttr = ['accept' => 'image/*,video/mp4,application/pdf'];
+        $constraints = [];
+
+        if (\is_array($hint)) {
+            if (!empty($hint['width'])) {
+                $fileAttr['data-img-min-width'] = $hint['width'];
+            }
+            if (!empty($hint['height'])) {
+                $fileAttr['data-img-min-height'] = $hint['height'];
+            }
+            if (!empty($hint['width']) || !empty($hint['height'])) {
+                $constraintOptions = [
+                    'minWidthMessage' => "Largeur insuffisante\u00a0: {{ width }}px reçus, {{ min_width }}px minimum requis.",
+                    'minHeightMessage' => "Hauteur insuffisante\u00a0: {{ height }}px reçus, {{ min_height }}px minimum requis.",
+                ];
+                if (!empty($hint['width'])) {
+                    $constraintOptions['minWidth'] = $hint['width'];
+                }
+                if (!empty($hint['height'])) {
+                    $constraintOptions['minHeight'] = $hint['height'];
+                }
+                $constraints[] = new Image($constraintOptions);
+            }
+        }
+
         $builder
             ->add('existing_id', HiddenType::class, ['required' => false])
             ->add('new_file', FileType::class, [
                 'required' => false,
                 'label' => false,
-                'attr' => ['accept' => 'image/*,video/mp4,application/pdf'],
+                'attr' => $fileAttr,
+                'constraints' => $constraints,
             ])
         ;
 
@@ -59,6 +87,7 @@ class MediaFileType extends AbstractType
     {
         $mediaFile = $form->getData();
         $view->vars['current_file'] = $mediaFile instanceof MediaFile ? $mediaFile : null;
+        $view->vars['image_hint'] = $options['image_hint'];
     }
 
     #[\Override]
@@ -68,8 +97,10 @@ class MediaFileType extends AbstractType
             'required' => false,
             'sub_dir' => '',
             'data_class' => null,
+            'image_hint' => null,
         ]);
         $resolver->setAllowedTypes('sub_dir', 'string');
+        $resolver->setAllowedTypes('image_hint', ['null', 'array']);
     }
 
     #[\Override]

@@ -1,3 +1,26 @@
+// ── Aide photo upload ─────────────────────────────────────────────────────────
+.image-hint {
+  font-size: 0.8rem;
+  color: $color-text;
+  margin: 0.25rem 0 0;
+
+  .fa-circle-info {
+    color: $color-primary;
+    margin-right: 0.25rem;
+  }
+}
+
+.image-hint-feedback {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin: 0.2rem 0 0;
+  min-height: 1.2em;
+
+  &--success { color: #2d7a4f; }
+  &--warning { color: #9a6000; }
+  &--danger  { color: #b30000; font-weight: 600; }
+}
+
 // ── Compteur de caractères SEO ────────────────────────────────────────────────
 .seo-counter {
   font-size: 0.8rem;

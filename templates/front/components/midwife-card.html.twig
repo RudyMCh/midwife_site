@@ -1,18 +1,15 @@
 <article class="midwife-card module">
-    <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-card-picture" aria-label="Voir la fiche de {{ midwife.firstname }} {{ midwife.lastname }}">
-        <div class="midwife-card-picture-image" style="background-image:url('{{ media_path(midwife.picture) }}')" data-tooltip="tooltip" title="en savoir plus">
-
-        </div>
-    </a>
-    <div class="midwife-card-top" style="background: {{ midwife.backgroundColor1 }} ">
-        <h3>{{ midwife.firstname }} {{ midwife.lastname }}</h3>
+    <div class="midwife-card-top" style="background: {{ midwife.backgroundColor1 }}">
+        <a href="{{ path('midwife_show', {'slug' : midwife.slug}) }}" class="midwife-card-picture" aria-label="Voir la fiche de {{ midwife.firstname }} {{ midwife.lastname }}">
+            <div class="midwife-card-picture-image" style="background-image:url('{{ media_path(midwife.picture) }}')" data-tooltip="tooltip" title="en savoir plus"></div>
+        </a>
     </div>
 
-    <div class="midwife-card-main" style='background : url("{{ media_path(midwife.bgCard) }}") center center /cover ;'>
-            {% autoescape %}
-            {{ midwife.aboutMe|raw }}
-            {% endautoescape %}
-        <div class="overlay-light"></div>
+    <div class="midwife-card-main"{% if midwife.bgCard %} style="background-image: url('{{ media_path(midwife.bgCard) }}')"{% endif %}>
+        <div class="midwife-card-overlay"></div>
+        {% autoescape %}
+        <h3>{{ midwife.firstname }} {{ midwife.lastname }}</h3>
+        {% endautoescape %}
     </div>
     <div class="midwife-card-footer">
         <div class="midwife-card-footer-phone">

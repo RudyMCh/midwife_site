@@ -57,7 +57,7 @@ C'est là que tout ce qui dépend du système de fichiers réel doit s'exécuter
 importmap:install     → peuple assets/vendor/ sur le host via bind mount
 migrations:migrate    → schéma BDD
 fixtures:load (dev)   → données de test
-sass:build (dev)      → compile SCSS → public/assets/styles/
+sass:build (dev)      → compile SCSS → var/sass/ (volume Docker, lu par AssetMapper)
 cache:clear (dev)     → vide le cache Symfony (volume var)
 cache:warmup (dev)    → reconstruit le DI container proprement avant le 1er hit
 ```
@@ -78,20 +78,69 @@ En mode dev, AssetMapper sert tous les assets **dynamiquement via PHP** avec
 des URLs fingerprinted :
 
 ```
-/assets/vendor/bootstrap/bootstrap.index-HgGqGv8.js  →  assets/vendor/bootstrap/...
+/assets/styles/front-HASH.css  →  var/sass/front.output.css  (volume Docker)
+/assets/vendor/bootstrap/...   →  assets/vendor/bootstrap/...  (bind mount)
 ```
 
-Nginx reçoit la requête, ne trouve pas le fichier physique, tombe en fallback
-sur `index.php`, Symfony sert le fichier. Le répertoire `public/assets/vendor/`
-n'a pas besoin d'exister.
+Nginx reçoit la requête, ne trouve **pas** le fichier physique dans `public/`,
+tombe en fallback sur `index.php`, Symfony sert le fichier. `public/assets/`
+n'a pas besoin d'exister du tout en dev.
 
-L'ancien volume `assets_vendor:/var/www/html/public/assets/vendor` était donc
-inutile. Il créait en prime le répertoire `public/assets/` owned by `root` sur
-le host (Docker daemon crée les répertoires intermédiaires manquants lors du
-montage de volumes).
+### Workflow SCSS en dev
+
+Le service `sass` (dans `docker-compose.override.yaml`) tourne en permanence :
+
+```
+assets/styles/**/*.scss  →  [sass:build --watch]  →  var/sass/front.output.css
+                                                         (volume Docker)
+```
+
+AssetMapper lit `var/sass/front.output.css` et le sert dynamiquement. Toute
+modification SCSS est visible après un simple rechargement de page.
+
+**Ne jamais lancer `asset-map:compile` en développement.** C'est la commande
+de production uniquement.
+
+### Piège : fichiers stale dans `public/assets/`
+
+Nginx a cette règle dans sa configuration :
+
+```nginx
+location ~* \.(css|js|...)$ {
+    try_files $uri /index.php$is_args$args;
+}
+```
+
+Si un fichier CSS existe dans `public/assets/styles/`, nginx le sert
+**directement**, sans passer par Symfony. Le SCSS recompilé par le service
+`sass` est alors invisible, même après rechargement.
+
+**Ce qui crée des fichiers stale :**
+- Un `asset-map:compile` lancé en dev (deploy test, etc.)
+- Ces fichiers sont écrits en `root` par Docker → `rm` impossible depuis le host
+
+**Symptômes :** modifications SCSS sans effet visible en dev, même après
+`sass:build` et rechargement.
+
+**Diagnostic :**
+```bash
+ls public/assets/styles/          # fichiers stale présents ?
+docker compose logs sass           # le service sass recompile-t-il ?
+```
+
+**Remède :** supprimer depuis le container (Docker a écrit en root) :
+```bash
+docker compose exec php bash -c \
+  "rm -rf /var/www/html/public/assets/styles \
+          /var/www/html/public/assets/manifest.json \
+          /var/www/html/public/assets/importmap.json"
+```
+Puis hard-refresh navigateur (`Ctrl+Shift+R`).
 
 En mode **prod**, la commande `asset-map:compile` compile tout vers
 `public/assets/` pour que nginx serve les fichiers statiquement sans PHP.
+Après un passage en prod/staging, toujours supprimer `public/assets/styles/`
+avant de repasser en dev.
 
 ---
 
@@ -100,7 +149,8 @@ En mode **prod**, la commande `asset-map:compile` compile tout vers
 | Chemin | Généré par | Servi par |
 |---|---|---|
 | `assets/vendor/` | `importmap:install` (entrypoint) | AssetMapper via PHP |
-| `public/assets/styles/` | `sass:build` (entrypoint + sass service) | nginx (fichier physique) |
+| `var/sass/*.output.css` | `sass:build --watch` (service `sass`) | AssetMapper via PHP |
+| `public/assets/` | `asset-map:compile` (**prod uniquement**) | nginx statique |
 | `var/cache/` | `cache:warmup` (entrypoint) | PHP (lecture interne) |
 | `var/log/` | PHP-FPM à l'exécution | — |
 

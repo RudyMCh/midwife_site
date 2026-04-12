@@ -57,24 +57,62 @@ class AppExtension extends AbstractExtension
 
     /**
      * Accès dynamique à une propriété d'entité via son nom.
-     * Supporte la notation "Getter1;Getter2" pour les relations (ex: "Picture;Path").
+     * 
+     * Supporte :
+     * - Préfixes get/is/has/can (ex: "Published" → isPublished())
+     * - Chaînage illimité avec ";" (ex: "Picture;Path" ou "Author;Company;Name")
+     * - Normalisation automatique de la casse
+     * - Sécurité (méthodes inexistantes → null)
      */
     public function dynamicVariable(object $el, string $field): mixed
     {
-        if (str_contains($field, ';')) {
-            [$part1, $part2] = explode(';', $field, 2);
-            $intermediate = $el->{'get'.$part1}();
+        // Découpage du chaînage (on accepte aussi les points pour plus de flexibilité)
+        $parts = preg_split('/[;.]/', $field);
 
-            return null !== $intermediate ? $intermediate->{'get'.$part2}() : '';
+        $current = $el;
+
+        foreach ($parts as $part) {
+            if ($current === null || !is_object($current)) {
+                return ''; // ou null selon ton besoin d'affichage Twig
+            }
+
+            $current = $this->getValueFromProperty($current, trim($part));
         }
 
-        $value = $el->{'get'.$field}();
+        $value = $current;
 
-        if (is_array($value)) {
-            return implode(', ', $value);
+        // Gestion des tableaux / collections pour l'affichage (comportement proche de l'original)
+        if (is_iterable($value) && !is_string($value)) {
+            $items = [];
+            foreach ($value as $item) {
+                $items[] = $item !== null ? (string) $item : '';
+            }
+            return implode(', ', $items);
         }
 
-        return $value;
+        return $value ?? '';
+    }
+
+    /**
+     * Méthode privée qui tente tous les préfixes possibles.
+     */
+    private function getValueFromProperty(object $object, string $property): mixed
+    {
+        // Normalisation : on force la première lettre en majuscule (peu importe comment l'utilisateur l'écrit)
+        $property = ucfirst($property);
+
+        $prefixes = ['get', 'is', 'has', 'can'];
+
+        foreach ($prefixes as $prefix) {
+            $method = $prefix . $property;
+
+            if (method_exists($object, $method) && is_callable([$object, $method])) {
+                return $object->{$method}();
+            }
+        }
+
+        // Méthode inexistante → on retourne null au lieu de planter
+        return null;
     }
 
     public function truncate(mixed $value, int $length, string $after): string

@@ -30,6 +30,7 @@ class ServiceType extends AbstractType
             ->add('picture', MediaFileType::class, [
                 'label' => 'Image',
                 'required' => false,
+                'image_hint' => ['label' => 'Illustration de la prestation', 'width' => 1200, 'height' => 500, 'ratio' => '12:5 paysage'],
             ])
             ->add('domain', EntityType::class, [
                 'class' => Domain::class,

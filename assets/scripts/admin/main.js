@@ -2,6 +2,7 @@ import 'bootstrap';
 import TomSelect from 'tom-select';
 import ImagePreviewCompress from './imagePreviewCompress.js';
 import { initSeoCounters } from './seo-counter.js';
+import { initImageUploadHints } from './image-upload-hint.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Select multiple avec recherche (remplace Select2)
@@ -32,4 +33,7 @@ plugins: 'lists link code fullscreen table wordcount',
 
     // Compteurs de caractères sur les champs SEO
     initSeoCounters();
+
+    // Aide au choix de photo : avertissement JS sur les dimensions
+    initImageUploadHints();
 });

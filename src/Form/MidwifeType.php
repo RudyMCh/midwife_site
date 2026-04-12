@@ -37,10 +37,12 @@ class MidwifeType extends AbstractType
             ->add('picture', MediaFileType::class, [
                 'label' => 'Photo d\'identite',
                 'help' => 'Photo pour les cartes de presentation.',
+                'image_hint' => ['label' => 'Photo de profil (bulle ronde)', 'width' => 400, 'height' => 400, 'ratio' => '1:1 carré'],
             ])
             ->add('bgCard', MediaFileType::class, [
                 'label' => 'Photo d\'arriere plan de la carte',
                 'help' => 'Photo d\'arriere plan des cartes de presentation individuel',
+                'image_hint' => ['label' => 'Fond de carte sage-femme', 'width' => 800, 'height' => 800, 'ratio' => '1:1 carré ou portrait'],
             ])
             ->add('backgroundColor1', ColorType::class, [
                 'label' => 'Couleur principale',
@@ -55,12 +57,17 @@ class MidwifeType extends AbstractType
             ->add('bgTitle', MediaFileType::class, [
                 'label' => 'Image d\'arriere plan du titre de la page',
                 'help' => 'Photo de fond du titre de la page',
+                'image_hint' => ['label' => 'Bannière de page (héros)', 'width' => 1920, 'height' => 600, 'ratio' => '16:5 paysage large'],
             ])
             ->add('pictureSelf', MediaFileType::class, [
                 'label' => 'Photo principale de la page sage femme',
+                'image_hint' => ['label' => 'Photo portrait de la page', 'width' => 600, 'height' => 800, 'ratio' => '3:4 portrait'],
             ])
             ->add('pictures', MediaFileCollectionType::class, [
                 'label' => 'Photos du carousel',
+                'entry_options' => [
+                    'image_hint' => ['label' => 'Photo carousel sage-femme', 'width' => 1200, 'height' => 800, 'ratio' => '3:2 paysage'],
+                ],
             ])
             ->add('services', EntityType::class, [
                 'class' => Service::class,
